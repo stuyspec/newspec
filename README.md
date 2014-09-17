@@ -8,7 +8,9 @@ Models
 
 ### Models Concerning Users
 
+
 #### User
+````
 User:
     name: Types.Name, required, index
     email: Types.Email, initial, required, index
@@ -16,20 +18,27 @@ User:
     bio: String
     pic: path/to/pic.jpg 
     role: Role
+```
 
 #### Role
+````
 Role:
     name: Types.name
     abilities: [String]
+```
 
 #### Department
+````
 Department:
     Members: [User]
     Editors: [User]
+```
 
 ### Models Concerning Articles
 
+
 #### Article
+````
 Article:
     author(s): [User]
     content: Etherpad Changest idk
@@ -39,23 +48,29 @@ Article:
     publish_date: Date
     issue: Issue
     tags: Tag
+```
 
 #### Year
+````
 Year:
     year: 4-digit num
     issues: [Issue]
+```
 
 #### Issue
+````
 Issue:
    issue: num 
    year: Year
    articles: [Article]
+```
 
 #### Tag
+````
 Tag:
     name: String
     slug: String
-
+```
 
 
 
