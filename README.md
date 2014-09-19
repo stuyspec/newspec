@@ -72,6 +72,13 @@ Tag:
     slug: String
 ```
 
+TODO (planning of course, everything is techinically 'TODO')
+------------------------------------------------------------
+[ ] diffrentiate User from Author, but link them
+
+[ ] photo spreads
+[ ] captions
+[ ] general storage or integration with external service
 
 
 Depencies
