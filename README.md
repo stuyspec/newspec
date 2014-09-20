@@ -10,25 +10,25 @@ Models
 
 
 #### User
-````
+```
 User:
     name: Types.Name, required, index
     email: Types.Email, initial, required, index
     password: Types.Password, initial, required
-    bio: String
     pic: path/to/pic.jpg 
     role: Role
+    author: Author, optional
 ```
 
 #### Role
-````
+```
 Role:
     name: Types.name
     abilities: [String]
 ```
 
 #### Department
-````
+```
 Department:
     Members: [User]
     Editors: [User]
@@ -38,9 +38,9 @@ Department:
 
 
 #### Article
-````
+```
 Article:
-    author(s): [User]
+    author(s): [Author]
     content: Etherpad Changest idk
     html_contnet: String
     department: Department
@@ -50,15 +50,24 @@ Article:
     tags: Tag
 ```
 
+#### Author
+```
+Author:
+    name: Types.Name, required, index
+    bio: String
+    pic: path/to/pic.jpg
+    user: User, optional
+```
+
 #### Year
-````
+```
 Year:
     year: 4-digit num
     issues: [Issue]
 ```
 
 #### Issue
-````
+```
 Issue:
    issue: num 
    year: Year
@@ -66,7 +75,7 @@ Issue:
 ```
 
 #### Tag
-````
+```
 Tag:
     name: String
     slug: String
@@ -74,7 +83,7 @@ Tag:
 
 TODO (planning of course, everything is techinically 'TODO')
 ------------------------------------------------------------
-- [ ] diffrentiate User from Author, but link them
+- [x] diffrentiate User from Author, but link them
 - [ ] photo spreads
 - [ ] captions
 - [ ] general storage or integration with external service

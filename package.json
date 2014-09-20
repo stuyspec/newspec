@@ -3,10 +3,10 @@
   "version": "0.0.0",
   "private": true,
   "dependencies": {
-    "keystone": "~0.2.27",
     "async": "~0.9.0",
-    "underscore": "~1.7.0",
-    "dotenv": "0.4.0"
+    "dotenv": "0.4.0",
+    "keystone": "~0.2.27",
+    "lodash": "^2.4.1"
   },
   "devDependencies": {
     "grunt": "~0.4.4",
