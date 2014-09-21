@@ -27,13 +27,6 @@ Role:
     abilities: [String]
 ```
 
-#### Department
-```
-Department:
-    Members: [User]
-    Editors: [User]
-```
-
 ### Models Concerning Articles
 
 

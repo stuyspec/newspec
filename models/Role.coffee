@@ -1,7 +1,6 @@
 keystone = require "keystone"
 Types = keystone.Field.Types
 Role = new keystone.List "Role"
-User = keystone.list('User')
 
 Role.add
     name: 
@@ -19,7 +18,7 @@ Role.relationship
     refPath: 'role'
 
 Role.schema.virtual 'count', ->
-   User.find().where('role', this._id).count()
+    this.users.count
 
 Role.defaultColumns = "name, count"
 Role.register()

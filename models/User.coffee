@@ -25,6 +25,10 @@ User.add
         ref: 'Role'
         required: false
 
+    department:
+        type: String
+        required: false
+
     password:
         type: Types.Password
         initial: true
