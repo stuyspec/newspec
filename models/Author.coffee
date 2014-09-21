@@ -1,7 +1,5 @@
 keystone = require 'keystone'
 Types = keystone.Field.Types
-User = keystone.list 'User'
-# Article = keystone.list 'Article'
 ###
 User Model
 ==========
