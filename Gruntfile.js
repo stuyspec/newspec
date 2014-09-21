@@ -1,121 +1,81 @@
-'use strict()';
-
-var config= {
-	port: 3000
-};
+/**
+ * Gruntfile
+ *
+ * This Node script is executed when you run `grunt` or `sails lift`.
+ * It's purpose is to load the Grunt tasks in your project's `tasks`
+ * folder, and allow you to add and remove tasks as you see fit.
+ * For more information on how this works, check out the `README.md`
+ * file that was generated in your `tasks` folder.
+ *
+ * WARNING:
+ * Unless you know what you're doing, you shouldn't change this file.
+ * Check out the `tasks` directory instead.
+ */
 
 module.exports = function(grunt) {
 
-	// Load grunt tasks automatically
-	require('load-grunt-tasks')(grunt);
 
-	// Time how long tasks take. Can help when optimizing build times
-	require('time-grunt')(grunt);
+	// Load the include-all library in order to require all of our grunt
+	// configurations and task registrations dynamically.
+	var includeAll;
+	try {
+		includeAll = require('include-all');
+	} catch (e0) {
+		try {
+			includeAll = require('sails/node_modules/include-all');
+		}
+		catch(e1) {
+			console.error('Could not find `include-all` module.');
+			console.error('Skipping grunt tasks...');
+			console.error('To fix this, please run:');
+			console.error('npm install include-all --save`');
+			console.error();
 
-	// Project configuration.
-	grunt.initConfig({
-		pkg: grunt.file.readJSON('package.json'),
-		express: {
-			options: {
-				port: config.port
-			},
-			dev: {
-				options: {
-					script: 'keystone.js',
-					debug: true
-				}
-			}
-		},
+			grunt.registerTask('default', []);
+			return;
+		}
+	}
 
-		jshint: {
-			options: {
-				reporter: require('jshint-stylish'),
-				force: true
-			},
-			all: [ 'routes/**/*.js',
-						 'models/**/*.js'
-			],
-			server: [
-				'./keystone.js'
-			]
-		},
 
-		concurrent: {
-			dev: {
-				tasks: ['nodemon', 'node-inspector', 'watch'],
-				options: {
-					logConcurrentOutput: true
-				}
-			}
-		},
+	/**
+	 * Loads Grunt configuration modules from the specified
+	 * relative path. These modules should export a function
+	 * that, when run, should either load/configure or register
+	 * a Grunt task.
+	 */
+	function loadTasks(relPath) {
+		return includeAll({
+			dirname: require('path').resolve(__dirname, relPath),
+			filter: /(.+)\.js$/
+		}) || {};
+	}
 
-		'node-inspector': {
-			custom: {
-				options: {
-					'web-host': 'localhost'
-				}
-			}
-		},
-
-		nodemon: {
-			debug: {
-				script: 'keystone.js',
-				options: {
-					nodeArgs: ['--debug'],
-					env: {
-						port: config.port
-					}
-				}
-			}
-		},
-
-		watch: {
-			js: {
-				files: [
-					'model/**/*.js',
-					'routes/**/*.js'
-				],
-				tasks: ['jshint:all']
-			},
-			express: {
-				files: [
-					'keystone.js',
-					'public/js/lib/**/*.{js,json}'
-				],
-				tasks: ['jshint:server', 'concurrent:dev']
-			},
-			livereload: {
-				files: [
-					'public/styles/**/*.css',
-					'public/styles/**/*.less',
-					'templates/**/*.jade',
-					'node_modules/keystone/templates/**/*.jade'
-				],
-				options: {
-					livereload: true
-				}
+	/**
+	 * Invokes the function from a Grunt configuration module with
+	 * a single argument - the `grunt` object.
+	 */
+	function invokeConfigFn(tasks) {
+		for (var taskName in tasks) {
+			if (tasks.hasOwnProperty(taskName)) {
+				tasks[taskName](grunt);
 			}
 		}
-	});
+	}
 
-	// load jshint
-	grunt.registerTask('lint', function(target) {
-		grunt.task.run([
-			'jshint'
-		]);
-	});
 
-	// default option to connect server
-	grunt.registerTask('serve', function(target) {
-		grunt.task.run([
-			'jshint',
-			'concurrent:dev'
-		]);
-	});
 
-	grunt.registerTask('server', function () {
-		grunt.log.warn('The `server` task has been deprecated. Use `grunt serve` to start a server.');
-		grunt.task.run(['serve:' + target]);
-	});
+
+	// Load task functions
+	var taskConfigurations = loadTasks('./tasks/config'),
+		registerDefinitions = loadTasks('./tasks/register');
+
+	// (ensure that a default task exists)
+	if (!registerDefinitions.default) {
+		registerDefinitions.default = function (grunt) { grunt.registerTask('default', []); };
+	}
+
+	// Run task functions to configure Grunt.
+	invokeConfigFn(taskConfigurations);
+	invokeConfigFn(registerDefinitions);
 
 };
