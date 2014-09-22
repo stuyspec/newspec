@@ -3,9 +3,7 @@ passport = require "passport"
 module.exports =
   #CREATE SESSION
   process: (req, res) ->
-    console.log 'controller called'
     passport.authenticate("local", (err, user, info) ->
-      console.log 'start auth'
       if (err) or (not user)
         auth_fail(req, res)
       else
@@ -26,17 +24,14 @@ module.exports =
 
 ####### HELPER FUNCTIONS ########
 auth_fail = (req, res) ->
-  console .log 'auth fail'
-  res.badRequest "Authentication failed"
-  res.redirect "/login" unless req.wantsJSON
+  if req.wantsJSON res.badRequest "Authentication failed"
+  else res.redirect "/login"
 
 login_fail = (req, res) ->
-  console.log 'login fail'
-  res.badRequest "Login failed"
-  res.redirect "/login" unless req.wantsJSON
+  if req.wantsJSON res.badRequest "Login failed" 
+  else res.redirect "/login"
 
 login_success = (req, res) ->
-  console.log 'login succes'
   res.ok "Login successful"
   res.redirect "/" unless req.wantsJSON
 
