@@ -1,0 +1,62 @@
+{
+  "data": {
+    "user": [
+      {
+        "username": "jake",
+        "password": "$2a$10$T9tpFr/yyweyqoWlvO.wfuWfPiBGP2G0ICv9rW9YXi8gkoYEqD.AS",
+        "id": 2,
+        "createdAt": "2014-09-22T05:04:32.920Z",
+        "updatedAt": "2014-09-22T05:04:32.920Z"
+      },
+      {
+        "username": "jakea",
+        "password": "$2a$10$B9ha8YLYFuP9Xe2xPXwPU.TIxp.2uXxVUMJ39gdGDc3E0VtMhhozW",
+        "id": 3,
+        "createdAt": "2014-09-22T05:13:42.686Z",
+        "updatedAt": "2014-09-22T05:13:42.686Z"
+      },
+      {
+        "username": "jakeab",
+        "password": "$2a$10$UV.6Sn0Of/AE7ao0ZNIOr.RQw9lK2MuQfaeUrtb/6eqAs91GlNsLy",
+        "id": 4,
+        "createdAt": "2014-09-22T05:14:50.102Z",
+        "updatedAt": "2014-09-22T05:14:50.102Z"
+      },
+      {
+        "username": "jakeabc",
+        "password": "$2a$10$GPPz0EPsYdT5660tNVWTR.4Gsi5N9o3XpHHRfUDvA9xeySwNqIfAm",
+        "id": 5,
+        "createdAt": "2014-09-22T05:23:15.425Z",
+        "updatedAt": "2014-09-22T05:23:15.425Z"
+      }
+    ]
+  },
+  "schema": {
+    "user": {
+      "username": {
+        "type": "string",
+        "unique": true
+      },
+      "password": {
+        "type": "string"
+      },
+      "id": {
+        "type": "integer",
+        "autoIncrement": true,
+        "primaryKey": true,
+        "unique": true
+      },
+      "createdAt": {
+        "type": "datetime"
+      },
+      "updatedAt": {
+        "type": "datetime"
+      }
+    }
+  },
+  "counters": {
+    "user": {
+      "id": 5
+    }
+  }
+}
