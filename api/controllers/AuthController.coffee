@@ -24,14 +24,14 @@ module.exports =
 
 ####### HELPER FUNCTIONS ########
 auth_fail = (req, res) ->
-  if req.wantsJSON res.badRequest "Authentication failed"
+  if req.wantsJSON then res.badRequest "Authentication failed"
   else res.redirect "/login"
 
 login_fail = (req, res) ->
-  if req.wantsJSON res.badRequest "Login failed" 
+  if req.wantsJSON then res.badRequest "Login failed"
   else res.redirect "/login"
 
 login_success = (req, res) ->
-  res.ok "Login successful"
-  res.redirect "/" unless req.wantsJSON
+  if req.wantsJSON then res.ok "Login successful"
+  else res.redirect "/" unless req.wantsJSON
 
