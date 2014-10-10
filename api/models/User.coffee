@@ -3,7 +3,6 @@ module.exports =
     attributes:
         username:
             type: "string"
-            primaryKey: true
             required: true
             unique: true
 
@@ -13,6 +12,9 @@ module.exports =
 
         profile:
             model: 'profile'
+
+        role:
+            model: 'role'
 
         #Override toJSON method to remove password from API
         toJSON: ->
@@ -33,21 +35,16 @@ module.exports =
                     cb null, user
                 return
             return
+#        Profile.create({user: user.id}).exec (err, created) ->
+#            console.log 'profile create'
+#            if err
+#                console.log err
+#                cb err
+#            else 
+#                #User.update( user.id, {profile: created.id} ).exec ->
+#                console.log 'user update'
+#                user.profile = created.id
+#                cb null, user
+#            return
 
         return
-
-    afterCreate: (user, cb) ->
-        Profile.create({user: user.id}).exec (err, created) ->
-            if err
-                console.log err
-                cb err
-            else 
-                User.update( user.id, {profile: created.id} ).exec ->
-                    cb null, user
-                    return
-                #user.profile = created.id
-                #cb null, user
-            return
-        return
-    _config: 
-        autoPK: false
