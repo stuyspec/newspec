@@ -1,0 +1,13 @@
+mixin form(endpoint, ...items)
+  form(action="/#{endpoint}", method='post')
+    for item in items
+      - name = item[0]
+      - uname = name.charAt(0).toUpperCase() + name.slice(1)
+      - type = item[1]
+      .row
+        .small-10.medium-7.large-5.small-centered.columns
+          label #{uname}:
+            input(type='#{type}', name='#{name}')
+    .row
+      .small-10.medium-7.large-5.small-centered.columns
+        button.radius(type="submit",role="button", aria-label="submit form", href="#") Submit

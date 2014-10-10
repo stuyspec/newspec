@@ -1,6 +1,10 @@
 doctype html
-html
+html.no-js(lang="en")
   head
+    meta(charset="utf-8")
+    meta(name="viewport",content="width=device-width, initial-scale=1.0") 
+    link(rel="stylesheet",href="/css/foundation.css")
+    script(src="/js/vendor/modernizr.js")
     title= title
 
     // Viewport mobile tag for sensible mobile support
@@ -11,8 +15,9 @@ html
   body
     block body
 
-    // The linker searches for this tag and adds js.  If there's no linker, we point to sails.io.js
-    // SCRIPTS
-    script(src="/js/dependencies/sails.io.js")
-    // SCRIPTS END
+    script(src="/js/vendor/jquery.js")
+    script(src="/js/foundation.min.js")
+    script
+      $(document).foundation();
 
+    block scripts

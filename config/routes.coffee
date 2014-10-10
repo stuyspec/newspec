@@ -30,7 +30,8 @@ module.exports.routes =
   ###
   "/":
     view: "homepage"
-
+  '/foundation':
+    view: "foundation"
   
   ###*
   Custom routes here...                                                    *
