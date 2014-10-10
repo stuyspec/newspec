@@ -19,6 +19,32 @@ CoffeeScript for the front-end.
 For more information on configuring custom routes, check out:
 http://sailsjs.org/#/documentation/concepts/Routes/RouteTargetSyntax.html
 ###
+inputs =
+  username:
+    label: "Username"
+    error: "Username is required"
+    attrs:
+      name: "username"
+      type: "text"
+      required: true
+
+  password:
+    label: "Password"
+    error: "Password is required"
+    attrs:
+      name: "password"
+      type: "password"
+      required: true
+
+  confirm:
+    label: "Confirm password"
+    error: "Passwords must match"
+    attrs:
+      name: "confirm"
+      type: "password"
+      required: true
+      'data-equalto': "password"
+
 module.exports.routes =
   
   ###*
@@ -42,11 +68,13 @@ module.exports.routes =
   ###
   "get /login":
     view: "auth/login"
+    locals: inputs
 
   "post /login": "AuthController.process"
   "get /logout": "AuthController.logout"
   "get /signup":
     view: "user/signup"
+    locals: inputs
 
   "post /signup":
     model: "user"

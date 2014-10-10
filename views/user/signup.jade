@@ -2,7 +2,7 @@ extends ../layout
 include ../form
 
 block body
-  +form('signup',['username','text'],['password','password'],['confirm','password'])
+  +form('signup',username, password, confirm)
 
 block scripts
   script(src="/js/signup.js")
