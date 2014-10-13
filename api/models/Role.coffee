@@ -14,3 +14,9 @@ module.exports =
         caps:
             type: 'array'
             defaultsTo: []
+
+        default:
+            type: 'boolean'
+            defaultsTo: false
+
+    getDefault: -> Role.findOne({default: true})
