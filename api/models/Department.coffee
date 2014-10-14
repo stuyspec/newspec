@@ -7,6 +7,10 @@ module.exports =
       required: true
       alpha: true
 
+    articles:
+      collection: 'article'
+      via: 'department'
+
     members:
       collection: 'user'
       via: 'department'
@@ -16,6 +20,6 @@ module.exports =
       user.save()
 
     getEditors: ->
-      Role.findOne({name:"Editor"})
+      Role.findOne {name:"Editor"}
       .then (editor) ->
-        User.find({department: @id, role: editor.id})
+        User.find {department: @id, role: editor.id}

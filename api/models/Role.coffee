@@ -9,7 +9,7 @@ module.exports =
       type: 'string'
       required: true
       unique: true
-      alpha: true
+      alphadashed: true
 
     caps:
       type: 'array'

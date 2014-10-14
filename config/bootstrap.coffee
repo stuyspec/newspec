@@ -15,26 +15,26 @@ module.exports.bootstrap = (cb) ->
   .then (roles) ->
     if roles == 0 # if not this is the first run and we'd better set up some default Roles
       first_run = true
+    return
   .then ->
     if first_run
-      Promise.all
-        [
-          Role.create
-            name: "Admin"
+      Promise.all [
+        Role.create
+          name: "Admin"
 
-          Role.create
-            name: "Editor-in-Chief"
+        Role.create
+          name: "Editor-in-Chief"
 
-          Role.create
-            name: "Editor"
+        Role.create
+          name: "Editor"
 
-          Role.create
-            name: "Writer"
-
+        Role.create
+          name: "Writer"
         ]
   .then ->
     Role.count {default: true} # check if there is a default role set
   .then (defaults) ->
+    console.log "there are #{defaults} defaults"
     if defaults == 0
       Role.update {name:"Writer"}, {default: true} # if no default set the Writer as default
   .then -> Promise.all [ User.count(), Role.findOne {name:"Admin"} ] # get the number of Users and the Admin Role
@@ -43,6 +43,8 @@ module.exports.bootstrap = (cb) ->
     admin = results[1]
     if users == 0
       User.create({username:"admin", password:"admin", role: admin.id}) # so we can create an Admin user
+  .finally null,
+    (err) -> console.log(err)
 
   # It's very important to trigger this callback method when you are finished
   # with the bootstrap!  (otherwise your server will never lift, since it's waiting on the bootstrap)

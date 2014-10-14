@@ -23,6 +23,10 @@ module.exports =
     department:
       model: 'department'
 
+    articles:
+      collection: 'article'
+      via: 'author'
+
     #Override toJSON method to remove password from API
     toJSON: ->
       obj = @toObject()
