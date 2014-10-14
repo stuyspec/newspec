@@ -1,4 +1,4 @@
-module.exports = 
+module.exports =
   types:
     capabilities: (caps)->
       for cap in caps
@@ -22,5 +22,8 @@ module.exports =
     addCap: (cap) ->
       @caps.push cap
       @save()
+    
+    can: (cap) ->
+      @name == "Admin" || @caps.indexOf cap > 0
 
   getDefault: -> Role.findOne({default: true})

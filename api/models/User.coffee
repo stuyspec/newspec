@@ -17,6 +17,9 @@ module.exports =
     role:
       model: 'role'
 
+    can: (cap) ->
+      @role.can cap
+
     department:
       model: 'department'
 
@@ -27,9 +30,7 @@ module.exports =
       obj
 
   beforeCreate: (user, cb) ->
-    console.log "start beforeCreate"
     delete user.confirm
-    console.log "confirm deleted"
 ## generate salt
     bcrypt.genSaltAsync 10
 ## hash password
