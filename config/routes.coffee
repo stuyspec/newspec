@@ -58,6 +58,8 @@ module.exports.routes =
     view: "homepage"
   '/foundation':
     view: "foundation"
+  '/editor':
+    view: 'editor'
   
   ###*
   Custom routes here...                                                    *
