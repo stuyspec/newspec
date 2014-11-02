@@ -5,8 +5,8 @@ block body
     button.ql-bold Bold
     button.ql-italic Italic
   #editor
-  script(src='//cdn.quilljs.com/0.18.1/quill.js') 
-  script(src='/js/deltas.js')
+  script(src='/lib/quill/dist/quill#{min}.js')
+  script(src='/js/dtohtml.js')
   script(type='text/javascript').
     var quill = new Quill('#editor');
     quill.addModule('toolbar', { container: '#toolbar' });

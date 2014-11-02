@@ -1,0 +1,20 @@
+{
+  "name": "specweb",
+  "version": "0.0.1",
+  "homepage": "https://github.com/jbaum98/newspec",
+  "description": "Website for Stuyvesant High School's newspaper, The Stuyvesant Spectator",
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "lib",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "foundation": "~5.4.7",
+    "quill": "~0.18.1"
+  }
+}

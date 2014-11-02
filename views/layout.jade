@@ -1,10 +1,11 @@
+- min = process.env.NODE_ENV != "development" ? ".min" : ""
 doctype html
 html.no-js(lang="en")
   head
     meta(charset="utf-8")
     meta(name="viewport",content="width=device-width, initial-scale=1.0") 
-    link(rel="stylesheet",href="/css/foundation.css")
-    script(src="/js/vendor/modernizr.js")
+    link(rel="stylesheet",href="/lib/foundation/css/foundation.css")
+    script(src="/lib/modernizr/modernizr.js")
     title= title
 
     // Viewport mobile tag for sensible mobile support
@@ -15,9 +16,9 @@ html.no-js(lang="en")
   body
     block body
 
-    script(src="/js/vendor/jquery.js")
-    script(src="/js/foundation.min.js")
-    script
+    script(src="/lib/jquery/dist/jquery#{min}.js")
+    script(src="/lib/foundation/js/foundation#{min}.js")
+    script.
       $(document).foundation();
 
     block scripts
