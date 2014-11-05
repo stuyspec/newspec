@@ -3,12 +3,12 @@
  *  Copyright (c) 2014, Jason Chen
  *  Copyright (c) 2013, salesforce.com
  */
-!function(e){if("object"==typeof exports&&"undefined"!=typeof module)module.exports=e();else if("function"==typeof define&&define.amd)define([],e);else{var f;"undefined"!=typeof window?f=window:"undefined"!=typeof global?f=global:"undefined"!=typeof self&&(f=self),f.Quill=e()}}(function(){var define,module,exports;return (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);throw new Error("Cannot find module '"+o+"'")}var f=n[o]={exports:{}};t[o][0].call(f.exports,function(e){var n=t[o][1][e];return s(n?n:e)},f,f.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({"M4+//f":[function(_dereq_,module,exports){
+!function(e){if("object"==typeof exports&&"undefined"!=typeof module)module.exports=e();else if("function"==typeof define&&define.amd)define([],e);else{var f;"undefined"!=typeof window?f=window:"undefined"!=typeof global?f=global:"undefined"!=typeof self&&(f=self),f.Quill=e()}}(function(){var define,module,exports;return (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
 (function (global){
 /**
  * @license
  * Lo-Dash 2.4.1 (Custom Build) <http://lodash.com/>
- * Build: `lodash modern include="difference,flatten,intersection,last,all,each,indexOf,invoke,map,pluck,reduce,bind,defer,partial,clone,defaults,has,keys,omit,values,isArray,isElement,isEqual,isNumber,isObject,isString,uniqueId" --debug --output .build/lodash.js`
+ * Build: `lodash modern include="difference,intersection,last,all,each,invoke,map,reduce,bind,defer,partial,clone,extend,defaults,omit,values,isElement,isEqual,isNumber,isObject,isString,uniqueId" --debug --output .build/lodash.js`
  * Copyright 2012-2013 The Dojo Foundation <http://dojofoundation.org/>
  * Based on Underscore.js 1.5.2 <http://underscorejs.org/LICENSE>
  * Copyright 2009-2013 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
@@ -1405,25 +1405,6 @@
   };
 
   /**
-   * Checks if the specified property name exists as a direct property of `object`,
-   * instead of an inherited property.
-   *
-   * @static
-   * @memberOf _
-   * @category Objects
-   * @param {Object} object The object to inspect.
-   * @param {string} key The name of the property to check.
-   * @returns {boolean} Returns `true` if key is a direct property, else `false`.
-   * @example
-   *
-   * _.has({ 'a': 1, 'b': 2, 'c': 3 }, 'b');
-   * // => true
-   */
-  function has(object, key) {
-    return object ? hasOwnProperty.call(object, key) : false;
-  }
-
-  /**
    * Checks if `value` is a DOM element.
    *
    * @static
@@ -1844,28 +1825,6 @@
   }
 
   /**
-   * Retrieves the value of a specified property from all elements in the collection.
-   *
-   * @static
-   * @memberOf _
-   * @type Function
-   * @category Collections
-   * @param {Array|Object|string} collection The collection to iterate over.
-   * @param {string} property The name of the property to pluck.
-   * @returns {Array} Returns a new array of property values.
-   * @example
-   *
-   * var characters = [
-   *   { 'name': 'barney', 'age': 36 },
-   *   { 'name': 'fred',   'age': 40 }
-   * ];
-   *
-   * _.pluck(characters, 'name');
-   * // => ['barney', 'fred']
-   */
-  var pluck = map;
-
-  /**
    * Reduces a collection to a value which is the accumulated result of running
    * each element in the collection through the callback, where each successive
    * callback execution consumes the return value of the previous execution. If
@@ -1939,60 +1898,6 @@
    */
   function difference(array) {
     return baseDifference(array, baseFlatten(arguments, true, true, 1));
-  }
-
-  /**
-   * Flattens a nested array (the nesting can be to any depth). If `isShallow`
-   * is truey, the array will only be flattened a single level. If a callback
-   * is provided each element of the array is passed through the callback before
-   * flattening. The callback is bound to `thisArg` and invoked with three
-   * arguments; (value, index, array).
-   *
-   * If a property name is provided for `callback` the created "_.pluck" style
-   * callback will return the property value of the given element.
-   *
-   * If an object is provided for `callback` the created "_.where" style callback
-   * will return `true` for elements that have the properties of the given object,
-   * else `false`.
-   *
-   * @static
-   * @memberOf _
-   * @category Arrays
-   * @param {Array} array The array to flatten.
-   * @param {boolean} [isShallow=false] A flag to restrict flattening to a single level.
-   * @param {Function|Object|string} [callback=identity] The function called
-   *  per iteration. If a property name or object is provided it will be used
-   *  to create a "_.pluck" or "_.where" style callback, respectively.
-   * @param {*} [thisArg] The `this` binding of `callback`.
-   * @returns {Array} Returns a new flattened array.
-   * @example
-   *
-   * _.flatten([1, [2], [3, [[4]]]]);
-   * // => [1, 2, 3, 4];
-   *
-   * _.flatten([1, [2], [3, [[4]]]], true);
-   * // => [1, 2, 3, [[4]]];
-   *
-   * var characters = [
-   *   { 'name': 'barney', 'age': 30, 'pets': ['hoppy'] },
-   *   { 'name': 'fred',   'age': 40, 'pets': ['baby puss', 'dino'] }
-   * ];
-   *
-   * // using "_.pluck" callback shorthand
-   * _.flatten(characters, 'pets');
-   * // => ['hoppy', 'baby puss', 'dino']
-   */
-  function flatten(array, isShallow, callback, thisArg) {
-    // juggle arguments
-    if (typeof isShallow != 'boolean' && isShallow != null) {
-      thisArg = callback;
-      callback = (typeof isShallow != 'function' && thisArg && thisArg[isShallow] === array) ? null : isShallow;
-      isShallow = false;
-    }
-    if (callback != null) {
-      array = map(array, callback, thisArg);
-    }
-    return baseFlatten(array, isShallow);
   }
 
   /**
@@ -2464,7 +2369,6 @@
   lodash.defaults = defaults;
   lodash.defer = defer;
   lodash.difference = difference;
-  lodash.flatten = flatten;
   lodash.forEach = forEach;
   lodash.forIn = forIn;
   lodash.forOwn = forOwn;
@@ -2474,7 +2378,6 @@
   lodash.map = map;
   lodash.omit = omit;
   lodash.partial = partial;
-  lodash.pluck = pluck;
   lodash.property = property;
   lodash.values = values;
 
@@ -2488,7 +2391,6 @@
   // add functions that return unwrapped values when chaining
   lodash.clone = clone;
   lodash.every = every;
-  lodash.has = has;
   lodash.identity = identity;
   lodash.indexOf = indexOf;
   lodash.isArguments = isArguments;
@@ -2556,10 +2458,8 @@
   }
 }.call(this));
 
-}).call(this,typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{}],"lodash":[function(_dereq_,module,exports){
-module.exports=_dereq_('M4+//f');
-},{}],3:[function(_dereq_,module,exports){
+}).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
+},{}],2:[function(require,module,exports){
 /*!
  * EventEmitter2
  * https://github.com/hij1nx/EventEmitter2
@@ -3134,13 +3034,13 @@ module.exports=_dereq_('M4+//f');
   }
 }();
 
-},{}],4:[function(_dereq_,module,exports){
-module.exports = _dereq_('./lib/type');
+},{}],3:[function(require,module,exports){
+module.exports = require('./lib/type');
 
-},{"./lib/type":8}],5:[function(_dereq_,module,exports){
-var diff = _dereq_('fast-diff');
-var is = _dereq_('./is');
-var op = _dereq_('./op');
+},{"./lib/type":7}],4:[function(require,module,exports){
+var diff = require('fast-diff');
+var is = require('./is');
+var op = require('./op');
 
 
 var NULL_CHARACTER = String.fromCharCode(0);  // Placeholder char for embed in diff()
@@ -3242,7 +3142,7 @@ Delta.prototype.slice = function (start, end) {
     if (index < start) {
       nextOp = iter.next(start - index);
     } else {
-      nextOp = iter.next(end - start);
+      nextOp = iter.next(end - index);
       delta.push(nextOp);
     }
     index += op.length(nextOp);
@@ -3382,7 +3282,7 @@ Delta.prototype.transformPosition = function (index, priority) {
 
 module.exports = Delta;
 
-},{"./is":6,"./op":7,"fast-diff":9}],6:[function(_dereq_,module,exports){
+},{"./is":5,"./op":6,"fast-diff":8}],5:[function(require,module,exports){
 module.exports = {
   equal: function (a, b) {
     if (a === b) return true;
@@ -3418,8 +3318,8 @@ module.exports = {
   }
 };
 
-},{}],7:[function(_dereq_,module,exports){
-var is = _dereq_('./is');
+},{}],6:[function(require,module,exports){
+var is = require('./is');
 
 
 var lib = {
@@ -3564,9 +3464,9 @@ Iterator.prototype.peekType = function () {
 
 module.exports = lib;
 
-},{"./is":6}],8:[function(_dereq_,module,exports){
-var Delta = _dereq_('./delta');
-var pkg = _dereq_('../package.json');
+},{"./is":5}],7:[function(require,module,exports){
+var Delta = require('./delta');
+var pkg = require('../package.json');
 
 
 module.exports = {
@@ -3604,7 +3504,7 @@ module.exports = {
   }
 };
 
-},{"../package.json":10,"./delta":5}],9:[function(_dereq_,module,exports){
+},{"../package.json":9,"./delta":4}],8:[function(require,module,exports){
 /**
  * This library modifies the diff-patch-match library by Neil Fraser
  * by removing the patch and match functionality and certain advanced
@@ -4176,10 +4076,10 @@ diff.EQUAL = DIFF_EQUAL;
 
 module.exports = diff;
 
-},{}],10:[function(_dereq_,module,exports){
+},{}],9:[function(require,module,exports){
 module.exports={
   "name": "rich-text",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Format for representing rich text documents and changes.",
   "author": {
     "name": "Jason Chen",
@@ -4219,13 +4119,29 @@ module.exports={
     "operational transform",
     "delta"
   ],
-  "readme": "# Rich Text [![Build Status](https://travis-ci.org/ottypes/rich-text.svg?branch=master)](http://travis-ci.org/ottypes/rich-text) [![Coverage Status](https://img.shields.io/coveralls/ottypes/rich-text.svg)](https://coveralls.io/r/ottypes/rich-text)\n\nA format for representing rich text documents and changes. It aimes to be intuitive and human readable with the ability to express any change necessary to deal with rich text. A document can also be expressed with this format--as the change from an empty document.\n\n## Quick Example\n\n```js\nvar delta = new Delta([\n  { insert: 'Gandalf', attributes: { bold: true } },\n  { insert: ' the ' },\n  { insert: 'Grey', attributes: { color: '#ccc' } }\n]);\n\n// Keep the first 12 characters, delete the next 4, and insert a white 'White'\nvar death = new Delta().retain(12)\n                       .delete(4)\n                       .insert('White', { color: '#fff' });\n// this produces:\n// {\n//   ops: [\n//     { retain: 12 },\n//     { delete: '4 ' },\n//     { insert: 'White', attributes: { color: '#fff' } }\n//   ]\n// }\n\ndelta.compose(death);\n// delta is now:\n// {\n//   ops: [\n//     { insert: 'Gandalf ', attributes: { bold: true } },\n//     { insert: 'the ' },\n//     { insert: 'White', attributes: { color: '#fff' } }\n//   ]\n// }\n\n```\n\nThis format is suitable for [Operational Transform](https://en.wikipedia.org/wiki/Operational_transformation) and defines several functions to support this use case.\n\n## Contents\n\n#### [Operations](#operations-1)\n\n- [insert](#insert-operation)\n- [delete](#delete-operation)\n- [retain](#retain-operation)\n\n#### [Deltas](#deltas-1)\n\n- [`constructor`](#constructor)\n- [`insert`](#insert)\n- [`delete`](#delete)\n- [`retain`](#retain)\n- [`length`](#length)\n- [`slice`](#slice)\n- [`compose`](#compose)\n- [`transform`](#transform)\n\n#### [Documents](#documents-1)\n\n- [`diff`](#diff)\n\n\n## Operations\n\nOperations describe a singular change to a document. They can be an [`insert`](#insert-operation), [`delete`](#delete-operation) or [`retain`](#retain-operation). Note operations do not take an index. They always describe the change at the current index. Use retains to \"keep\" or \"skip\" certain parts of the document.\n\n### Insert Operation\n\nInsert operations have an `insert` key defined. A String value represents inserting text. A Number value represents inserting an embed, with the value corresponding to an embed type (such as an image or video).\n\nHere we will use 1 to represent images and 2 to represent videos, but your application can choose whatever mapping is convenient.\n\nIn both cases of text and embeds, an optional `attributes` key can be defined with an Object to describe additonal formatting information. Formats can be changed by the [retain](#retain) operation.\n\n```js\n// Insert a bolded \"Text\"\n{ insert: \"Text\", attributes: { bold: true } }\n\n// Insert a link\n{ insert: \"Google\", attributes: { href: 'https://www.google.com' } }\n\n// Insert an image\n{\n  insert: 1,\n  attributes: {\n    alt: \"Lab Octocat\",\n    src: 'https://octodex.github.com/images/labtocat.png'\n  }\n}\n\n// Insert a video\n{\n  insert: 2,\n  attributes: {\n    src: \"https://www.youtube.com/watch?v=dMH0bHeiRNg\",\n    width: 420,\n    height: 315\n  }\n}\n```\n\n### Delete Operation\n\nDelete operations have a Number `delete` key defined representing the number of characters to delete. All embeds have a length of 1.\n\n```js\n// Delete the next 10 characters\n{ delete: 10 }\n```\n\n### Retain Operation\n\nRetain operations have a Number `retain` key defined representing the number of characters to keep (other libraries might use the name keep or skip). An optional `attributes` key can be defined with an Object to describe formatting changes to the character range. A value of null in the `attributes` Object represents removal of that key.\n\n*Note: It is not necessary to retain the last characters of a document as this is implied.*\n\n```js\n// Keep the next 5 characters\n{ retain: 5 }\n\n// Keep and bold the next 5 characters\n{ retain: 5, attributes: { bold: true } }\n\n// Keep and unbold the next 5 characters\n// More specifically, remove the bold key in the attributes Object\n// in the next 5 characters\n{ retain: 5, attributes: { bold: null } }\n```\n\n\n## Deltas\n\nA Delta is made up of an array of operations. Unless otherwise specified all methods are self modifying and return `this` for chainability.\n\nAll methods also maintain the property that Deltas are represented in the most compact form. For example two consecutive insert operations of plain text will be merged into one.\n\n---\n\n### constructor\n\nCreates a new Delta object.\n\n#### Methods\n\n- `new Delta()`\n- `new Delta(ops)`\n- `new Delta(delta)`\n\n#### Parameters\n\n- `ops` - Array of operations\n- `delta` - Object with an `ops` key set to an array of operations\n\n*Note: No validity/sanity check is performed when constructed with ops or delta. The new delta's internal ops array will also be assigned to ops or delta.ops without deep copying.*\n\n#### Example\n\n```js\nvar delta = new Delta([\n  { insert: 'Hello World' },\n  { insert: '!', attributes: { bold: true }}\n]);\n\nvar packet = JSON.stringify(delta);\n\nvar other = new Delta(JSON.parse(packet));\n\nvar chained = new Delta().insert('Hello World').insert('!', { bold: true });\n```\n\n---\n\n### insert()\n\nAppends an insert operation.\n\n#### Methods\n\n- `insert(text, attributes)`\n- `insert(embed, attributes)`\n\n#### Parameters\n\n- `text` - String representing text to insert\n- `embed` - Number representing embed type to insert\n- `attributes` - Optional attributes to apply\n\n#### Example\n\n```js\ndelta.insert('Text', { bold: true, color: '#ccc' });\ndelta.insert(1, { src: 'https://octodex.github.com/images/labtocat.png' });\n```\n\n---\n\n### delete()\n\nAppends a delete operation.\n\n#### Methods\n\n- `delete(length)`\n\n#### Parameters\n\n- `length` - Number of characters to delete\n\n#### Example\n\n```js\ndelta.delete(5);\n```\n\n---\n\n### retain()\n\nAppends a retain operation.\n\n#### Methods\n\n- `retain(length, attributes)`\n\n#### Parameters\n\n- `length` - Number of characters to retain\n- `attributes` - Optional attributes to apply\n\n#### Example\n\n```js\ndelta.retain(4).retain(5, { color: '#0c6' });\n```\n\n---\n\n### length()\n\nReturns length of Delta.\n\n#### Methods\n\n- `length()`\n\n#### Example\n\n```js\nnew Delta().insert('Hello').length();  // Returns 5\n\nnew Delta().insert('A').retain(2).delete(1) // Returns 4\n```\n\n---\n\n### slice()\n\nReturns copy of delta with subset of operations.\n\n#### Methods\n\n- `slice()`\n- `slice(start)`\n- `slice(start, end)`\n\n#### Parameters\n\n- `start` - Start index of subset, defaults to 0\n- `end` - End index of subset, defaults to rest of operations\n\n#### Example\n\n```js\nvar delta = new Delta().insert('Hello', { bold: true }).insert(' World');\n\n// {\n//   ops: [\n//     { insert: 'Hello', attributes: { bold: true } },\n//     { insert: ' World' }\n//   ]\n// }\nvar copy = delta.slice();\n\n// { ops: [{ insert: 'World' }] }\nvar world = delta.slice(6);\n\n// { ops: [{ insert: ' ' }] }\nvar space = delta.slice(5, 6);\n```\n\n---\n\n### compose()\n\nCompose with another Delta, i.e. merge the operations of another Delta. This method is self modifying.\n\n#### Methods\n\n- `compose(other)`\n\n#### Parameters\n\n- `other` - Delta to compose\n\n#### Example\n\n```js\nvar a = new Delta().insert('abc');\nvar b = new Delta().retain(1).delete(1);\n\na.compose(b);  // a == new Delta().insert('ac');\n```\n\n### transform()\n\nTransform given Delta against own operations.\n\n#### Methods\n\n- `transform(other, priority)`\n- `transform(index)` - Alias for [`transformPosition`](#tranformposition)\n\n#### Parameters\n\n- `other` - Delta to transform\n- `priority` - Boolean used to break ties\n\n#### Returns\n\n- `Delta` - transformed Delta\n\n#### Example\n\n```js\nvar a = new Delta().insert('a');\nvar b = new Delta().insert('b');\n\nb = a.transform(b, true);  // new Delta().retain(1).insert('b');\n```\n\n---\n\n### transformPosition()\n\nTransform an index against the delta. Useful for representing cursor/selection positions.\n\n#### Methods\n\n- `transformPosition(index)`\n\n#### Parameters\n\n- `index` - index to transform\n\n#### Returns\n\n- `Number` - transformed index\n\n#### Example\n\n```js\nvar index = 12;\nvar transformedIndex = delta.transformPosition(index);\n```\n\n\n## Documents\n\nA Delta with only insert operations can be used to represent a rich text document. This can be thought of as a Delta applied to an empty document.\n\n---\n\n### diff()\n\nCalculates the difference between two documents expressed as a Delta.\n\n#### Methods\n\n- `diff(other)`\n\n#### Parameters\n\n- `other` - Document Delta to diff against\n\n#### Returns\n\n- `Delta` - difference between the two documents\n\n#### Example\n\n```js\nvar a = new Delta().insert('Hello');\nvar b = new Delta().insert('Hello!');\n\nvar diff = a.diff(b);  // { ops: [{ retain: 5 }, { insert: '!' }] }\n```\n",
-  "readmeFilename": "README.md",
-  "_id": "rich-text@1.0.2",
-  "_from": "rich-text@~1.0.2"
+  "_id": "rich-text@1.0.3",
+  "dist": {
+    "shasum": "ac4d825f2fca123d8282842ed55fc57fc7b9c710",
+    "tarball": "http://registry.npmjs.org/rich-text/-/rich-text-1.0.3.tgz"
+  },
+  "_from": "rich-text@>=1.0.3 <1.1.0",
+  "_npmVersion": "1.3.14",
+  "_npmUser": {
+    "name": "jhchen",
+    "email": "jhchen7@gmail.com"
+  },
+  "maintainers": [
+    {
+      "name": "jhchen",
+      "email": "jhchen7@gmail.com"
+    }
+  ],
+  "directories": {},
+  "_shasum": "ac4d825f2fca123d8282842ed55fc57fc7b9c710",
+  "_resolved": "https://registry.npmjs.org/rich-text/-/rich-text-1.0.3.tgz"
 }
 
-},{}],11:[function(_dereq_,module,exports){
+},{}],10:[function(require,module,exports){
 module.exports={
   "name": "quilljs",
   "version": "0.18.1",
@@ -4240,15 +4156,16 @@ module.exports={
   "dependencies": {
     "eventemitter2": "~0.4.13",
     "lodash": "~2.4.1",
-    "rich-text": "~1.0.2"
+    "rich-text": "~1.0.3"
   },
   "devDependencies": {
     "async": "~0.9.0",
+    "browserify": "~6.1.0",
     "coffee-script": "~1.8.0",
     "coffeeify": "~0.7.0",
     "glob": "~4.0.4",
     "grunt": "~0.4.3",
-    "grunt-browserify": "~2.1.0",
+    "grunt-browserify": "~3.0.1",
     "grunt-contrib-clean": "~0.6.0",
     "grunt-contrib-coffee": "~0.12.0",
     "grunt-contrib-compress": "~0.12.0",
@@ -4274,10 +4191,14 @@ module.exports={
     "karma-phantomjs-launcher": "~0.1.2",
     "karma-safari-launcher": "~0.1.1",
     "karma-sauce-launcher": "~0.2.2",
-    "load-grunt-tasks": "~0.6.0",
+    "load-grunt-tasks": "~1.0.0",
     "protractor": "~1.3.1",
+    "stylify": "~1.0.0",
     "stylus": "~0.49.2",
-    "watchify": "~0.10.2"
+    "watchify": "~2.0.0"
+  },
+  "browser": {
+    "lodash": ".build/lodash.js"
   },
   "engines": {
     "node": ">=0.10"
@@ -4302,22 +4223,22 @@ module.exports={
   ]
 }
 
-},{}],12:[function(_dereq_,module,exports){
+},{}],11:[function(require,module,exports){
 var Delta, Document, Format, Line, LinkedList, Normalizer, dom, _;
 
-_ = _dereq_('lodash');
+_ = require('lodash');
 
-Delta = _dereq_('rich-text').Delta;
+Delta = require('rich-text').Delta;
 
-dom = _dereq_('../lib/dom');
+dom = require('../lib/dom');
 
-Format = _dereq_('./format');
+Format = require('./format');
 
-Line = _dereq_('./line');
+Line = require('./line');
 
-LinkedList = _dereq_('../lib/linked-list');
+LinkedList = require('../lib/linked-list');
 
-Normalizer = _dereq_('../lib/normalizer');
+Normalizer = require('../lib/normalizer');
 
 Document = (function() {
   function Document(root, options) {
@@ -4337,7 +4258,7 @@ Document = (function() {
     if (this.formats[name] != null) {
       console.warn('Overwriting format', name, this.formats[name]);
     }
-    return this.formats[name] = new Format(this.root.ownerDocument, config);
+    return this.formats[name] = new Format(config);
   };
 
   Document.prototype.appendLine = function(lineNode) {
@@ -4502,8 +4423,8 @@ Document = (function() {
     var delta, lines;
     lines = this.lines.toArray();
     delta = new Delta();
-    lines.forEach(function(line) {
-      return line.delta.ops.forEach(function(op) {
+    _.each(lines, function(line) {
+      return _.each(line.delta.ops, function(op) {
         return delta.push(op);
       });
     });
@@ -4518,20 +4439,18 @@ module.exports = Document;
 
 
 
-},{"../lib/dom":21,"../lib/linked-list":22,"../lib/normalizer":23,"./format":14,"./line":16,"lodash":"M4+//f","rich-text":4}],13:[function(_dereq_,module,exports){
-var Document, Editor, Line, Renderer, Selection, dom, _;
+},{"../lib/dom":19,"../lib/linked-list":20,"../lib/normalizer":21,"./format":13,"./line":15,"lodash":1,"rich-text":3}],12:[function(require,module,exports){
+var Document, Editor, Line, Selection, dom, _;
 
-_ = _dereq_('lodash');
+_ = require('lodash');
 
-dom = _dereq_('../lib/dom');
+dom = require('../lib/dom');
 
-Document = _dereq_('./document');
+Document = require('./document');
 
-Line = _dereq_('./line');
+Line = require('./line');
 
-Renderer = _dereq_('./renderer');
-
-Selection = _dereq_('./selection');
+Selection = require('./selection');
 
 Editor = (function() {
   Editor.sources = {
@@ -4540,16 +4459,14 @@ Editor = (function() {
     USER: 'user'
   };
 
-  function Editor(iframeContainer, quill, options) {
-    this.iframeContainer = iframeContainer;
+  function Editor(root, quill, options) {
+    this.root = root;
     this.quill = quill;
     this.options = options != null ? options : {};
-    this.renderer = new Renderer(this.iframeContainer, this.options);
-    dom(this.iframeContainer).on('focus', this.focus.bind(this));
-    this.root = this.renderer.root;
+    this.root.setAttribute('id', this.options.id);
     this.doc = new Document(this.root, this.options);
     this.delta = this.doc.toDelta();
-    this.selection = new Selection(this.doc, this.renderer.iframe, this.quill);
+    this.selection = new Selection(this.doc, this.quill);
     this.timer = setInterval(_.bind(this.checkUpdate, this), this.options.pollInterval);
     if (!this.options.readOnly) {
       this.enable();
@@ -4614,7 +4531,7 @@ Editor = (function() {
     if (source == null) {
       source = 'user';
     }
-    if ((this.renderer.iframe.parentNode == null) || (this.root.parentNode == null)) {
+    if (this.root.parentNode == null) {
       return clearInterval(this.timer);
     }
     delta = this._update();
@@ -4629,12 +4546,7 @@ Editor = (function() {
   };
 
   Editor.prototype.focus = function() {
-    if (dom.isIE(11)) {
-      this.selection.setRange(this.selection.range);
-    }
-    if (dom.isIOS()) {
-      this.renderer.iframe.focus();
-    }
+    this.selection.setRange(this.selection.range);
     return this.root.focus();
   };
 
@@ -4707,7 +4619,7 @@ Editor = (function() {
           var nextLine;
           if ((line == null) || line.length <= offset) {
             if (i < lineTexts.length - 1 || lineText.length > 0) {
-              line = _this.doc.appendLine(_this.root.ownerDocument.createElement(dom.DEFAULT_BLOCK_TAG));
+              line = _this.doc.appendLine(document.createElement(dom.DEFAULT_BLOCK_TAG));
               offset = 0;
               line.insertText(offset, lineText, formatting);
               line.format(formatting);
@@ -4764,12 +4676,12 @@ module.exports = Editor;
 
 
 
-},{"../lib/dom":21,"./document":12,"./line":16,"./renderer":17,"./selection":18,"lodash":"M4+//f"}],14:[function(_dereq_,module,exports){
+},{"../lib/dom":19,"./document":11,"./line":15,"./selection":16,"lodash":1}],13:[function(require,module,exports){
 var Format, dom, _;
 
-_ = _dereq_('lodash');
+_ = require('lodash');
 
-dom = _dereq_('../lib/dom');
+dom = require('../lib/dom');
 
 Format = (function() {
   Format.types = {
@@ -4811,8 +4723,8 @@ Format = (function() {
     size: {
       style: 'fontSize',
       "default": '13px',
-      prepare: function(doc, value) {
-        return doc.execCommand('fontSize', false, dom.convertFontSize(value));
+      prepare: function(value) {
+        return document.execCommand('fontSize', false, dom.convertFontSize(value));
       }
     },
     link: {
@@ -4839,11 +4751,25 @@ Format = (function() {
       exclude: 'bullet',
       parentTag: 'OL',
       tag: 'LI'
+    },
+    firstheader: {
+      type: Format.types.LINE,
+      tag: 'H1',
+      prepare: 'firstheader'
+    },
+    secondheader: {
+      type: Format.types.LINE,
+      tag: 'H2',
+      prepare: 'secondheader'
+    },
+    thirdheader: {
+      type: Format.types.LINE,
+      tag: 'H3',
+      prepare: 'thirdheader'
     }
   };
 
-  function Format(document, config) {
-    this.document = document;
+  function Format(config) {
     this.config = config;
   }
 
@@ -4856,7 +4782,7 @@ Format = (function() {
       return node;
     }
     if (_.isString(this.config.parentTag)) {
-      parentNode = this.document.createElement(this.config.parentTag);
+      parentNode = document.createElement(this.config.parentTag);
       dom(node).wrap(parentNode);
       if (node.parentNode.tagName === ((_ref = node.parentNode.previousSibling) != null ? _ref.tagName : void 0)) {
         dom(node.parentNode.previousSibling).merge(node.parentNode);
@@ -4866,7 +4792,7 @@ Format = (function() {
       }
     }
     if (_.isString(this.config.tag)) {
-      formatNode = this.document.createElement(this.config.tag);
+      formatNode = document.createElement(this.config.tag);
       if (dom.VOID_TAGS[formatNode.tagName] != null) {
         if (node.parentNode != null) {
           dom(node).replace(formatNode);
@@ -4884,7 +4810,7 @@ Format = (function() {
         node = this.remove(node);
       }
       if (dom(node).isTextNode()) {
-        inline = this.document.createElement(dom.DEFAULT_INLINE_TAG);
+        inline = document.createElement(dom.DEFAULT_INLINE_TAG);
         dom(node).wrap(inline);
         node = inline;
       }
@@ -4939,9 +4865,9 @@ Format = (function() {
 
   Format.prototype.prepare = function(value) {
     if (_.isString(this.config.prepare)) {
-      return this.document.execCommand(this.config.prepare, false, value);
+      return document.execCommand(this.config.prepare, false, value);
     } else if (_.isFunction(this.config.prepare)) {
-      return this.config.prepare(this.document, value);
+      return this.config.prepare(value);
     }
   };
 
@@ -5029,23 +4955,23 @@ module.exports = Format;
 
 
 
-},{"../lib/dom":21,"lodash":"M4+//f"}],15:[function(_dereq_,module,exports){
+},{"../lib/dom":19,"lodash":1}],14:[function(require,module,exports){
 var Format, Leaf, LinkedList, dom, _,
   __hasProp = {}.hasOwnProperty,
   __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
 
-_ = _dereq_('lodash');
+_ = require('lodash');
 
-dom = _dereq_('../lib/dom');
+dom = require('../lib/dom');
 
-Format = _dereq_('./format');
+Format = require('./format');
 
-LinkedList = _dereq_('../lib/linked-list');
+LinkedList = require('../lib/linked-list');
 
 Leaf = (function(_super) {
   __extends(Leaf, _super);
 
-  Leaf.ID_PREFIX = 'leaf-';
+  Leaf.ID_PREFIX = 'ql-leaf-';
 
   Leaf.isLeafNode = function(node) {
     return dom(node).isTextNode() || (node.firstChild == null);
@@ -5067,7 +4993,7 @@ Leaf = (function(_super) {
     this.text = this.text.slice(0, offset) + this.text.slice(offset + length);
     this.length = this.text.length;
     if (dom.EMBED_TAGS[this.node.tagName] != null) {
-      textNode = this.node.ownerDocument.createTextNode(this.text);
+      textNode = document.createTextNode(this.text);
       return this.node = dom(this.node).replace(textNode);
     } else {
       return dom(this.node).text(this.text);
@@ -5080,7 +5006,7 @@ Leaf = (function(_super) {
     if (dom(this.node).isTextNode()) {
       dom(this.node).text(this.text);
     } else {
-      textNode = this.node.ownerDocument.createTextNode(text);
+      textNode = document.createTextNode(text);
       if (this.node.tagName === dom.DEFAULT_BREAK_TAG) {
         this.node = dom(this.node).replace(textNode);
       } else {
@@ -5099,33 +5025,33 @@ module.exports = Leaf;
 
 
 
-},{"../lib/dom":21,"../lib/linked-list":22,"./format":14,"lodash":"M4+//f"}],16:[function(_dereq_,module,exports){
+},{"../lib/dom":19,"../lib/linked-list":20,"./format":13,"lodash":1}],15:[function(require,module,exports){
 var Delta, Format, Leaf, Line, LinkedList, Normalizer, dom, _,
   __hasProp = {}.hasOwnProperty,
   __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
 
-_ = _dereq_('lodash');
+_ = require('lodash');
 
-Delta = _dereq_('rich-text').Delta;
+Delta = require('rich-text').Delta;
 
-dom = _dereq_('../lib/dom');
+dom = require('../lib/dom');
 
-Format = _dereq_('./format');
+Format = require('./format');
 
-Leaf = _dereq_('./leaf');
+Leaf = require('./leaf');
 
-Line = _dereq_('./line');
+Line = require('./line');
 
-LinkedList = _dereq_('../lib/linked-list');
+LinkedList = require('../lib/linked-list');
 
-Normalizer = _dereq_('../lib/normalizer');
+Normalizer = require('../lib/normalizer');
 
 Line = (function(_super) {
   __extends(Line, _super);
 
-  Line.CLASS_NAME = 'line';
+  Line.CLASS_NAME = 'ql-line';
 
-  Line.ID_PREFIX = 'line-';
+  Line.ID_PREFIX = 'ql-line-';
 
   function Line(doc, node) {
     this.doc = doc;
@@ -5285,7 +5211,7 @@ Line = (function(_super) {
         return function(node, value, name) {
           return _this.doc.formats[name].add(node, value);
         };
-      })(this), this.node.ownerDocument.createTextNode(text));
+      })(this), document.createTextNode(text));
       _ref1 = dom(leaf.node).split(leafOffset), prevNode = _ref1[0], nextNode = _ref1[1];
       if (nextNode) {
         nextNode = dom(nextNode).splitAncestors(this.node).get();
@@ -5315,7 +5241,7 @@ Line = (function(_super) {
     }
     this.node = Normalizer.normalizeNode(this.node);
     if (dom(this.node).length() === 0 && !this.node.querySelector(dom.DEFAULT_BREAK_TAG)) {
-      this.node.appendChild(this.node.ownerDocument.createElement(dom.DEFAULT_BREAK_TAG));
+      this.node.appendChild(document.createElement(dom.DEFAULT_BREAK_TAG));
     }
     this.leaves = new LinkedList();
     this.formats = _.reduce(this.doc.formats, (function(_this) {
@@ -5342,7 +5268,7 @@ Line = (function(_super) {
     this.outerHTML = this.node.outerHTML;
     this.length = 1;
     this.delta = new Delta();
-    this.leaves.toArray().forEach((function(_this) {
+    _.each(this.leaves.toArray(), (function(_this) {
       return function(leaf) {
         _this.length += leaf.length;
         if (dom.EMBED_TAGS[leaf.node.tagName] != null) {
@@ -5363,206 +5289,23 @@ module.exports = Line;
 
 
 
-},{"../lib/dom":21,"../lib/linked-list":22,"../lib/normalizer":23,"./format":14,"./leaf":15,"./line":16,"lodash":"M4+//f","rich-text":4}],17:[function(_dereq_,module,exports){
-var DEFAULT_STYLES, LIST_STYLES, Normalizer, Renderer, dom, rule, _;
-
-_ = _dereq_('lodash');
-
-dom = _dereq_('../lib/dom');
-
-Normalizer = _dereq_('../lib/normalizer');
-
-DEFAULT_STYLES = {
-  'html': {
-    'height': '100%',
-    'width': '100%'
-  },
-  'body': {
-    'box-sizing': 'border-box',
-    'cursor': 'text',
-    'font-family': "'Helvetica', 'Arial', sans-serif",
-    'font-size': '13px',
-    'height': '100%',
-    'line-height': '1.42',
-    'margin': '0px',
-    'overflow-x': 'hidden',
-    'overflow-y': 'auto',
-    'padding': '12px 15px'
-  },
-  '.editor-container': {
-    'height': '100%',
-    'outline': 'none',
-    'position': 'relative',
-    'tab-size': '4',
-    'white-space': 'pre-wrap'
-  },
-  '.editor-container div': {
-    'margin': '0',
-    'padding': '0'
-  },
-  '.editor-container a': {
-    'text-decoration': 'underline'
-  },
-  '.editor-container b': {
-    'font-weight': 'bold'
-  },
-  '.editor-container i': {
-    'font-style': 'italic'
-  },
-  '.editor-container s': {
-    'text-decoration': 'line-through'
-  },
-  '.editor-container u': {
-    'text-decoration': 'underline'
-  },
-  '.editor-container img': {
-    'max-width': '100%'
-  },
-  '.editor-container blockquote': {
-    'margin': '0 0 0 2em',
-    'padding': '0'
-  },
-  '.editor-container ol': {
-    'margin': '0 0 0 2em',
-    'padding': '0',
-    'list-style-type': 'decimal'
-  },
-  '.editor-container ul': {
-    'margin': '0 0 0 2em',
-    'padding': '0',
-    'list-style-type': 'disc'
-  }
-};
-
-LIST_STYLES = ['decimal', 'lower-alpha', 'lower-roman'];
-
-rule = '.editor-container ol > li';
-
-_.each([1, 2, 3, 4, 5, 6, 7, 8, 9], function(i) {
-  rule += ' > ol';
-  DEFAULT_STYLES[rule] = {
-    'list-style-type': LIST_STYLES[i % 3]
-  };
-  return rule += ' > li';
-});
-
-if (dom.isIE(10)) {
-  DEFAULT_STYLES[dom.DEFAULT_BREAK_TAG] = {
-    'display': 'none'
-  };
-}
-
-Renderer = (function() {
-  Renderer.objToCss = function(obj) {
-    return _.map(obj, function(value, key) {
-      var innerStr;
-      innerStr = _.map(value, function(innerValue, innerKey) {
-        return "" + innerKey + ": " + innerValue + ";";
-      }).join(' ');
-      return "" + key + " { " + innerStr + " }";
-    }).join("\n");
-  };
-
-  Renderer.buildFrame = function(container) {
-    var iframe, iframeDoc, root;
-    iframe = container.ownerDocument.createElement('iframe');
-    dom(iframe).attributes({
-      frameBorder: '0',
-      height: '100%',
-      width: '100%',
-      title: 'Quill Rich Text Editor',
-      role: 'presentation'
-    });
-    container.appendChild(iframe);
-    iframeDoc = iframe.contentWindow.document;
-    iframeDoc.open();
-    iframeDoc.write('<!DOCTYPE html>');
-    iframeDoc.close();
-    root = iframeDoc.createElement('div');
-    iframeDoc.body.appendChild(root);
-    return [root, iframe];
-  };
-
-  function Renderer(container, options) {
-    var _ref;
-    this.container = container;
-    this.options = options != null ? options : {};
-    this.container.innerHTML = '';
-    _ref = Renderer.buildFrame(this.container), this.root = _ref[0], this.iframe = _ref[1];
-    this.root.setAttribute('id', this.options.id);
-    this.iframe.setAttribute('name', this.options.id);
-    dom(this.root).addClass('editor-container');
-    dom(this.container).addClass('ql-container');
-    if (dom.isIOS()) {
-      dom(this.container).styles({
-        'overflow': 'auto',
-        '-webkit-overflow-scrolling': 'touch'
-      });
-    }
-    this.addStyles(DEFAULT_STYLES);
-    if (this.options.styles != null) {
-      _.defer(_.bind(this.addStyles, this, this.options.styles));
-    }
-  }
-
-  Renderer.prototype.addContainer = function(className, before) {
-    var container, refNode;
-    if (before == null) {
-      before = false;
-    }
-    refNode = before ? this.root : null;
-    container = this.root.ownerDocument.createElement('div');
-    dom(container).addClass(className);
-    this.root.parentNode.insertBefore(container, refNode);
-    return container;
-  };
-
-  Renderer.prototype.addStyles = function(css) {
-    var link, style;
-    if (typeof css === 'object') {
-      style = this.root.ownerDocument.createElement('style');
-      style.type = 'text/css';
-      css = Renderer.objToCss(css);
-      style.appendChild(this.root.ownerDocument.createTextNode(css));
-      return this.root.ownerDocument.head.appendChild(style);
-    } else if (typeof css === 'string') {
-      link = this.root.ownerDocument.createElement('link');
-      dom(link).attributes({
-        type: 'text/css',
-        rel: 'stylesheet',
-        href: css
-      });
-      return this.root.ownerDocument.head.appendChild(link);
-    }
-  };
-
-  return Renderer;
-
-})();
-
-module.exports = Renderer;
-
-
-
-},{"../lib/dom":21,"../lib/normalizer":23,"lodash":"M4+//f"}],18:[function(_dereq_,module,exports){
+},{"../lib/dom":19,"../lib/linked-list":20,"../lib/normalizer":21,"./format":13,"./leaf":14,"./line":15,"lodash":1,"rich-text":3}],16:[function(require,module,exports){
 var Leaf, Normalizer, Range, Selection, dom, _;
 
-_ = _dereq_('lodash');
+_ = require('lodash');
 
-dom = _dereq_('../lib/dom');
+dom = require('../lib/dom');
 
-Leaf = _dereq_('./leaf');
+Leaf = require('./leaf');
 
-Normalizer = _dereq_('../lib/normalizer');
+Normalizer = require('../lib/normalizer');
 
-Range = _dereq_('../lib/range');
+Range = require('../lib/range');
 
 Selection = (function() {
-  function Selection(doc, iframe, emitter) {
+  function Selection(doc, emitter) {
     this.doc = doc;
-    this.iframe = iframe;
     this.emitter = emitter;
-    this.document = this.doc.root.ownerDocument;
     this.focus = false;
     this.range = new Range(0, 0);
     this.nullDelay = false;
@@ -5570,7 +5313,7 @@ Selection = (function() {
   }
 
   Selection.prototype.checkFocus = function() {
-    return this.document.activeElement === this.doc.root && document.activeElement === this.iframe;
+    return document.activeElement === this.doc.root;
   };
 
   Selection.prototype.getRange = function(ignoreFocus) {
@@ -5659,7 +5402,7 @@ Selection = (function() {
   Selection.prototype._decodePosition = function(node, offset) {
     var childIndex;
     if (dom(node).isElement()) {
-      childIndex = _.indexOf(dom(node.parentNode).childNodes(), node);
+      childIndex = dom(node.parentNode).childNodes().indexOf(node);
       offset += childIndex;
       node = node.parentNode;
     }
@@ -5676,7 +5419,7 @@ Selection = (function() {
         offset = 0;
       } else if (node.childNodes.length === 0) {
         if (Normalizer.TAGS[node.tagName] == null) {
-          text = node.ownerDocument.createTextNode('');
+          text = document.createTextNode('');
           node.appendChild(text);
           node = text;
         }
@@ -5698,7 +5441,7 @@ Selection = (function() {
 
   Selection.prototype._getNativeRange = function() {
     var range, selection;
-    selection = this.document.getSelection();
+    selection = document.getSelection();
     if ((selection != null ? selection.rangeCount : void 0) > 0) {
       range = selection.getRangeAt(0);
       if (dom(range.startContainer).isAncestor(this.doc.root, true)) {
@@ -5745,18 +5488,15 @@ Selection = (function() {
 
   Selection.prototype._setNativeRange = function(startNode, startOffset, endNode, endOffset) {
     var nativeRange, selection;
-    selection = this.document.getSelection();
+    selection = document.getSelection();
     if (!selection) {
       return;
     }
     if (startNode != null) {
-      if (!this.checkFocus()) {
-        this.doc.root.focus();
-      }
       nativeRange = this._getNativeRange();
       if ((nativeRange == null) || startNode !== nativeRange.startContainer || startOffset !== nativeRange.startOffset || endNode !== nativeRange.endContainer || endOffset !== nativeRange.endOffset) {
         selection.removeAllRanges();
-        nativeRange = this.document.createRange();
+        nativeRange = document.createRange();
         nativeRange.setStart(startNode, startOffset);
         nativeRange.setEnd(endNode, endOffset);
         selection.addRange(nativeRange);
@@ -5778,37 +5518,37 @@ module.exports = Selection;
 
 
 
-},{"../lib/dom":21,"../lib/normalizer":23,"../lib/range":25,"./leaf":15,"lodash":"M4+//f"}],19:[function(_dereq_,module,exports){
-_dereq_('./modules/authorship');
+},{"../lib/dom":19,"../lib/normalizer":21,"../lib/range":23,"./leaf":14,"lodash":1}],17:[function(require,module,exports){
+require('./modules/authorship');
 
-_dereq_('./modules/image-tooltip');
+require('./modules/image-tooltip');
 
-_dereq_('./modules/keyboard');
+require('./modules/keyboard');
 
-_dereq_('./modules/link-tooltip');
+require('./modules/link-tooltip');
 
-_dereq_('./modules/multi-cursor');
+require('./modules/multi-cursor');
 
-_dereq_('./modules/paste-manager');
+require('./modules/paste-manager');
 
-_dereq_('./modules/toolbar');
+require('./modules/toolbar');
 
-_dereq_('./modules/tooltip');
+require('./modules/tooltip');
 
-_dereq_('./modules/undo-manager');
+require('./modules/undo-manager');
 
-module.exports = _dereq_('./quill');
+module.exports = require('./quill');
 
 
 
-},{"./modules/authorship":26,"./modules/image-tooltip":27,"./modules/keyboard":28,"./modules/link-tooltip":29,"./modules/multi-cursor":30,"./modules/paste-manager":31,"./modules/toolbar":32,"./modules/tooltip":33,"./modules/undo-manager":34,"./quill":35}],20:[function(_dereq_,module,exports){
+},{"./modules/authorship":24,"./modules/image-tooltip":25,"./modules/keyboard":26,"./modules/link-tooltip":27,"./modules/multi-cursor":28,"./modules/paste-manager":29,"./modules/toolbar":30,"./modules/tooltip":31,"./modules/undo-manager":32,"./quill":33}],18:[function(require,module,exports){
 var ColorPicker, Picker, dom,
   __hasProp = {}.hasOwnProperty,
   __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
 
-dom = _dereq_('./dom');
+dom = require('./dom');
 
-Picker = _dereq_('./picker');
+Picker = require('./picker');
 
 ColorPicker = (function(_super) {
   __extends(ColorPicker, _super);
@@ -5833,13 +5573,13 @@ module.exports = ColorPicker;
 
 
 
-},{"./dom":21,"./picker":24}],21:[function(_dereq_,module,exports){
+},{"./dom":19,"./picker":22}],19:[function(require,module,exports){
 var SelectWrapper, Wrapper, dom, lastKeyEvent, _,
   __bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; },
   __hasProp = {}.hasOwnProperty,
   __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
 
-_ = _dereq_('lodash');
+_ = require('lodash');
 
 lastKeyEvent = null;
 
@@ -5924,7 +5664,7 @@ Wrapper = (function() {
     if (this.node.classList != null) {
       return this.node.classList.contains(cssClass);
     } else if (this.node.className != null) {
-      return _.indexOf(this.classes(), cssClass) > -1;
+      return this.classes().indexOf(cssClass) > -1;
     }
     return false;
   };
@@ -5964,7 +5704,7 @@ Wrapper = (function() {
     }
     length = this.text().length;
     if (this.isElement()) {
-      length += this.node.querySelectorAll(_.keys(dom.EMBED_TAGS).join(',')).length;
+      length += this.node.querySelectorAll(Object.keys(dom.EMBED_TAGS).join(',')).length;
     }
     return length;
   };
@@ -6055,7 +5795,7 @@ Wrapper = (function() {
       return this.node.classList.remove(cssClass);
     } else if (this.node.className != null) {
       classArray = this.classes();
-      classArray.splice(_.indexOf(classArray, cssClass), 1);
+      classArray.splice(classArray.indexOf(cssClass), 1);
       this.node.className = classArray.join(' ');
     }
     return this;
@@ -6159,7 +5899,7 @@ Wrapper = (function() {
     if (this.node.tagName === newTag) {
       return this;
     }
-    newNode = this.node.ownerDocument.createElement(newTag);
+    newNode = document.createElement(newTag);
     attributes = this.attributes();
     if (dom.VOID_TAGS[newTag] == null) {
       this.moveChildren(newNode);
@@ -6201,7 +5941,7 @@ Wrapper = (function() {
 
   Wrapper.prototype.textNodes = function() {
     var textNode, textNodes, walker;
-    walker = this.node.ownerDocument.createTreeWalker(this.node, NodeFilter.SHOW_TEXT, null, false);
+    walker = document.createTreeWalker(this.node, NodeFilter.SHOW_TEXT, null, false);
     textNodes = [];
     while (textNode = walker.nextNode()) {
       textNodes.push(textNode);
@@ -6226,11 +5966,11 @@ Wrapper = (function() {
     if (options == null) {
       options = {};
     }
-    if (_.indexOf(['keypress', 'keydown', 'keyup'], eventName) < 0) {
-      event = this.node.ownerDocument.createEvent('Event');
+    if (['keypress', 'keydown', 'keyup'].indexOf(eventName) < 0) {
+      event = document.createEvent('Event');
       event.initEvent(eventName, options.bubbles, options.cancelable);
     } else {
-      event = this.node.ownerDocument.createEvent('KeyboardEvent');
+      event = document.createEvent('KeyboardEvent');
       lastKeyEvent = _.clone(options);
       if (_.isNumber(options.key)) {
         lastKeyEvent.which = options.key;
@@ -6253,10 +5993,10 @@ Wrapper = (function() {
         if (options.shiftKey) {
           modifiers.push('Shift');
         }
-        event.initKeyboardEvent(eventName, options.bubbles, options.cancelable, this.window(), 0, 0, modifiers.join(' '), null, null);
+        event.initKeyboardEvent(eventName, options.bubbles, options.cancelable, window, 0, 0, modifiers.join(' '), null, null);
       } else {
         initFn = _.isFunction(event.initKeyboardEvent) ? 'initKeyboardEvent' : 'initKeyEvent';
-        event[initFn](eventName, options.bubbles, options.cancelable, this.window(), options.ctrlKey, options.altKey, options.shiftKey, options.metaKey, 0, 0);
+        event[initFn](eventName, options.bubbles, options.cancelable, window, options.ctrlKey, options.altKey, options.shiftKey, options.metaKey, 0, 0);
       }
     }
     this.node.dispatchEvent(event);
@@ -6275,10 +6015,6 @@ Wrapper = (function() {
     })(this));
     this.remove();
     return ret;
-  };
-
-  Wrapper.prototype.window = function() {
-    return this.node.ownerDocument.defaultView || this.node.ownerDocument.parentWindow;
   };
 
   Wrapper.prototype.wrap = function(wrapper) {
@@ -6470,10 +6206,10 @@ dom = _.extend(dom, {
   convertFontSize: function(size) {
     var i, s, sources, targets;
     if (_.isString(size) && size.indexOf('px') > -1) {
-      sources = _.keys(dom.FONT_SIZES);
+      sources = Object.keys(dom.FONT_SIZES);
       targets = _.values(dom.FONT_SIZES);
     } else {
-      targets = _.keys(dom.FONT_SIZES);
+      targets = Object.keys(dom.FONT_SIZES);
       sources = _.values(dom.FONT_SIZES);
     }
     for (i in sources) {
@@ -6501,7 +6237,7 @@ module.exports = dom;
 
 
 
-},{"lodash":"M4+//f"}],22:[function(_dereq_,module,exports){
+},{"lodash":1}],20:[function(require,module,exports){
 var LinkedList, Node;
 
 Node = (function() {
@@ -6593,12 +6329,12 @@ module.exports = LinkedList;
 
 
 
-},{}],23:[function(_dereq_,module,exports){
+},{}],21:[function(require,module,exports){
 var Normalizer, dom, _;
 
-_ = _dereq_('lodash');
+_ = require('lodash');
 
-dom = _dereq_('./dom');
+dom = require('./dom');
 
 Normalizer = {
   ALIASES: {
@@ -6631,7 +6367,10 @@ Normalizer = {
     'IMG': 'IMG',
     'OL': 'OL',
     'UL': 'UL',
-    'LI': 'LI'
+    'LI': 'LI',
+    'H1': 'H1',
+    'H2': 'H2',
+    'H3': 'H3'
   },
   handleBreaks: function(lineNode) {
     var breaks;
@@ -6751,8 +6490,8 @@ Normalizer = {
     styles = _.omit(original, function(value, key) {
       return Normalizer.STYLES[key] == null;
     });
-    if (_.keys(styles).length < _.keys(original).length) {
-      if (_.keys(styles).length > 0) {
+    if (Object.keys(styles).length < Object.keys(original).length) {
+      if (Object.keys(styles).length > 0) {
         return dom(node).styles(styles, true);
       } else {
         return node.removeAttribute('style');
@@ -6781,7 +6520,7 @@ Normalizer = {
     if (dom.BLOCK_TAGS[lineNode.tagName] != null) {
       return lineNode;
     }
-    blockNode = lineNode.ownerDocument.createElement(dom.DEFAULT_BLOCK_TAG);
+    blockNode = document.createElement(dom.DEFAULT_BLOCK_TAG);
     lineNode.parentNode.insertBefore(blockNode, lineNode);
     while ((lineNode != null) && (dom.BLOCK_TAGS[lineNode.tagName] == null)) {
       nextNode = lineNode.nextSibling;
@@ -6805,26 +6544,26 @@ module.exports = Normalizer;
 
 
 
-},{"./dom":21,"lodash":"M4+//f"}],24:[function(_dereq_,module,exports){
+},{"./dom":19,"lodash":1}],22:[function(require,module,exports){
 var Normalizer, Picker, dom, _;
 
-_ = _dereq_('lodash');
+_ = require('lodash');
 
-dom = _dereq_('./dom');
+dom = require('./dom');
 
-Normalizer = _dereq_('./normalizer');
+Normalizer = require('./normalizer');
 
 Picker = (function() {
   Picker.TEMPLATE = '<span class="ql-picker-label"></span><span class="ql-picker-options"></span>';
 
   function Picker(select) {
     this.select = select;
-    this.container = this.select.ownerDocument.createElement('span');
+    this.container = document.createElement('span');
     this.buildPicker();
     dom(this.container).addClass('ql-picker');
     this.select.style.display = 'none';
     this.select.parentNode.insertBefore(this.container, this.select);
-    dom(this.select.ownerDocument).on('click', (function(_this) {
+    dom(document).on('click', (function(_this) {
       return function() {
         _this.close();
         return true;
@@ -6853,7 +6592,7 @@ Picker = (function() {
 
   Picker.prototype.buildItem = function(picker, option, index) {
     var item;
-    item = this.select.ownerDocument.createElement('span');
+    item = document.createElement('span');
     item.setAttribute('data-value', option.getAttribute('value'));
     dom(item).addClass('ql-picker-item').text(dom(option).text()).on('click', (function(_this) {
       return function() {
@@ -6916,10 +6655,10 @@ module.exports = Picker;
 
 
 
-},{"./dom":21,"./normalizer":23,"lodash":"M4+//f"}],25:[function(_dereq_,module,exports){
+},{"./dom":19,"./normalizer":21,"lodash":1}],23:[function(require,module,exports){
 var Range, _;
 
-_ = _dereq_('lodash');
+_ = require('lodash');
 
 Range = (function() {
   Range.compare = function(r1, r2) {
@@ -6970,10 +6709,10 @@ module.exports = Range;
 
 
 
-},{"lodash":"M4+//f"}],26:[function(_dereq_,module,exports){
+},{"lodash":1}],24:[function(require,module,exports){
 var Authorship, Delta, Quill, dom, _;
 
-Quill = _dereq_('../quill');
+Quill = require('../quill');
 
 _ = Quill.require('lodash');
 
@@ -7071,14 +6810,14 @@ module.exports = Authorship;
 
 
 
-},{"../quill":35}],27:[function(_dereq_,module,exports){
+},{"../quill":33}],25:[function(require,module,exports){
 var Delta, ImageTooltip, Quill, Tooltip, dom, _,
   __hasProp = {}.hasOwnProperty,
   __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
 
-Quill = _dereq_('../quill');
+Quill = require('../quill');
 
-Tooltip = _dereq_('./tooltip');
+Tooltip = require('./tooltip');
 
 _ = Quill.require('lodash');
 
@@ -7090,66 +6829,17 @@ ImageTooltip = (function(_super) {
   __extends(ImageTooltip, _super);
 
   ImageTooltip.DEFAULTS = {
-    styles: {
-      '.image-tooltip-container': {
-        'margin': '25px',
-        'padding': '10px',
-        'width': '300px'
-      },
-      '.image-tooltip-container:after': {
-        'clear': 'both',
-        'content': '""',
-        'display': 'table'
-      },
-      '.image-tooltip-container .preview': {
-        'margin': '10px 0px',
-        'position': 'relative',
-        'border': '1px dashed #000',
-        'height': '200px'
-      },
-      '.image-tooltip-container .preview span': {
-        'display': 'inline-block',
-        'position': 'absolute',
-        'text-align': 'center',
-        'top': '40%',
-        'width': '100%'
-      },
-      '.image-tooltip-container img': {
-        'bottom': '0',
-        'left': '0',
-        'margin': 'auto',
-        'max-height': '100%',
-        'max-width': '100%',
-        'position': 'absolute',
-        'right': '0',
-        'top': '0'
-      },
-      '.image-tooltip-container .input': {
-        'box-sizing': 'border-box',
-        'width': '100%'
-      },
-      '.image-tooltip-container a': {
-        'border': '1px solid black',
-        'box-sizing': 'border-box',
-        'display': 'inline-block',
-        'float': 'left',
-        'padding': '5px',
-        'text-align': 'center',
-        'width': '50%'
-      }
-    },
     template: '<input class="input" type="textbox"> <div class="preview"> <span>Preview</span> </div> <a href="javascript:;" class="cancel">Cancel</a> <a href="javascript:;" class="insert">Insert</a>'
   };
 
   function ImageTooltip(quill, options) {
     this.quill = quill;
     this.options = options;
-    this.options.styles = _.defaults(this.options.styles, Tooltip.DEFAULTS.styles);
     this.options = _.defaults(this.options, Tooltip.DEFAULTS);
     ImageTooltip.__super__.constructor.call(this, this.quill, this.options);
     this.preview = this.container.querySelector('.preview');
     this.textbox = this.container.querySelector('.input');
-    dom(this.container).addClass('image-tooltip-container');
+    dom(this.container).addClass('ql-image-tooltip');
     this.initListeners();
   }
 
@@ -7206,7 +6896,7 @@ ImageTooltip = (function(_super) {
     if (this.preview.firstChild.tagName === 'IMG') {
       return this.preview.firstChild.setAttribute('src', this.textbox.value);
     } else {
-      img = this.preview.ownerDocument.createElement('img');
+      img = document.createElement('img');
       img.setAttribute('src', this.textbox.value);
       return this.preview.replaceChild(img, this.preview.firstChild);
     }
@@ -7233,10 +6923,10 @@ module.exports = ImageTooltip;
 
 
 
-},{"../quill":35,"./tooltip":33}],28:[function(_dereq_,module,exports){
+},{"../quill":33,"./tooltip":31}],26:[function(require,module,exports){
 var Delta, Keyboard, Quill, dom, _;
 
-Quill = _dereq_('../quill');
+Quill = require('../quill');
 
 _ = Quill.require('lodash');
 
@@ -7276,7 +6966,7 @@ Keyboard = (function() {
   }
 
   Keyboard.prototype.addHotkey = function(hotkeys, callback) {
-    if (!_.isArray(hotkeys)) {
+    if (!Array.isArray(hotkeys)) {
       hotkeys = [hotkeys];
     }
     return _.each(hotkeys, (function(_this) {
@@ -7392,14 +7082,14 @@ module.exports = Keyboard;
 
 
 
-},{"../quill":35}],29:[function(_dereq_,module,exports){
+},{"../quill":33}],27:[function(require,module,exports){
 var LinkTooltip, Quill, Tooltip, dom, _,
   __hasProp = {}.hasOwnProperty,
   __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
 
-Quill = _dereq_('../quill');
+Quill = require('../quill');
 
-Tooltip = _dereq_('./tooltip');
+Tooltip = require('./tooltip');
 
 _ = Quill.require('lodash');
 
@@ -7410,30 +7100,15 @@ LinkTooltip = (function(_super) {
 
   LinkTooltip.DEFAULTS = {
     maxLength: 50,
-    styles: {
-      '.link-tooltip-container': {
-        'padding': '5px 10px'
-      },
-      '.link-tooltip-container input.input': {
-        'width': '170px'
-      },
-      '.link-tooltip-container input.input, .link-tooltip-container a.done, .link-tooltip-container.editing a.url, .link-tooltip-container.editing a.change': {
-        'display': 'none'
-      },
-      '.link-tooltip-container.editing input.input, .link-tooltip-container.editing a.done': {
-        'display': 'inline-block'
-      }
-    },
     template: '<span class="title">Visit URL:&nbsp;</span> <a href="#" class="url" target="_blank" href="about:blank"></a> <input class="input" type="text"> <span>&nbsp;&#45;&nbsp;</span> <a href="javascript:;" class="change">Change</a> <a href="javascript:;" class="done">Done</a>'
   };
 
   function LinkTooltip(quill, options) {
     this.quill = quill;
     this.options = options;
-    this.options.styles = _.defaults(this.options.styles, Tooltip.DEFAULTS.styles);
     this.options = _.defaults(this.options, Tooltip.DEFAULTS);
     LinkTooltip.__super__.constructor.call(this, this.quill, this.options);
-    dom(this.container).addClass('link-tooltip-container');
+    dom(this.container).addClass('ql-link-tooltip');
     this.textbox = this.container.querySelector('.input');
     this.link = this.container.querySelector('.url');
     this.initListeners();
@@ -7559,14 +7234,14 @@ module.exports = LinkTooltip;
 
 
 
-},{"../quill":35,"./tooltip":33}],30:[function(_dereq_,module,exports){
+},{"../quill":33,"./tooltip":31}],28:[function(require,module,exports){
 var EventEmitter2, MultiCursor, Quill, dom, _,
   __hasProp = {}.hasOwnProperty,
   __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
 
-Quill = _dereq_('../quill');
+Quill = require('../quill');
 
-EventEmitter2 = _dereq_('eventemitter2').EventEmitter2;
+EventEmitter2 = require('eventemitter2').EventEmitter2;
 
 _ = Quill.require('lodash');
 
@@ -7590,49 +7265,12 @@ MultiCursor = (function(_super) {
     this.quill = quill;
     this.options = options;
     this.cursors = {};
-    this.container = this.quill.addContainer('cursor-container', true);
-    this.quill.addStyles({
-      '.cursor-container': {
-        'position': 'absolute',
-        'left': '0',
-        'top': '0',
-        'z-index': '1000'
-      },
-      '.cursor': {
-        'margin-left': '-1px',
-        'position': 'absolute'
-      },
-      '.cursor-flag': {
-        'bottom': '100%',
-        'position': 'absolute',
-        'white-space': 'nowrap'
-      },
-      '.cursor-name': {
-        'display': 'inline-block',
-        'color': 'white',
-        'padding': '2px 8px'
-      },
-      '.cursor-caret': {
-        'height': '100%',
-        'position': 'absolute',
-        'width': '2px'
-      },
-      '.cursor.hidden .cursor-flag': {
-        'display': 'none'
-      },
-      '.cursor.top > .cursor-flag': {
-        'bottom': 'auto',
-        'top': '100%'
-      },
-      '.cursor.right > .cursor-flag': {
-        'right': '-2px'
-      }
-    });
+    this.container = this.quill.addContainer('ql-multi-cursor', true);
     this.quill.on(this.quill.constructor.events.TEXT_CHANGE, _.bind(this._applyDelta, this));
   }
 
   MultiCursor.prototype.clearCursors = function() {
-    _.each(_.keys(this.cursors), _.bind(this.removeCursor, this));
+    _.each(Object.keys(this.cursors), _.bind(this.removeCursor, this));
     return this.cursors = {};
   };
 
@@ -7731,7 +7369,7 @@ MultiCursor = (function(_super) {
 
   MultiCursor.prototype._buildCursor = function(name, color) {
     var cursor, cursorCaret, cursorFlag, cursorName;
-    cursor = this.container.ownerDocument.createElement('span');
+    cursor = document.createElement('span');
     dom(cursor).addClass('cursor');
     cursor.innerHTML = this.options.template;
     cursorFlag = cursor.querySelector('.cursor-flag');
@@ -7744,14 +7382,14 @@ MultiCursor = (function(_super) {
   };
 
   MultiCursor.prototype._moveCursor = function(cursor, reference, side) {
-    var bounds, flag, win;
+    var bounds, flag, parentBounds;
     if (side == null) {
       side = 'left';
     }
-    win = dom(reference).window();
     bounds = reference.getBoundingClientRect();
-    cursor.elem.style.top = bounds.top + win.pageYOffset + 'px';
-    cursor.elem.style.left = bounds[side] + 'px';
+    parentBounds = this.quill.container.getBoundingClientRect();
+    cursor.elem.style.top = (bounds.top - parentBounds.top + this.quill.container.scrollTop) + 'px';
+    cursor.elem.style.left = bounds[side] - parentBounds[side] + 'px';
     cursor.elem.style.height = bounds.height + 'px';
     flag = cursor.elem.querySelector('.cursor-flag');
     dom(cursor.elem).toggleClass('top', parseInt(cursor.elem.style.top) <= flag.offsetHeight).toggleClass('left', parseInt(cursor.elem.style.left) <= flag.offsetWidth).toggleClass('right', this.quill.root.offsetWidth - parseInt(cursor.elem.style.left) <= flag.offsetWidth);
@@ -7762,7 +7400,7 @@ MultiCursor = (function(_super) {
     var didSplit, guide, leaf, leftNode, offset, rightNode, _ref, _ref1;
     this.quill.editor.checkUpdate();
     _ref = this.quill.editor.doc.findLeafAt(cursor.index, true), leaf = _ref[0], offset = _ref[1];
-    guide = this.container.ownerDocument.createElement('span');
+    guide = document.createElement('span');
     if (leaf != null) {
       _ref1 = dom(leaf.node).split(offset), leftNode = _ref1[0], rightNode = _ref1[1], didSplit = _ref1[2];
       dom(guide).text(dom.ZERO_WIDTH_NOBREAK_SPACE);
@@ -7789,12 +7427,12 @@ module.exports = MultiCursor;
 
 
 
-},{"../quill":35,"eventemitter2":3}],31:[function(_dereq_,module,exports){
+},{"../quill":33,"eventemitter2":2}],29:[function(require,module,exports){
 var Delta, Document, PasteManager, Quill, dom, _;
 
-Quill = _dereq_('../quill');
+Quill = require('../quill');
 
-Document = _dereq_('../core/document');
+Document = require('../core/document');
 
 _ = Quill.require('lodash');
 
@@ -7806,34 +7444,23 @@ PasteManager = (function() {
   function PasteManager(quill, options) {
     this.quill = quill;
     this.options = options;
-    this.container = this.quill.addContainer('paste-container');
+    this.container = this.quill.addContainer('ql-paste-manager');
     this.container.setAttribute('contenteditable', true);
-    this.quill.addStyles({
-      '.paste-container': {
-        'left': '-10000px',
-        'position': 'absolute',
-        'top': '50%'
-      }
-    });
     dom(this.quill.root).on('paste', _.bind(this._paste, this));
   }
 
   PasteManager.prototype._paste = function() {
-    var iframe, iframeScrollY, oldDocLength, range, windowScrollX, windowScrollY;
+    var oldDocLength, range;
     oldDocLength = this.quill.getLength();
     range = this.quill.getSelection();
     if (range == null) {
       return;
     }
     this.container.innerHTML = "";
-    iframe = dom(this.quill.root).window();
-    iframeScrollY = iframe.scrollY;
-    windowScrollX = window.scrollX;
-    windowScrollY = window.scrollY;
     this.container.focus();
     return _.defer((function(_this) {
       return function() {
-        var delta, doc, lengthAdded, line, lineBottom, offset, _ref;
+        var delta, doc, editorBottom, lengthAdded, line, lineBottom, offset, _ref;
         doc = new Document(_this.container, _this.quill.options);
         delta = doc.toDelta();
         lengthAdded = delta.length() - 1;
@@ -7848,11 +7475,10 @@ PasteManager = (function() {
         _this.quill.setSelection(range.start + lengthAdded, range.start + lengthAdded);
         _ref = _this.quill.editor.doc.findLineAt(range.start + lengthAdded), line = _ref[0], offset = _ref[1];
         lineBottom = line.node.offsetTop + line.node.offsetHeight;
-        if (lineBottom > iframeScrollY + _this.quill.root.offsetHeight) {
-          iframeScrollY = line.node.offsetTop - _this.quill.root.offsetHeight / 2;
+        editorBottom = _this.quill.container.scrollTop + _this.quill.container.offsetHeight;
+        if (lineBottom > editorBottom) {
+          return line.node.scrollIntoView(false);
         }
-        iframe.scrollTo(0, iframeScrollY);
-        return window.scrollTo(windowScrollX, windowScrollY);
       };
     })(this));
   };
@@ -7867,10 +7493,10 @@ module.exports = PasteManager;
 
 
 
-},{"../core/document":12,"../quill":35}],32:[function(_dereq_,module,exports){
+},{"../core/document":11,"../quill":33}],30:[function(require,module,exports){
 var Quill, Toolbar, dom, _;
 
-Quill = _dereq_('../quill');
+Quill = require('../quill');
 
 _ = Quill.require('lodash');
 
@@ -7885,7 +7511,10 @@ Toolbar = (function() {
     LINE: {
       'align': 'align',
       'bullet': 'bullet',
-      'list': 'list'
+      'list': 'list',
+      'firstheader': 'firstheader',
+      'secondheader': 'secondheader',
+      'thirdheader': 'thirdheader'
     },
     SELECT: {
       'align': 'align',
@@ -7902,7 +7531,10 @@ Toolbar = (function() {
       'link': 'link',
       'list': 'list',
       'strike': 'strike',
-      'underline': 'underline'
+      'underline': 'underline',
+      'firstheader': 'firstheader',
+      'secondheader': 'secondheader',
+      'thirdheader': 'thirdheader'
     },
     TOOLTIP: {
       'image': 'image',
@@ -7957,7 +7589,7 @@ Toolbar = (function() {
         });
       };
     })(this));
-    dom(this.container).addClass('ql-toolbar-container');
+    dom(this.container).addClass('ql-toolbar');
     if (dom.isIOS()) {
       dom(this.container).addClass('ios');
     }
@@ -8013,14 +7645,14 @@ Toolbar = (function() {
       if (value == null) {
         value = (_ref = $input["default"]()) != null ? _ref.value : void 0;
       }
-      if (_.isArray(value)) {
+      if (Array.isArray(value)) {
         value = '';
       }
       if (value !== selectValue) {
         if (value != null) {
-          $input.option(value, false);
+          $input.option(value);
         } else {
-          $input.reset(false);
+          $input.reset();
         }
       }
       return this.triggering = false;
@@ -8041,7 +7673,7 @@ Toolbar = (function() {
     activeFormats = this._getActive(range);
     return _.each(this.inputs, (function(_this) {
       return function(input, format) {
-        if (!_.isArray(formats) || formats.indexOf(format) > -1) {
+        if (!Array.isArray(formats) || formats.indexOf(format) > -1) {
           _this.setActive(format, activeFormats[format]);
         }
         return true;
@@ -8090,15 +7722,15 @@ Toolbar = (function() {
   Toolbar.prototype._intersectFormats = function(formatsArr) {
     return _.reduce(formatsArr.slice(1), function(activeFormats, formats) {
       var activeKeys, added, formatKeys, intersection, missing;
-      activeKeys = _.keys(activeFormats);
-      formatKeys = _.keys(formats);
+      activeKeys = Object.keys(activeFormats);
+      formatKeys = formats != null ? Object.keys(formats) : {};
       intersection = _.intersection(activeKeys, formatKeys);
       missing = _.difference(activeKeys, formatKeys);
       added = _.difference(formatKeys, activeKeys);
       _.each(intersection, function(name) {
         if (Toolbar.formats.SELECT[name] != null) {
-          if (_.isArray(activeFormats[name])) {
-            if (_.indexOf(activeFormats[name], formats[name]) < 0) {
+          if (Array.isArray(activeFormats[name])) {
+            if (activeFormats[name].indexOf(formats[name]) < 0) {
               return activeFormats[name].push(formats[name]);
             }
           } else if (activeFormats[name] !== formats[name]) {
@@ -8109,7 +7741,7 @@ Toolbar = (function() {
       _.each(missing, function(name) {
         if (Toolbar.formats.TOGGLE[name] != null) {
           return delete activeFormats[name];
-        } else if ((Toolbar.formats.SELECT[name] != null) && !_.isArray(activeFormats[name])) {
+        } else if ((Toolbar.formats.SELECT[name] != null) && !Array.isArray(activeFormats[name])) {
           return activeFormats[name] = [activeFormats[name]];
         }
       });
@@ -8132,12 +7764,12 @@ module.exports = Toolbar;
 
 
 
-},{"../quill":35}],33:[function(_dereq_,module,exports){
+},{"../quill":33}],31:[function(require,module,exports){
 var Normalizer, Quill, Tooltip, dom, _;
 
-Quill = _dereq_('../quill');
+Quill = require('../quill');
 
-Normalizer = _dereq_('../lib/normalizer');
+Normalizer = require('../lib/normalizer');
 
 _ = Quill.require('lodash');
 
@@ -8146,19 +7778,6 @@ dom = Quill.require('dom');
 Tooltip = (function() {
   Tooltip.DEFAULTS = {
     offset: 10,
-    styles: {
-      '.tooltip': {
-        'background-color': '#fff',
-        'border': '1px solid #000',
-        'top': '0px',
-        'white-space': 'nowrap',
-        'z-index': '2000'
-      },
-      '.tooltip a': {
-        'cursor': 'pointer',
-        'text-decoration': 'none'
-      }
-    },
     template: ''
   };
 
@@ -8167,10 +7786,8 @@ Tooltip = (function() {
   function Tooltip(quill, options) {
     this.quill = quill;
     this.options = options;
-    this.quill.addStyles(this.options.styles);
-    this.container = this.quill.addContainer('tooltip');
+    this.container = this.quill.addContainer('ql-tooltip');
     this.container.innerHTML = Normalizer.stripWhitespace(this.options.template);
-    this.container.style.position = 'absolute';
     dom(this.quill.root).on('focus', _.bind(this.hide, this));
     this.hide();
     this.quill.on(this.quill.constructor.events.TEXT_CHANGE, (function(_this) {
@@ -8206,62 +7823,36 @@ Tooltip = (function() {
     return this.range = null;
   };
 
+  Tooltip.prototype.position = function(reference) {
+    var left, offsetBottom, offsetLeft, offsetTop, parentBounds, referenceBounds, top;
+    if (reference != null) {
+      referenceBounds = reference.getBoundingClientRect();
+      parentBounds = this.quill.container.getBoundingClientRect();
+      offsetLeft = referenceBounds.left - parentBounds.left;
+      offsetTop = referenceBounds.top - parentBounds.top;
+      offsetBottom = referenceBounds.bottom - parentBounds.bottom;
+      left = offsetLeft + referenceBounds.width / 2 - this.container.offsetWidth / 2;
+      top = offsetTop + referenceBounds.height + this.options.offset;
+      if (top + this.container.offsetHeight > this.quill.container.offsetHeight) {
+        top = offsetTop - this.container.offsetHeight - this.options.offset;
+      }
+      left = Math.max(0, Math.min(left, this.quill.container.offsetWidth - this.container.offsetWidth));
+      top = Math.max(0, Math.min(top, this.quill.container.offsetHeight - this.container.offsetHeight));
+    } else {
+      left = this.quill.container.offsetWidth / 2 - this.container.offsetWidth / 2;
+      top = this.quill.container.offsetHeight / 2 - this.container.offsetHeight / 2;
+    }
+    top += this.quill.container.scrollTop;
+    return [left, top];
+  };
+
   Tooltip.prototype.show = function(reference) {
-    var left, top, win, _ref, _ref1;
+    var left, top, _ref;
     this.range = this.quill.getSelection();
-    _ref = this._position(reference), left = _ref[0], top = _ref[1];
-    _ref1 = this._limit(left, top), left = _ref1[0], top = _ref1[1];
-    win = dom(this.quill.root).window();
-    left += win.pageXOffset;
-    top += win.pageYOffset;
+    _ref = this.position(reference), left = _ref[0], top = _ref[1];
     this.container.style.left = "" + left + "px";
     this.container.style.top = "" + top + "px";
     return this.container.focus();
-  };
-
-  Tooltip.prototype._getBounds = function() {
-    var bounds, scrollX, scrollY, win;
-    bounds = this.quill.root.getBoundingClientRect();
-    win = dom(this.quill.root).window();
-    scrollX = win.pageXOffset;
-    scrollY = win.pageYOffset;
-    return {
-      left: bounds.left + scrollX,
-      right: bounds.right + scrollX,
-      top: bounds.top + scrollY,
-      bottom: bounds.bottom + scrollY,
-      width: bounds.width,
-      height: bounds.height
-    };
-  };
-
-  Tooltip.prototype._limit = function(left, top) {
-    var editorRect, toolbarRect;
-    editorRect = this._getBounds();
-    toolbarRect = this.container.getBoundingClientRect();
-    left = Math.min(editorRect.right - toolbarRect.width, left);
-    left = Math.max(editorRect.left, left);
-    top = Math.min(editorRect.bottom - toolbarRect.height, top);
-    top = Math.max(editorRect.top, top);
-    return [left, top];
-  };
-
-  Tooltip.prototype._position = function(reference) {
-    var editorRect, left, referenceBounds, toolbarRect, top;
-    toolbarRect = this.container.getBoundingClientRect();
-    editorRect = this._getBounds();
-    if (reference != null) {
-      referenceBounds = reference.getBoundingClientRect();
-      left = referenceBounds.left + referenceBounds.width / 2 - toolbarRect.width / 2;
-      top = referenceBounds.top + referenceBounds.height + this.options.offset;
-      if (top + toolbarRect.height > editorRect.bottom) {
-        top = referenceBounds.top - toolbarRect.height - this.options.offset;
-      }
-    } else {
-      left = editorRect.left + editorRect.width / 2 - toolbarRect.width / 2;
-      top = editorRect.top + editorRect.height / 2 - toolbarRect.height / 2;
-    }
-    return [left, top];
   };
 
   return Tooltip;
@@ -8274,10 +7865,10 @@ module.exports = Tooltip;
 
 
 
-},{"../lib/normalizer":23,"../quill":35}],34:[function(_dereq_,module,exports){
+},{"../lib/normalizer":21,"../quill":33}],32:[function(require,module,exports){
 var Delta, Quill, UndoManager, _;
 
-Quill = _dereq_('../quill');
+Quill = require('../quill');
 
 _ = Quill.require('lodash');
 
@@ -8305,7 +7896,7 @@ UndoManager = (function() {
     this.quill = quill;
     this.options = options != null ? options : {};
     this.lastRecorded = 0;
-    this.emittedDelta = null;
+    this.ignoreChange = false;
     this.clear();
     this.initListeners();
   }
@@ -8314,10 +7905,12 @@ UndoManager = (function() {
     this.quill.onModuleLoad('keyboard', (function(_this) {
       return function(keyboard) {
         keyboard.addHotkey(UndoManager.hotkeys.UNDO, function() {
+          _this.quill.editor.checkUpdate();
           _this.undo();
           return false;
         });
         return keyboard.addHotkey(UndoManager.hotkeys.REDO, function() {
+          _this.quill.editor.checkUpdate();
           _this.redo();
           return false;
         });
@@ -8325,7 +7918,7 @@ UndoManager = (function() {
     })(this));
     return this.quill.on(this.quill.constructor.events.TEXT_CHANGE, (function(_this) {
       return function(delta, origin) {
-        if (_.isEqual(delta, _this.emittedDelta)) {
+        if (_this.ignoreChange) {
           return;
         }
         _this.record(delta, _this.oldDelta);
@@ -8367,6 +7960,7 @@ UndoManager = (function() {
       }
     } catch (_error) {
       ignored = _error;
+      console.warn('Could not record change... clearing undo stack.');
       return this.clear();
     }
   };
@@ -8383,7 +7977,7 @@ UndoManager = (function() {
     var index, lastIndex;
     lastIndex = 0;
     index = 0;
-    delta.ops.forEach(function(op) {
+    _.each(delta.ops, function(op) {
       if (op.insert != null) {
         return lastIndex = Math.max(index + (op.insert.length || 1), lastIndex);
       } else if (op["delete"] != null) {
@@ -8403,9 +7997,9 @@ UndoManager = (function() {
     if (this.stack[source].length > 0) {
       change = this.stack[source].pop();
       this.lastRecorded = 0;
-      this.emittedDelta = change[source];
+      this.ignoreChange = true;
       this.quill.updateContents(change[source], 'user');
-      this.emittedDelta = null;
+      this.ignoreChange = false;
       index = this._getLastChangeIndex(change[source]);
       this.quill.setSelection(index, index);
       this.oldDelta = this.quill.getContents();
@@ -8423,27 +8017,27 @@ module.exports = UndoManager;
 
 
 
-},{"../quill":35}],35:[function(_dereq_,module,exports){
+},{"../quill":33}],33:[function(require,module,exports){
 var Delta, Editor, EventEmitter2, Format, Quill, Range, dom, pkg, _,
   __hasProp = {}.hasOwnProperty,
   __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
   __slice = [].slice;
 
-_ = _dereq_('lodash');
+_ = require('lodash');
 
-pkg = _dereq_('../package.json');
+pkg = require('../package.json');
 
-Delta = _dereq_('rich-text').Delta;
+Delta = require('rich-text').Delta;
 
-EventEmitter2 = _dereq_('eventemitter2').EventEmitter2;
+EventEmitter2 = require('eventemitter2').EventEmitter2;
 
-dom = _dereq_('./lib/dom');
+dom = require('./lib/dom');
 
-Editor = _dereq_('./core/editor');
+Editor = require('./core/editor');
 
-Format = _dereq_('./core/format');
+Format = require('./core/format');
 
-Range = _dereq_('./lib/range');
+Range = require('./lib/range');
 
 Quill = (function(_super) {
   __extends(Quill, _super);
@@ -8457,7 +8051,7 @@ Quill = (function(_super) {
   Quill.themes = [];
 
   Quill.DEFAULTS = {
-    formats: ['align', 'bold', 'italic', 'strike', 'underline', 'color', 'background', 'font', 'size', 'link', 'image', 'bullet', 'list'],
+    formats: ['firstheader', 'secondheader', 'thirdheader', 'align', 'bold', 'italic', 'strike', 'underline', 'color', 'background', 'font', 'size', 'link', 'image', 'bullet', 'list'],
     modules: {
       'keyboard': true,
       'paste-manager': true,
@@ -8465,7 +8059,8 @@ Quill = (function(_super) {
     },
     pollInterval: 100,
     readOnly: false,
-    theme: 'default'
+    styles: {},
+    theme: 'base'
   };
 
   Quill.events = {
@@ -8507,24 +8102,26 @@ Quill = (function(_super) {
 
   function Quill(container, options) {
     var html, moduleOptions, themeClass;
+    this.container = container;
     if (options == null) {
       options = {};
     }
-    if (_.isString(container)) {
-      container = document.querySelector(container);
+    if (_.isString(this.container)) {
+      this.container = document.querySelector(container);
     }
-    if (container == null) {
+    if (this.container == null) {
       throw new Error('Invalid Quill container');
     }
     moduleOptions = _.defaults(options.modules || {}, Quill.DEFAULTS.modules);
-    html = container.innerHTML;
+    html = this.container.innerHTML;
+    this.container.innerHTML = '';
     this.options = _.defaults(options, Quill.DEFAULTS);
     this.options.modules = moduleOptions;
-    this.options.id = this.id = "quill-" + (Quill.editors.length + 1);
+    this.options.id = this.id = "ql-editor-" + (Quill.editors.length + 1);
     this.options.emitter = this;
     this.modules = {};
-    this.editor = new Editor(container, this, this.options);
-    this.root = this.editor.doc.root;
+    this.root = this.addContainer('ql-editor');
+    this.editor = new Editor(this.root, this, this.options);
     Quill.editors.push(this);
     this.setHTML(html, Quill.sources.SILENT);
     themeClass = Quill.themes[this.options.theme];
@@ -8540,10 +8137,15 @@ Quill = (function(_super) {
   }
 
   Quill.prototype.addContainer = function(className, before) {
+    var container, refNode;
     if (before == null) {
       before = false;
     }
-    return this.editor.renderer.addContainer(className, before);
+    refNode = before ? this.root : null;
+    container = document.createElement('div');
+    dom(container).addClass(className);
+    this.container.insertBefore(container, refNode);
+    return container;
   };
 
   Quill.prototype.addFormat = function(name, format) {
@@ -8565,8 +8167,8 @@ Quill = (function(_super) {
     return this.modules[name];
   };
 
-  Quill.prototype.addStyles = function(styles) {
-    return this.editor.renderer.addStyles(styles);
+  Quill.prototype.addStyles = function(css) {
+    return this.theme.addStyles(css);
   };
 
   Quill.prototype.deleteText = function(start, end, source) {
@@ -8714,9 +8316,13 @@ Quill = (function(_super) {
     if (source == null) {
       source = Quill.sources.API;
     }
-    if (_.isArray(delta)) {
+    if (Array.isArray(delta)) {
       delta = {
-        ops: delta
+        ops: delta.slice()
+      };
+    } else {
+      delta = {
+        ops: delta.ops.slice()
       };
     }
     delta.ops.unshift({
@@ -8778,48 +8384,80 @@ Quill = (function(_super) {
 
 })(EventEmitter2);
 
-Quill.registerTheme('default', _dereq_('./themes/default'));
+Quill.registerTheme('base', require('./themes/base'));
 
-Quill.registerTheme('snow', _dereq_('./themes/snow'));
+Quill.registerTheme('snow', require('./themes/snow'));
 
 module.exports = Quill;
 
 
 
-},{"../package.json":11,"./core/editor":13,"./core/format":14,"./lib/dom":21,"./lib/range":25,"./themes/default":36,"./themes/snow":37,"eventemitter2":3,"lodash":"M4+//f","rich-text":4}],36:[function(_dereq_,module,exports){
-var DefaultTheme;
+},{"../package.json":10,"./core/editor":12,"./core/format":13,"./lib/dom":19,"./lib/range":23,"./themes/base":35,"./themes/snow":36,"eventemitter2":2,"lodash":1,"rich-text":3}],34:[function(require,module,exports){
+module.exports = ".ql-image-tooltip{padding:10px;width:300px}.ql-image-tooltip:after{clear:both;content:\"\";display:table}.ql-image-tooltip a{border:1px solid #000;box-sizing:border-box;display:inline-block;float:left;padding:5px;text-align:center;width:50%}.ql-image-tooltip img{bottom:0;left:0;margin:auto;max-height:100%;max-width:100%;position:absolute;right:0;top:0}.ql-image-tooltip .input{box-sizing:border-box;width:100%}.ql-image-tooltip .preview{margin:10px 0;position:relative;border:1px dashed #000;height:200px}.ql-image-tooltip .preview span{display:inline-block;position:absolute;text-align:center;top:40%;width:100%}.ql-link-tooltip{padding:5px 10px}.ql-link-tooltip input.input{width:170px}.ql-link-tooltip a.done,.ql-link-tooltip input.input{display:none}.ql-link-tooltip.editing a.done,.ql-link-tooltip.editing input.input{display:inline-block}.ql-link-tooltip.editing a.change,.ql-link-tooltip.editing a.url{display:none}.ql-multi-cursor{position:absolute;left:0;top:0;z-index:1000}.ql-multi-cursor .cursor{margin-left:-1px;position:absolute}.ql-multi-cursor .cursor-flag{bottom:100%;position:absolute;white-space:nowrap}.ql-multi-cursor .cursor-name{display:inline-block;color:#fff;padding:2px 8px}.ql-multi-cursor .cursor-caret{height:100%;position:absolute;width:2px}.ql-multi-cursor .cursor.hidden .cursor-flag{display:none}.ql-multi-cursor .cursor.top .cursor-flag{bottom:auto;top:100%}.ql-multi-cursor .cursor.right .cursor-flag{right:-2px}.ql-paste-manager{left:-10000px;position:absolute;top:50%}.ql-toolbar{box-sizing:border-box}.ql-tooltip{background-color:#fff;border:1px solid #000;box-sizing:border-box;position:absolute;top:0;white-space:nowrap;z-index:2000}.ql-tooltip a{cursor:pointer;text-decoration:none}.ql-container{box-sizing:border-box;cursor:text;font-family:Helvetica,Arial,sans-serif;font-size:13px;height:100%;line-height:1.42;margin:0;overflow-x:hidden;overflow-y:auto;position:relative}.ql-editor{box-sizing:border-box;min-height:100%;outline:0;padding:12px 15px;tab-size:4;white-space:pre-wrap}.ql-editor div{margin:0;padding:0}.ql-editor a{text-decoration:underline}.ql-editor b{font-weight:700}.ql-editor i{font-style:italic}.ql-editor s{text-decoration:line-through}.ql-editor u{text-decoration:underline}.ql-editor img{max-width:100%}.ql-editor blockquote,.ql-editor ol,.ql-editor ul{margin:0 0 0 2em;padding:0}.ql-editor ol{list-style-type:decimal}.ql-editor ul{list-style-type:disc}.ql-editor h1{font-weight:700;font-size:2em}.ql-editor h2{font-weight:700;font-size:1.75em}.ql-editor h3{font-weight:700;font-size:1.5em}";
+},{}],35:[function(require,module,exports){
+var BaseTheme, baseStyles, dom, _;
 
-DefaultTheme = (function() {
-  DefaultTheme.OPTIONS = {};
+_ = require('lodash');
 
-  function DefaultTheme(quill) {
+dom = require('../../lib/dom');
+
+baseStyles = require('./base.styl');
+
+BaseTheme = (function() {
+  BaseTheme.OPTIONS = {};
+
+  BaseTheme.objToCss = function(obj) {
+    return _.map(obj, function(value, key) {
+      var innerStr;
+      innerStr = _.map(value, function(innerValue, innerKey) {
+        return "" + innerKey + ": " + innerValue + ";";
+      }).join(' ');
+      return "" + key + " { " + innerStr + " }";
+    }).join("\n");
+  };
+
+  function BaseTheme(quill, options) {
     this.quill = quill;
-    this.editor = this.quill.editor;
-    this.editorContainer = this.editor.root;
+    this.options = options;
+    dom(this.quill.root.parentNode).addClass('ql-container');
+    if (this.options.styles) {
+      this.addStyles(baseStyles + BaseTheme.objToCss(this.options.styles));
+    }
   }
 
-  return DefaultTheme;
+  BaseTheme.prototype.addStyles = function(css) {
+    var style;
+    if (_.isObject(css)) {
+      css = BaseTheme.objToCss(css);
+    }
+    style = document.createElement('style');
+    style.type = 'text/css';
+    style.appendChild(document.createTextNode(css));
+    return document.head.appendChild(style);
+  };
+
+  return BaseTheme;
 
 })();
 
-module.exports = DefaultTheme;
+module.exports = BaseTheme;
 
 
 
-},{}],37:[function(_dereq_,module,exports){
-var ColorPicker, DefaultTheme, Picker, SnowTheme, dom, _,
+},{"../../lib/dom":19,"./base.styl":34,"lodash":1}],36:[function(require,module,exports){
+var BaseTheme, ColorPicker, Picker, SnowTheme, dom, _,
   __hasProp = {}.hasOwnProperty,
   __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
 
-_ = _dereq_('lodash');
+_ = require('lodash');
 
-ColorPicker = _dereq_('../../lib/color-picker');
+ColorPicker = require('../../lib/color-picker');
 
-DefaultTheme = _dereq_('../default');
+BaseTheme = require('../base');
 
-dom = _dereq_('../../lib/dom');
+dom = require('../../lib/dom');
 
-Picker = _dereq_('../../lib/picker');
+Picker = require('../../lib/picker');
 
 SnowTheme = (function(_super) {
   __extends(SnowTheme, _super);
@@ -8832,84 +8470,11 @@ SnowTheme = (function(_super) {
     }
   };
 
-  SnowTheme.STYLES = {
-    '.snow .image-tooltip-container a': {
-      'border': '1px solid #06c'
-    },
-    '.snow .image-tooltip-container a.insert': {
-      'background-color': '#06c',
-      'color': '#fff'
-    },
-    '.snow .cursor-name': {
-      'border-radius': '4px',
-      'font-size': '11px',
-      'font-family': 'Arial',
-      'margin-left': '-50%',
-      'padding': '4px 10px'
-    },
-    '.snow .cursor-triangle': {
-      'border-left': '4px solid transparent',
-      'border-right': '4px solid transparent',
-      'height': '0px',
-      'margin-left': '-3px',
-      'width': '0px'
-    },
-    '.snow .cursor.left .cursor-name': {
-      'margin-left': '-8px'
-    },
-    '.snow .cursor.right .cursor-flag': {
-      'right': 'auto'
-    },
-    '.snow .cursor.right .cursor-name': {
-      'margin-left': '-100%',
-      'margin-right': '-8px'
-    },
-    '.snow .cursor-triangle.bottom': {
-      'border-top': '4px solid transparent',
-      'display': 'block',
-      'margin-bottom': '-1px'
-    },
-    '.snow .cursor-triangle.top': {
-      'border-bottom': '4px solid transparent',
-      'display': 'none',
-      'margin-top': '-1px'
-    },
-    '.snow .cursor.top .cursor-triangle.bottom': {
-      'display': 'none'
-    },
-    '.snow .cursor.top .cursor-triangle.top': {
-      'display': 'block'
-    },
-    '.snow a': {
-      'color': '#06c'
-    },
-    '.snow .tooltip': {
-      'border': '1px solid #ccc',
-      'box-shadow': '0px 0px 5px #ddd',
-      'color': '#222'
-    },
-    '.snow .tooltip a': {
-      'color': '#06c'
-    },
-    '.snow .tooltip .input': {
-      'border': '1px solid #ccc',
-      'margin': '0px',
-      'padding': '5px'
-    },
-    '.snow .image-tooltip-container .preview': {
-      'border-color': '#ccc',
-      'color': '#ccc'
-    },
-    '.snow .link-tooltip-container a, .snow .link-tooltip-container span': {
-      'display': 'inline-block',
-      'line-height': '25px'
-    }
-  };
-
-  function SnowTheme(quill) {
+  function SnowTheme(quill, options) {
     this.quill = quill;
+    this.options = options;
     SnowTheme.__super__.constructor.apply(this, arguments);
-    this.quill.addStyles(SnowTheme.STYLES);
+    dom(this.quill.container).addClass('ql-snow');
     this.pickers = [];
     this.quill.on(this.quill.constructor.events.SELECTION_CHANGE, (function(_this) {
       return function(range) {
@@ -8918,7 +8483,6 @@ SnowTheme = (function(_super) {
         }
       };
     })(this));
-    dom(this.quill.root.ownerDocument.body).addClass('snow');
     this.quill.onModuleLoad('multi-cursor', _.bind(this.extendMultiCursor, this));
     this.quill.onModuleLoad('toolbar', _.bind(this.extendToolbar, this));
   }
@@ -8933,6 +8497,7 @@ SnowTheme = (function(_super) {
   };
 
   SnowTheme.prototype.extendToolbar = function(module) {
+    dom(module.container).addClass('ql-snow');
     _.each(['color', 'background', 'font', 'size', 'align'], (function(_this) {
       return function(format) {
         var picker, select;
@@ -8969,12 +8534,11 @@ SnowTheme = (function(_super) {
 
   return SnowTheme;
 
-})(DefaultTheme);
+})(BaseTheme);
 
 module.exports = SnowTheme;
 
 
 
-},{"../../lib/color-picker":20,"../../lib/dom":21,"../../lib/picker":24,"../default":36,"lodash":"M4+//f"}]},{},[19])
-(19)
+},{"../../lib/color-picker":18,"../../lib/dom":19,"../../lib/picker":22,"../base":35,"lodash":1}]},{},[17])(17)
 });
