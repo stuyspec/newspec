@@ -1,0 +1,22 @@
+# == Schema Information
+#
+# Table name: roles
+#
+#  id           :integer          not null, primary key
+#  name         :string(255)      not null
+#  capabilities :string(255)      default([]), is an Array
+#  default      :boolean          default(FALSE)
+#  created_at   :datetime
+#  updated_at   :datetime
+#  user_id      :integer
+#
+
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: "Writer"
+  capabilities: ["read","write"]
+
+admin:
+  name: "Admin"
+  capabilities: ["read","write","delete"]
