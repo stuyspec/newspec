@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  resources :articles
+
   resources :profiles
 
   scope '/api' do

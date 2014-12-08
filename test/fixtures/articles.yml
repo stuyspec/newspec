@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  title: "My cool article"
+  author: 1
+  # department: 
+  status: "draft"
+  publish_date: 2014-12-08 18:51:37
+
+# two:
+#   title: MyString
+#   author: 
+#   department: 
+#   status: MyString
+#   publish_date: 2014-12-08 18:51:37
