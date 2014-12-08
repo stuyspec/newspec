@@ -15,7 +15,9 @@
 one:
   name: "Writer"
   capabilities: ["read","write"]
+  default: false
 
 admin:
   name: "Admin"
   capabilities: ["read","write","delete"]
+  default: false

@@ -13,7 +13,7 @@
 class Role < ActiveRecord::Base
   has_many :users
   validates :name, presence: true, uniqueness: true
-  validates :default, default: true
+  validates :default, one_true: true
 
   def self.default
     Role.find_by(default: true)

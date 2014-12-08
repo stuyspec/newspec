@@ -1,11 +1,10 @@
-class DefaultValidator < ActiveModel::EachValidator
+class OneTrueValidator < ActiveModel::EachValidator
     def validate_each(record, attribute, value)
         if value
             model = record.class
-            count = model.count(attribute: true)
+            count = model.where(attribute => true).count
             if count > 0 # we're not the first
-                old = model.find(record.id)
-                unless old[attribute] # we were already the default
+                unless record.id and model.find(record.id)[attribute] # we were already the default
                     record.errors[attribute] << (options[:message] || "There can only be one default #{record.class}")
                 end
             end
