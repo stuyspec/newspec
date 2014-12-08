@@ -6,6 +6,8 @@
 #  username   :string(255)
 #  created_at :datetime
 #  updated_at :datetime
+#  profile_id :integer
+#  role_id    :integer
 #
 
 class User < ActiveRecord::Base
