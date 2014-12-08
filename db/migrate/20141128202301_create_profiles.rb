@@ -7,5 +7,7 @@ class CreateProfiles < ActiveRecord::Migration
 
       t.timestamps
     end
+
+    add_reference :users, :profile, index: true
   end
 end

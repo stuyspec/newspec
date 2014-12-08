@@ -12,8 +12,9 @@
 #
 
 class Role < ActiveRecord::Base
+  has_many :users
   validates :name, presence: true, uniqueness: true
-  validates :default, :only_one, presence: true
+  validates :default, default: true
 
   def self.default
     Role.find_by(default: true)
@@ -29,12 +30,6 @@ class Role < ActiveRecord::Base
 
   def can? action
     return caps.include? action
-  end
-
-  private
-
-  def only_one
-    (not default) or (Role.count(default: true) < 1)
   end
 
 end
