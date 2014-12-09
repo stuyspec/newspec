@@ -1,0 +1,10 @@
+%p#notice= notice
+%p
+  %strong Name:
+  = @role.name
+%p
+  %strong Capabilities:
+  = @role.capabilities
+= link_to 'Edit', edit_role_path(@role)
+|
+\#{link_to 'Back', roles_path}

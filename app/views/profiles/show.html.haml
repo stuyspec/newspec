@@ -1,0 +1,13 @@
+%p#notice= notice
+%p
+  %strong First:
+  = @profile.first
+%p
+  %strong Last:
+  = @profile.last
+%p
+  %strong Email:
+  = @profile.email
+= link_to 'Edit', edit_profile_path(@profile)
+|
+\#{link_to 'Back', profiles_path}
