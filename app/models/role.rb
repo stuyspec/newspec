@@ -15,20 +15,14 @@ class Role < ActiveRecord::Base
   validates :name, presence: true, uniqueness: true
   validates :default, one_true: true
 
+  self.alt_name :capabilities, :caps
+
   def self.default
     Role.find_by(default: true)
   end
 
-  def caps()
-    capabilities
-  end
-
-  def caps=(capabilities)
-    self.capabilities = capabilities
-  end
-
   def can? action
-    return caps.include? action
+    return self.caps.include? action
   end
 
 end
