@@ -1,10 +1,9 @@
 Rails.application.routes.draw do
-  resources :articles
-
-  resources :profiles
-
   scope '/api' do
     resources :users
+    resources :profiles
+    resources :roles
+    resources :articles
   end
 
   # The priority is based upon order of creation: first created -> highest priority.
