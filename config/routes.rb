@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  resources :departments
+
   scope '/api' do
     resources :users
     resources :profiles

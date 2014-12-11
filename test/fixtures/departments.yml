@@ -1,0 +1,9 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+web:
+  name: web
+  editor: users(:jake)
+
+humor:
+  name: humor
+  editor: users(:miki)

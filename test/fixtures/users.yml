@@ -12,10 +12,19 @@
 
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-one:
-  username: "jake.waksbaum"
+jake:
+  username: jake.waksbaum
   role: admin
+  profile: jake
+  department: web
 
-two:
-  username: "chris.grant"
-  role: one
+chris:
+  username: chris.grant
+  role: admin
+  profile: chris
+  department: web
+
+miki:
+  username: miki.steele
+  profile: miki
+  department: humor

@@ -24,8 +24,6 @@ class RoleTest < ActiveSupport::TestCase
   end
 
   test "there can only be one default" do
-    default = Role.new name: "Editor", default:true
-    assert default.save, "Did not save a default role"
     default2 = Role.new name: "Author", default: true
     assert_not default2.save, "Saved a second default role"
   end

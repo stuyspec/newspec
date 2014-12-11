@@ -11,13 +11,19 @@
 #
 
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+DEFAULTS: &DEFAULTS
+  first:
+  last:
+  email:
 
-one:
-  first: MyString
-  last: MyString
-  email: MyString
 
-two:
-  first: MyString
-  last: MyString
-  email: MyString
+jake:
+  first: Jake
+  last: Last
+  email: jake.waksbaum@gmail.com
+
+miki:
+  <<: *DEFAULTS
+
+chris:
+  <<: *DEFAULTS

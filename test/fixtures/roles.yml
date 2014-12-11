@@ -12,12 +12,12 @@
 
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-one:
-  name: "Writer"
+writer:
+  name: Writer
   capabilities: ["read","write"]
-  default: false
+  default: true
 
 admin:
-  name: "Admin"
+  name: Admin
   capabilities: ["read","write","delete"]
   default: false

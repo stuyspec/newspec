@@ -8,6 +8,9 @@ class CreateProfiles < ActiveRecord::Migration
       t.timestamps
     end
 
-    add_reference :users, :profile, index: true
+    change_table :users do |t|
+      t.belongs_to :profile, index: true
+    end
+
   end
 end

@@ -13,6 +13,7 @@
 class User < ActiveRecord::Base
   belongs_to :profile
   belongs_to :role
+  belongs_to :department
   validates :username, presence: true, uniqueness: true
   after_create :add_def_profile, unless: :has_profile?
   after_create :add_def_role, unless: :has_role?
