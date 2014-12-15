@@ -2,12 +2,13 @@
 #
 # Table name: users
 #
-#  id         :integer          not null, primary key
-#  username   :string(255)
-#  created_at :datetime
-#  updated_at :datetime
-#  profile_id :integer
-#  role_id    :integer
+#  id            :integer          not null, primary key
+#  username      :string(255)
+#  created_at    :datetime
+#  updated_at    :datetime
+#  profile_id    :integer
+#  role_id       :integer
+#  department_id :integer
 #
 
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
