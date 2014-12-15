@@ -18,7 +18,7 @@ class IssuesControllerTest < ActionController::TestCase
 
   test "should create issue" do
     assert_difference('Issue.count') do
-      post :create, issue: { number: @issue.number, publish_date: @issue.publish_date }
+      post :create, issue: { number: @issue.number+100, publish_date: @issue.publish_date }
     end
 
     assert_redirected_to issue_path(assigns(:issue))

@@ -12,7 +12,11 @@
 require 'test_helper'
 
 class DepartmentTest < ActiveSupport::TestCase
-  # test "the truth" do
-  #   assert true
-  # end
+  test "creates a department without an editor" do
+    assert Department.create name: "Web"
+  end
+
+  test "creates a department with an editor" do
+    assert Department.create name: "Humor", editor: users(:miki)
+  end
 end

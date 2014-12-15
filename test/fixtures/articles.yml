@@ -18,10 +18,10 @@
 one:
   title: My cool article
   author: profiles(:jake)
+  publish_date: 2014-12-08 18:51:37
   department: humor
   status: draft
-  publish_date: 2014-12-08 18:51:37
-  issue: one
+  issue: issues(:one)
 
 # two:
 #   title: MyString
