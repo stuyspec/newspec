@@ -37,7 +37,7 @@ class User < ActiveRecord::Base
 
   # make sure he gets a profile
   def auto_profile
-    self.profile = self.create_profile
+    self.profile = Profile.new user: self
   end
 
   # make sure he gets a role
