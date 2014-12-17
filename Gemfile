@@ -55,4 +55,5 @@ group :development, :test do
   gem 'rb-fsevent' if `uname` =~ /Darwin/
   gem 'factory_girl_rails'
   gem 'capybara'
+  gem 'database_cleaner'
 end
