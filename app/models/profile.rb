@@ -13,4 +13,8 @@
 class Profile < ActiveRecord::Base
     has_one :user
     has_many :articles
+
+    def name
+      "#{first.capitalize} #{last.capitalize}"
+    end
 end

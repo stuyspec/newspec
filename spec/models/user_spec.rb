@@ -48,6 +48,7 @@ describe User do
       it "should be valid with a department" do
         department = Department.create! name: "web"
         user = User.new username: 'jake.waksbaum', department: department
+        expect(user.department).to be_eql department
       end
     end
 
