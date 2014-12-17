@@ -1,21 +1,22 @@
 require 'rails_helper'
 
 describe Profile do
+  subject { build(:profile) }
 
-  describe "create a Profile" do
+  context "being created" do
+
     it "takes no arguments" do
-      profile = Profile.new
+      profile = build(:blank_profile)
       expect(profile).to be_valid
     end
 
-    it "takes arguments" do
-      jake = Profile.new first: "jake", last: "Waksbaum"
-      expect(jake).to be_valid
+    it { is_expected.to be_valid }
+  end
+
+  describe "#name" do
+    it "returns the name" do
+      expect(subject.name).to be_eql "Jake Waksbaum"
     end
   end
 
-  it "returns the name" do
-    jake = Profile.new first: "jake", last: "Waksbaum"
-    expect(jake.name).to be_eql "Jake Waksbaum"
-  end
 end

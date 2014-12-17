@@ -2,74 +2,48 @@ require 'rails_helper'
 require 'rspec/expectations'
 
 describe User do
+  let(:writer) { build(:writer) }
 
-  describe "create a User" do
-    describe "username" do
-      it "is valid with a username only" do
-        user = User.new username: 'jake.waksbaum'
-        expect(user).to be_valid
-      end
+  context "being created" do
+    subject {build(:user)}
 
-      it "is invalid without a username" do
-        user = User.new username: nil
-        user.valid?
-        expect(user.errors[:username]).to include "can't be blank"
-      end
+    it { is_expected.to be_valid }
+
+    it "is invalid without a username" do
+      expect { subject.username = nil }.to change{ subject.valid? }.from(true).to(false)
     end
 
-    describe "profile" do
-      it "creates a blank Profile" do
-        user = User.new username: 'jake.waksbaum'
-        expect(user.profile).to_not be_nil
-        expect{user.save!}.to change{user.profile.id.nil?}.from(true).to(false)
-      end
-
-      it "uses an existing Profile" do
-        profile = Profile.create!
-        user = User.new username: 'jake.waksbaum', profile: profile
-        expect(user).to be_valid
-      end
+    it "creates a blank Profile" do
+      user = build(:miki)
+      expect(user.profile).to_not be_nil
     end
 
-    describe "role" do
-      it "is assigned the default Role" do
-        user = User.new username: 'jake.waksbaum'
-        expect(user.role).to be_eql Role.default
-      end
-
-      it "uses an alternative Role" do
-        role = Role.create! name: "Writer", caps: ["write"]
-        user = User.new username: 'jake.waksbaum', role: role
-        expect(user).to be_valid
-      end
+    it "uses an existing Profile" do
+      user = build(:user)
+      expect(user).to be_valid
+      expect(user.profile.hash).to be_equal build(:profile).hash
     end
 
-    describe "department" do
-      it "should be valid with a department" do
-        department = Department.create! name: "web"
-        user = User.new username: 'jake.waksbaum', department: department
-        expect(user.department).to be_eql department
-      end
+    it "is assigned the default Role" do
+      user = build(:user)
+      expect(user.role.hash).to be_eql build(:default_role).hash
+    end
+
+    it "uses an alternative Role" do
+      user = build(:user, role: writer)
+      expect(user).to be_valid
     end
 
   end
 
   describe "#can?" do
-    before :each do
-      @role = Role.create! name: "Writer", caps: ["write"]
-      @user = User.create! username: 'jake.waksbaum', role: @role
-    end
+    subject { build(:user, role: writer) }
 
-    it "determines if it can do an action" do
-      expect(@user).to be_able_to 'write'
-    end
+    it { is_expected.to be_able_to 'write' }
 
-    it "determines if it cannot do an action" do
-      expect(@user).not_to be_able_to 'delete'
-    end
+    it { is_expected.not_to be_able_to 'delete' }
 
   end
-
 end
 
 RSpec::Matchers.define :be_able_to do |action|
