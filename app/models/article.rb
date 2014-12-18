@@ -19,17 +19,18 @@ class Article < ActiveRecord::Base
   belongs_to :department
   validates :status, inclusion: {in: %w(draft editor eic pending published)}
   validates :author, presence: true
-  after_initialize :setup
+  validates :title, presence: true, length: {maximum: 50}
+  validates :issue, presence: true
+  validates :publish_date, presence: true
+  after_initialize :setup, if: :new_record?
 
   self.make_has :author, :issue, :publish_date, :department
 
   private
   def setup
-    if self.new_record?
-      auto_issue unless self.has_issue?
-      auto_publish_date unless self.has_publish_date?
-      auto_department unless self.has_department? or not has_author?
-    end
+    auto_issue unless self.has_issue?
+    auto_publish_date unless self.has_publish_date? or not has_issue?
+    auto_department unless self.has_department? or not has_author?
   end
 
   def auto_issue
@@ -37,7 +38,7 @@ class Article < ActiveRecord::Base
   end
 
   def auto_publish_date
-    self.publish_date = self.issue.publish_date
+    self.publish_date = self.issue.publish_date unless self.issue.publish_date.nil?
   end
 
   def auto_department

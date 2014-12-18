@@ -1,5 +1,5 @@
 FactoryGirl.define do
-  factory :profile, aliases: [:web] do
+  factory :profile, aliases: [:author] do
     first "jake"
     last "waksbaum"
     email "jake.waksbaum@gmail.com"

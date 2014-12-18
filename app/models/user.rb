@@ -16,7 +16,7 @@ class User < ActiveRecord::Base
   belongs_to :role
   belongs_to :department
   validates :username, presence: true, uniqueness: true
-  after_initialize :setup
+  after_initialize :setup, if: :new_record?
 
   self.alt_name :username, :name # now we can say user.name
   self.make_has :role, :profile # creates has_role? and has_profile?
@@ -29,10 +29,8 @@ class User < ActiveRecord::Base
   private
 
   def setup
-    if self.new_record?
-      auto_profile unless has_profile?
-      auto_role unless has_role?
-    end
+    auto_profile unless has_profile?
+    auto_role unless has_role?
   end
 
   # make sure he gets a profile

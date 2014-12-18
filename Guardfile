@@ -16,7 +16,7 @@
 #  * zeus: 'zeus rspec' (requires the server to be started separately)
 #  * 'just' rspec: 'rspec'
 
-guard :rspec, cmd: "spring rspec --format documentation" do
+guard :rspec, cmd: "spring rspec --color --format documentation" do
   require "guard/rspec/dsl"
   dsl = Guard::RSpec::Dsl.new(self)
 

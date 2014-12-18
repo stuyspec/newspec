@@ -9,9 +9,7 @@ describe User do
 
     it { is_expected.to be_valid }
 
-    it "is invalid without a username" do
-      expect { subject.username = nil }.to change{ subject.valid? }.from(true).to(false)
-    end
+    it { is_expected.to be_invalid_without :username }
 
     it "creates a blank Profile" do
       user = build(:miki)
