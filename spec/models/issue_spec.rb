@@ -1,5 +1,11 @@
 require 'rails_helper'
 
-RSpec.describe Issue, :type => :model do
-  pending "add some examples to (or delete) #{__FILE__}"
+describe Issue do
+  subject { build(:issue) }
+
+  context "being created" do
+    it { is_expected.to be_valid }
+    it { is_expected.to be_invalid_without :number}
+    it { is_expected.to be_invalid_with_duplicate :number }
+  end
 end

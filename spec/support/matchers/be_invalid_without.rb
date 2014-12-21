@@ -1,17 +1,16 @@
-
 require 'rails_helper'
 
 RSpec::Matchers.define :be_invalid_without do |attr|
   match do |entity|
-    change{ subject.valid? }.from(true).to(false).matches?( lambda{ entity.send "#{attr}=", nil }  )
+    change{ entity.valid? }.from(true).to(false).matches?( lambda{ entity.send "#{attr}=", nil }  )
   end
 
   failure_message do |actual|
-    "expected to be invalid when #{attr} is nil"
+    "expected to be invalid without #{attr}, but was valid"
   end
 
   failure_message_when_negated do |actual|
-    "expected to be valid when #{attr} is nil"
+    "expected to be valid without #{attr} but was invalid"
   end
 
   description do
