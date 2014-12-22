@@ -12,7 +12,7 @@
 
 class Profile < ActiveRecord::Base
     has_one :user
-    has_many :articles
+    has_many :articles, foreign_key: :author_id
 
     def name
       "#{first.capitalize} #{last.capitalize}"

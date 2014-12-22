@@ -15,7 +15,10 @@ class User < ActiveRecord::Base
   belongs_to :profile
   belongs_to :role
   belongs_to :department
+  has_many :articles, through: :profile
+
   validates :username, presence: true, uniqueness: true
+
   after_initialize :setup, if: :new_record?
 
   self.alt_name :username, :name # now we can say user.name
