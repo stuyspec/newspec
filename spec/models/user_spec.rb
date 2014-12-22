@@ -7,8 +7,7 @@ describe User do
   context "being created" do
     subject {build(:user)}
 
-    it { is_expected.to be_valid }
-
+    it { is_expected.to be_valid } 
     it { is_expected.to be_invalid_without :username }
 
     it "creates a blank Profile" do
@@ -42,4 +41,6 @@ describe User do
     it { is_expected.not_to be_able_to 'delete' }
 
   end
+
+  it { is_expected.to respond_to :articles}
 end
