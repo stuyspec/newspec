@@ -11,7 +11,8 @@
 
 class Issue < ActiveRecord::Base
   has_many :articles
-  validates :number, presence: true, uniqueness: true #{scope: :year, message: "is unique within a year"}
+  belongs_to :year
+  validates :number, presence: true, uniqueness: {scope: :year, message: "is unique within a year"}
   after_initialize :setup
 
   self.alt_name :number, :num

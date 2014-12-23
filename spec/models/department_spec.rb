@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 describe Department do
-  subject { build(:department) }
+  subject { create(:department) }
 
   context "being created" do
     it { is_expected.to be_valid }

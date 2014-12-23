@@ -1,13 +1,13 @@
 Rails.application.routes.draw do
-  resources :issues
-
-  resources :departments
 
   scope '/api' do
     resources :users
     resources :profiles
     resources :roles
     resources :articles
+    resources :years
+    resources :issues
+    resources :departments
   end
 
   # The priority is based upon order of creation: first created -> highest priority.

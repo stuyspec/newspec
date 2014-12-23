@@ -1,0 +1,21 @@
+%h1 Listing years
+
+%table
+  %thead
+    %tr
+      %th Number
+      %th
+      %th
+      %th
+      
+  %tbody
+    - @years.each do |year|
+      %tr
+        %td= year.number
+        %td= link_to 'Show', year
+        %td= link_to 'Edit', edit_year_path(year)
+        %td= link_to 'Destroy', year, :method => :delete, :data => { :confirm => 'Are you sure?' }
+
+%br
+
+= link_to 'New Year', new_year_path

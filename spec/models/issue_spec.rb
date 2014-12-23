@@ -1,11 +1,18 @@
 require 'rails_helper'
 
 describe Issue do
-  subject { build(:issue) }
+  subject { create(:issue) }
 
   context "being created" do
     it { is_expected.to be_valid }
-    it { is_expected.to be_invalid_without :number}
-    it { is_expected.to be_invalid_with_duplicate :number }
+    it { is_expected.to be_invalid_without :number }
+
+    it "cannot have duplicate numbers within a year" do
+      is_expected.to be_invalid_with_duplicate :number, :year_id
+    end
+
+    it "can have duplicate numbers in different years" do
+      is_expected.not_to be_invalid_with_duplicate :number
+    end
   end
 end
