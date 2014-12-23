@@ -13,16 +13,26 @@
 class Role < ActiveRecord::Base
   has_many :users
   validates :name, presence: true, uniqueness: true
-  validates :default, one_true: true
+  before_destroy :check_default
 
   self.alt_name :capabilities, :caps
 
   def self.default
-    Role.find_by(default: true)
+    Settings::DefaultRole.get.role
   end
 
   def can? action
     return self.caps.include? action
+  end
+
+  def default? role
+    role == Role.default
+  end
+
+  private
+
+  def check_default
+    return false if self.default? # don't delete the default!
   end
 
 end

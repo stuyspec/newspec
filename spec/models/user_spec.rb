@@ -7,7 +7,7 @@ describe User do
   context "being created" do
     subject {build(:user)}
 
-    it { is_expected.to be_valid } 
+    it { is_expected.to be_valid }
     it { is_expected.to be_invalid_without :username }
 
     it "creates a blank Profile" do
@@ -18,12 +18,12 @@ describe User do
     it "uses an existing Profile" do
       user = build(:user)
       expect(user).to be_valid
-      expect(user.profile.hash).to be_equal build(:profile).hash
+      expect(user.profile.hash).to be_eql build(:profile).hash
     end
 
     it "is assigned the default Role" do
-      user = build(:user)
-      expect(user.role.hash).to be_eql build(:default_role).hash
+      user = build(:miki)
+      expect(user.role).to be_eql Role.default
     end
 
     it "uses an alternative Role" do

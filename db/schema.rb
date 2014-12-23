@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141214215135) do
+ActiveRecord::Schema.define(version: 20141223044232) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -56,12 +56,20 @@ ActiveRecord::Schema.define(version: 20141214215135) do
   end
 
   create_table "roles", force: true do |t|
-    t.string   "name",                         null: false
-    t.string   "capabilities", default: [],                 array: true
-    t.boolean  "default",      default: false
+    t.string   "name",                      null: false
+    t.string   "capabilities", default: [],              array: true
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  create_table "settings", force: true do |t|
+    t.string   "type",       null: false
+    t.string   "value"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "settings", ["type"], name: "index_settings_on_type", unique: true, using: :btree
 
   create_table "users", force: true do |t|
     t.string   "username"
