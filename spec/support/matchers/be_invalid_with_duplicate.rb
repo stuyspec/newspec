@@ -1,4 +1,4 @@
-require "rails_helper"
+require "rspec/expectations"
 
 RSpec::Matchers.define :be_invalid_with_duplicate do | *attrs |
 
@@ -16,6 +16,8 @@ RSpec::Matchers.define :be_invalid_with_duplicate do | *attrs |
     dup_attrs.each {|dup_attr| dup_attrs_hash[dup_attr] = entity.send(dup_attr) }
 
     dup = entity.class.new other_attrs.merge(dup_attrs_hash)
+    # pp dup
+    # pp entity
     dup.invalid?
   end
 
@@ -36,6 +38,6 @@ def list_ar words
   if words.size == 1
     words[0]
   else
-    "#{words[0...-1].join(", ")}, and #{words[-1]}"
+    "#{words[0...-1].join(", ")} and #{words[-1]}"
   end
 end

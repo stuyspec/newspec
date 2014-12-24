@@ -1,14 +1,13 @@
 require 'rails_helper'
 
-describe Role do
+RSpec.describe Role, :type => :model do
+  subject { create(:role) }
+
   context "being created" do
-    subject { build(:role) }
 
     it { is_expected.to be_valid }
-
-    it "is invalid without a name" do
-      expect { subject.name = nil }.to change{ subject.valid? }.from(true).to(false)
-    end
+    it { is_expected.to be_invalid_without :name }
+    it { is_expected.to be_invalid_with_duplicate :name }
 
   end
 
@@ -17,5 +16,6 @@ describe Role do
 
     it { is_expected.to be_able_to "write"}
     it { is_expected.not_to be_able_to 'delete' }
+
   end
 end

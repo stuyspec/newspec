@@ -1,6 +1,7 @@
 require 'rails_helper'
 
-describe Settings do
+RSpec.describe Settings, :type => :model do
+
   describe Settings::DefaultRole do
     subject { Settings::DefaultRole }
 
@@ -33,4 +34,5 @@ describe Settings do
 
     end
   end
+
 end

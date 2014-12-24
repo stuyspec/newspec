@@ -1,8 +1,9 @@
 require 'rails_helper'
 
-describe Article do
+RSpec.describe Article, :type => :model do
+  subject { build(:article) }
+
   context "being created" do
-    subject { build(:article) }
 
     it { is_expected.to be_valid }
     it { is_expected.to be_invalid_without :author }
