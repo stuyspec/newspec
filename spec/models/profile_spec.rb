@@ -1,3 +1,15 @@
+# == Schema Information
+#
+# Table name: profiles
+#
+#  id         :integer          not null, primary key
+#  first      :string(255)
+#  last       :string(255)
+#  email      :string(255)
+#  created_at :datetime
+#  updated_at :datetime
+#
+
 require 'rails_helper'
 
 RSpec.describe Profile, :type => :model do
@@ -7,7 +19,7 @@ RSpec.describe Profile, :type => :model do
 
     it { is_expected.to be_valid }
 
-    it "can be blak" do
+    it "can be blank" do
       profile = build(:blank_profile)
       expect(profile).to be_valid
     end

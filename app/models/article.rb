@@ -5,33 +5,37 @@
 #  id            :integer          not null, primary key
 #  title         :string(255)
 #  author_id     :integer
+#  status        :string(255)
 #  publish_date  :datetime
 #  created_at    :datetime
 #  updated_at    :datetime
 #  department_id :integer
 #  issue_id      :integer
-#  status        :string(255)      default("draft")
 #
 
 class Article < ActiveRecord::Base
+  # Associations
   belongs_to :author, class_name: "Profile"
   belongs_to :issue
   belongs_to :department
+  has_one :user, through: :author
 
+  # Validations
   validates :status, inclusion: {in: %w(draft editor eic pending published)}
   validates :author, presence: true
   validates :title, presence: true, length: {maximum: 50}
   validates :issue, presence: true
   validates :publish_date, presence: true
+
+  # Lifecycle Callbacks
   after_initialize :setup, if: :new_record?
 
-  self.make_has :author, :issue, :publish_date, :department
-
   private
+
   def setup
-    auto_issue unless self.has_issue?
-    auto_publish_date unless self.has_publish_date? or not has_issue?
-    auto_department unless self.has_department? or not has_author?
+    auto_issue unless issue.present?
+    auto_publish_date unless publish_date.present? or not issue.present?
+    auto_department unless department.present? or not user.present?
   end
 
   def auto_issue
@@ -39,11 +43,10 @@ class Article < ActiveRecord::Base
   end
 
   def auto_publish_date
-    self.publish_date = self.issue.publish_date unless self.issue.publish_date.nil?
+    self.publish_date = issue.publish_date
   end
 
   def auto_department
-    a = self.author.user
-    self.department = a.department unless a.nil?
+    self.department = user.department
   end
 end

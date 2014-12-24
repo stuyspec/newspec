@@ -2,7 +2,7 @@ require "rspec/expectations"
 
 RSpec::Matchers.define :be_invalid_with_duplicate do | *attrs |
 
-  if attrs.last.is_a? Hash # TODO fix arguments this is hacky
+  if attrs.last.is_a? Hash
     other_attrs = attrs.last
     dup_attrs = attrs[0...-1]
   else

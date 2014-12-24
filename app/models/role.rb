@@ -5,34 +5,33 @@
 #  id           :integer          not null, primary key
 #  name         :string(255)      not null
 #  capabilities :string(255)      default([]), is an Array
-#  default      :boolean          default(FALSE)
 #  created_at   :datetime
 #  updated_at   :datetime
 #
 
 class Role < ActiveRecord::Base
+  # Associations
   has_many :users
-  validates :name, presence: true, uniqueness: true
-  before_destroy :check_default
 
-  self.alt_name :capabilities, :caps
+  # Validations
+  validates :name, presence: true, uniqueness: true
+
+  # Lifecycle Callbacks
+  stop = Proc.new{false}
+  before_destroy :stop, if: :default?
+
+  alias_attribute :caps, :capabilities
 
   def self.default
     Settings::DefaultRole.get.role
   end
 
+  def default?
+    self == Role.default
+  end
+
   def can? action
-    return self.caps.include? action
-  end
-
-  def default? role
-    role == Role.default
-  end
-
-  private
-
-  def check_default
-    return false if self.default? # don't delete the default!
+    caps.include? action.to_sym
   end
 
 end

@@ -1,47 +1,42 @@
-# == Schema Information
-#
-# Table name: users
+# == Schema Information # # Table name: users
 #
 #  id            :integer          not null, primary key
 #  username      :string(255)
-#  created_at    :datetime
-#  updated_at    :datetime
-#  profile_id    :integer
-#  role_id       :integer
+#  created_at    :datetime #  updated_at    :datetime
+#  profile_id    :integer #  role_id       :integer
 #  department_id :integer
 #
 
 class User < ActiveRecord::Base
+  # Associations
   belongs_to :profile
   belongs_to :role
   belongs_to :department
   has_many :articles, through: :profile
 
+  # Validations
   validates :username, presence: true, uniqueness: true
 
+  # Lifecycle Callbacks
   after_initialize :setup, if: :new_record?
 
-  self.alt_name :username, :name # now we can say user.name
-  self.make_has :role, :profile # creates has_role? and has_profile?
+  alias_attribute :name, :username
 
-  # forward can? from role
-  def can?(*args)
-    self.role.can?(*args)
+  def can? *args
+    role.can? *args
   end
 
-  private
+  # private
 
   def setup
-    auto_profile unless has_profile?
-    auto_role unless has_role?
+    auto_profile unless profile.present?
+    auto_role unless role.present?
   end
 
-  # make sure he gets a profile
   def auto_profile
     self.profile = Profile.new user: self
   end
 
-  # make sure he gets a role
   def auto_role
     self.role = Role.default
   end

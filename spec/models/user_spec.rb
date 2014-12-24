@@ -1,8 +1,20 @@
+# == Schema Information
+#
+# Table name: users
+#
+#  id            :integer          not null, primary key
+#  username      :string(255)
+#  created_at    :datetime
+#  updated_at    :datetime
+#  profile_id    :integer
+#  role_id       :integer
+#  department_id :integer
+#
+
 require 'rails_helper'
 
 RSpec.describe User, :type => :model do
   subject {build(:user)}
-  let(:writer) { build(:writer) }
 
   context "being created" do
 
@@ -26,17 +38,17 @@ RSpec.describe User, :type => :model do
     end
 
     it "uses an alternative Role" do
-      user = build(:user, role: writer)
+      user = build :user, role: build(:writer)
       expect(user).to be_valid
     end
 
   end
 
   describe "#can?" do
-    subject { build(:user, role: writer) }
+    subject { build :user, role: build(:writer) }
 
-    it { is_expected.to be_able_to 'write' }
-    it { is_expected.not_to be_able_to 'delete' }
+    it { is_expected.to be_able_to :write }
+    it { is_expected.not_to be_able_to :delete }
 
   end
 

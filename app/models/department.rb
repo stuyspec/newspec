@@ -10,7 +10,10 @@
 #
 
 class Department < ActiveRecord::Base
+  # Associations
   belongs_to :editor, class_name: "User"
   has_many :articles
+
+  # Validations
   validates :name, presence: true, uniqueness: true
 end
