@@ -59,3 +59,10 @@ group :development, :test do
 end
 
 gem 'bullet', group: :development
+
+# Better Errors
+group :development do
+  gem 'better_errors'
+  gem 'binding_of_caller'
+  gem 'meta_request'
+end
