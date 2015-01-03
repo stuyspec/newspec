@@ -14,6 +14,7 @@
 FactoryGirl.define do
   factory :user, aliases: [:jake, :editor] do
     username 'jake.waksbaum'
+    password '123password'
     association :profile, strategy: :build
     association :role, strategy: :build
     association :department, strategy: :build

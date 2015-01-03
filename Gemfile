@@ -66,6 +66,10 @@ group :development do
   gem 'meta_request'
 end
 
+# User Auth
+gem 'devise'
+gem 'omniauth'
+
 group :development, :test do
   gem 'jazz_hands', github: 'nixme/jazz_hands', branch: 'bring-your-own-debugger'
   gem 'pry-byebug'
