@@ -9,7 +9,7 @@
 
 class User < ActiveRecord::Base
   ## Devise
-  devise :database_authenticatable, :registerable,
+  devise :database_authenticatable,
          :rememberable, :trackable, :omniauthable, :timeoutable,:authentication_keys => [:username]
 
   def self.find_for_database_authentication(warden_conditions)

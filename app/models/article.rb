@@ -19,9 +19,10 @@ class Article < ActiveRecord::Base
   belongs_to :issue
   belongs_to :department
   has_one :user, through: :author
+  delegate :year, to: :issue
 
   # Validations
-  validates :status, inclusion: {in: %w(draft editor eic pending published)}
+  validates :status, inclusion: {in: %i(draft editor eic pending published)}
   validates :author, presence: true
   validates :title, presence: true, length: {maximum: 50}
   validates :issue, presence: true
@@ -36,6 +37,7 @@ class Article < ActiveRecord::Base
     auto_issue unless issue.present?
     auto_publish_date unless publish_date.present? or not issue.present?
     auto_department unless department.present? or not user.present?
+    auto_status unless status.present?
   end
 
   def auto_issue
@@ -48,5 +50,9 @@ class Article < ActiveRecord::Base
 
   def auto_department
     self.department = user.department
+  end
+
+  def auto_status
+    self.status = :draft
   end
 end

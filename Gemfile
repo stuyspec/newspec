@@ -18,6 +18,7 @@ gem 'coffee-rails', '~> 4.0.0'
 gem "haml-rails"
 gem "html2haml"
 gem "erb2haml", :group => :development
+gem 'slim-rails'
 
 
 # Use jquery as the JavaScript library

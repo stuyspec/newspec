@@ -1,19 +1,14 @@
 Rails.application.routes.draw do
 
-  get 'admin_pages/home'
+  root "public_pages#index"
+
+  get 'sp-admin', to: "admin_pages#index"
 
   devise_for :users, path: 'sp-admin', sign_out_via: [:delete, :get]
-  scope '/api' do
-    resources :users
-    resources :profiles
-    resources :roles
-    resources :articles
-    resources :years
-    resources :issues
-    resources :departments
-  end
-
-  root to: "users#index"
+  
+  get ':year',                  to: 'years#show'
+  get ':year/:issue',           to: 'issues#show'
+  get ':year/:issue/:article',  to: 'articles#show'
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

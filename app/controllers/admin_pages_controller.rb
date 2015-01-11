@@ -1,5 +1,12 @@
 class AdminPagesController < ApplicationController
+  before_filter :authenticate_user!
+
   def index
-    redirect_to unless user_signed_in?
+  end
+
+  def articles
+  end
+
+  def users
   end
 end

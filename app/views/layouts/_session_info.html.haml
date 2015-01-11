@@ -1,0 +1,6 @@
+.session_info
+  - if user_signed_in?
+    %h5= current_user.name
+    = link_to "Sign out", destroy_user_session_path, method: :delete
+  - else
+    = link_to "Sign in", user_session_path

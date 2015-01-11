@@ -1,10 +1,12 @@
-!!!
-%html
-  %head
-    %title Newspec
+doctype html
+html
+  head
+    title Newspec
     = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true
     = javascript_include_tag 'application', 'data-turbolinks-track' => true
     = csrf_meta_tags
-  %body
-    = render 'session_info'
+  body
+    - flash.each do |name, msg|
+      = content_tag :div, msg, class: name
+    = render 'layouts/session_info'
     = yield

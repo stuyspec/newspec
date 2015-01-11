@@ -11,7 +11,7 @@
   %tbody
     - @years.each do |year|
       %tr
-        %td= year.number
+        %td= year.year
         %td= link_to 'Show', year
         %td= link_to 'Edit', edit_year_path(year)
         %td= link_to 'Destroy', year, :method => :delete, :data => { :confirm => 'Are you sure?' }

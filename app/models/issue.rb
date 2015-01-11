@@ -17,6 +17,7 @@ class Issue < ActiveRecord::Base
   belongs_to :year
 
   # Validations
+  validates :year, presence: true
   validates :number, presence: true, uniqueness: {scope: :year, message: "is unique within a year"}
 
   # Lifecycle Callbacks

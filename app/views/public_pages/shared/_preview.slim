@@ -1,0 +1,5 @@
+.preview
+  h3 = article.title
+  = render partial: "public_pages/shared/byline", locals: { article: article } 
+  p = article.text.first 100
+  = link_to "Continue reading", article

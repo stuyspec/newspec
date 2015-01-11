@@ -1,4 +1,5 @@
 class YearsController < ApplicationController
+  before_action :authenticate_user!, except: [:index, :show]
   before_action :set_year, only: [:show, :edit, :update, :destroy]
 
   # GET /years
@@ -10,6 +11,7 @@ class YearsController < ApplicationController
   # GET /years/1
   # GET /years/1.json
   def show
+  
   end
 
   # GET /years/new
@@ -64,11 +66,11 @@ class YearsController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_year
-      @year = Year.find(params[:id])
+      @year = Year.find_by(year: params[:year])
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def year_params
-      params.require(:year).permit(:number)
+      params.require(:year).permit(:year)
     end
 end
