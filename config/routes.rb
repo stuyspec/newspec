@@ -4,6 +4,7 @@ Rails.application.routes.draw do
 
   scope module: 'public' do
     get 'aloha'
+    get 'tinymce'
 
     get 'articles', to: 'articles#index', as: 'public_articles'
     get 'issues',   to: 'issues#index',   as: 'public_issues'

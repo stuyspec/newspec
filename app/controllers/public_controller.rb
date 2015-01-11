@@ -5,4 +5,7 @@ class PublicController < ApplicationController
 
   def aloha
   end
+
+  def tinymce
+  end
 end
