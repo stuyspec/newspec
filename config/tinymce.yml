@@ -1,0 +1,28 @@
+selector: textarea
+plugins:
+  - anchor
+  - autolink
+  - autoresize
+  - autosave
+  - code
+  - charmap
+  - contextmenu
+  - fullscreen
+  - hr
+  - ice
+  - icesearchreplace
+  - link
+  - lists
+  - paste
+  - spellchecker
+  - visualchars
+  - wordcount
+skin: snow
+toolbar: undo redo | bold italic | bullist numlist | spellchecker visualchars fullscreen | ice_togglechanges ice_toggleshowchanges iceacceptall icerejectall iceaccept icereject
+autoresize_min_height: 250
+contextmenu: link image
+ice:
+  user:
+    name: Miss T
+    id: 1
+  preserveOnPaste: 'p,a[href],i,em,strong'

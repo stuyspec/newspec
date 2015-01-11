@@ -3,6 +3,7 @@ Rails.application.routes.draw do
   root "public_pages#index"
 
   get 'sp-admin', to: "admin_pages#index"
+  get 'tinymce', to: 'public_pages#tinymce'
 
   devise_for :users, path: 'sp-admin', sign_out_via: [:delete, :get]
   
