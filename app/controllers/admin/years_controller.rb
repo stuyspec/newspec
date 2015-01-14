@@ -1,5 +1,4 @@
-class YearsController < ApplicationController
-  before_action :authenticate_user!, except: [:index, :show]
+class Admin::YearsController < AdminController
   before_action :set_year, only: [:show, :edit, :update, :destroy]
 
   # GET /years

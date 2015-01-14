@@ -1,4 +1,4 @@
-class PublicPagesController < ApplicationController
+class PublicController < ApplicationController
   def index
     @articles = Article.all
   end

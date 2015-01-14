@@ -1,15 +1,34 @@
 Rails.application.routes.draw do
 
-  root "public_pages#index"
+  root "public/articles#index"
 
-  get 'sp-admin', to: "admin_pages#index"
-  get 'tinymce', to: 'public_pages#tinymce'
+  scope module: 'public' do
+    get 'tinymce'
 
-  devise_for :users, path: 'sp-admin', sign_out_via: [:delete, :get]
-  
-  get ':year',                  to: 'years#show'
-  get ':year/:issue',           to: 'issues#show'
-  get ':year/:issue/:article',  to: 'articles#show'
+    get 'articles', to: 'articles#index', as: 'public_articles'
+    get 'issues',   to: 'issues#index',   as: 'public_issues'
+    get 'years',    to: 'years#index',    as: 'public_years'
+
+    constraints({year_id: /\d{4}/, issue_id: /\d+/}) do
+      get ':year_id/:issue_id/:article_slug', to: 'articles#show',  as: 'public_article'
+      get ':year_id/:issue_id',               to: 'issues#show',    as: 'public_issue'
+      get ':year_id',                         to: 'years#show',     as: 'public_year'
+    end
+
+
+    scope only: [:index, :show] do
+      resources :profiles,    path: 'authors',  as: 'authors'
+      resources :departments, path: 'sections', as: 'sections'
+    end
+  end
+
+  scope 'sp-admin', module: 'admin' do
+    root "admin#index", as: :admin_root
+
+    resources :users, :profiles, :roles, :articles, :departments
+  end
+
+  devise_for :users, path: 'sp-admin', sign_out_via: [:delete]
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

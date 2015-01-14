@@ -34,7 +34,13 @@ class User < ActiveRecord::Base
   ## Lifecycle Callbacks
   after_initialize :setup, if: :new_record?
 
-  alias_attribute :name, :username
+  def name
+    if profile.present?
+      profile.first
+    else
+      username
+    end
+  end
 
   def can? *args
     role.can? *args
