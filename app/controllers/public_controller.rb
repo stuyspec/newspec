@@ -3,6 +3,6 @@ class Public::PublicController < ApplicationController
     @articles = Article.all
   end
 
-  def tinymce
+  def aloha
   end
 end
