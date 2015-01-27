@@ -1,0 +1,7 @@
+tr
+  td= profile.first
+  td= profile.last
+  td= profile.email
+  td= link_to 'Show', profile
+  td= link_to 'Edit', edit_profile_path(profile)
+  td= link_to 'Destroy', profile, method: :delete, data: { confirm: 'Are you sure?' }

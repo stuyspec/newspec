@@ -21,7 +21,7 @@ Rails.application.routes.draw do
     end
   end
 
-  get 'sp-admin', to: 'admin#index'
+  get 'sp-admin', to: 'admin#index', as: 'admin_root'
   scope 'sp-admin', module: 'admin' do
     resources :users, :profiles, :roles, :articles, :departments
   end
