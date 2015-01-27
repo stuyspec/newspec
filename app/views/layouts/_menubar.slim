@@ -1,7 +1,0 @@
-nav.menubar
-  .left
-    = link_to "Home", root_path
-    = link_to "New", new_article_path
-  .right
-    = "Hiya, #{current_user.name}"
-    = link_to "Sign out", destroy_user_session_path, method: :delete

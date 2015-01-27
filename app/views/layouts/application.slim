@@ -1,13 +1,7 @@
 doctype html
 html
-  head
-    title Newspec
-    = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true
-    = javascript_include_tag 'application', 'data-turbolinks-track' => true
-    = csrf_meta_tags
+  head = render 'layouts/head'
   body
-    - if user_signed_in?
-      = render 'layouts/menubar'
-    - flash.each do |name, msg|
-      = content_tag :div, msg, class: name
+    = yield :menubar if user_signed_in?
     = yield
+    = render 'layouts/footer'

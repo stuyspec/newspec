@@ -4,7 +4,6 @@ Rails.application.routes.draw do
 
   scope module: 'public' do
     get 'tinymce'
-
     get 'articles', to: 'articles#index', as: 'public_articles'
     get 'issues',   to: 'issues#index',   as: 'public_issues'
     get 'years',    to: 'years#index',    as: 'public_years'
@@ -22,9 +21,8 @@ Rails.application.routes.draw do
     end
   end
 
+  get 'sp-admin', to: 'admin#index'
   scope 'sp-admin', module: 'admin' do
-    root "admin#index", as: :admin_root
-
     resources :users, :profiles, :roles, :articles, :departments
   end
 

@@ -34,8 +34,8 @@ class User < ActiveRecord::Base
   ## Lifecycle Callbacks
   after_initialize :setup, if: :new_record?
 
-  def name
-    if profile.present?
+  def to_s
+    if profile.present? and profile.first.chomp(' ').size > 0
       profile.first
     else
       username
