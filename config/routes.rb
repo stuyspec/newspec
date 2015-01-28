@@ -3,7 +3,7 @@ Rails.application.routes.draw do
   root "public/articles#index"
 
   scope module: 'public' do
-    get 'aloha', to: 'aloha'
+    get 'aloha'
 
     get 'articles', to: 'articles#index', as: 'public_articles'
     get 'issues',   to: 'issues#index',   as: 'public_issues'

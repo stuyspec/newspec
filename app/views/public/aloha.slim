@@ -1,8 +1,10 @@
 doctype html
 html
   head
+    script(src="//code.jquery.com/jquery-2.1.3.min.js")
     script(src="//aloha-editor.org/download/aloha.min.js")
     coffee:
-      aloha document.querySelector(".editable")
+      $(document).ready ->
+        aloha document.querySelector(".editable")
   body
     div.editable
