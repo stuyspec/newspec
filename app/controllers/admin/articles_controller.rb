@@ -4,7 +4,7 @@ class Admin::ArticlesController < AdminController
   # GET /articles
   # GET /articles.json
   def index
-    @articles = Article.all
+    @articles = Article.all.includes(:author)
   end
 
   # GET /articles/1
