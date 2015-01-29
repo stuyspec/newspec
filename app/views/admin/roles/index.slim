@@ -1,0 +1,11 @@
+h1 Listing roles
+table.table
+  thead
+    tr
+      th Name
+      th Capabilities
+      th colspan=3
+  tbody
+    = render partial: 'row', collection: @roles, as: 'role'
+br/
+= link_to 'New Role', new_role_path

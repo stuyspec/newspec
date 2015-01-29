@@ -1,0 +1,4 @@
+= simple_form_for @role do |f|
+  = f.input :name
+  = f.collection_check_boxes :capabilities, Role.capabilities, ->c {@role.caps.include? c}, :to_s
+  = f.button :submit

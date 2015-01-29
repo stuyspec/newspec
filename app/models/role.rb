@@ -26,6 +26,10 @@ class Role < ActiveRecord::Base
     Settings::DefaultRole.get.role
   end
 
+  def self.capabilities
+    Role.all.map {|r| r.caps}.reduce(:+).uniq
+  end
+
   def default?
     self == Role.default
   end
