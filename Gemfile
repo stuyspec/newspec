@@ -78,3 +78,4 @@ end
 
 gem 'bower-rails'
 gem 'tinymce-rails'
+gem 'simple_form'
