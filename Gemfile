@@ -58,6 +58,7 @@ group :development, :test do
   gem 'database_cleaner'
 end
 
+# Detect inefficient database queries
 gem 'bullet', group: :development
 
 # Better Errors
@@ -79,3 +80,6 @@ end
 gem 'bower-rails'
 gem 'tinymce-rails'
 gem 'simple_form'
+
+# Use byebug for debugging
+gem 'byebug'

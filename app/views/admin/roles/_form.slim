@@ -2,3 +2,6 @@
   = f.input :name
   = f.collection_check_boxes :capabilities, Role.capabilities, :to_s, :to_s, {checked: @role.caps}
   = f.button :submit
+= form_for :new_cap, url: role_new_cap_path(@role), method: :patch do |g|
+  = g.text_field :new_cap
+  = g.submit

@@ -1,5 +1,5 @@
 class Admin::RolesController < AdminController
-  before_action :set_role, only: [:show, :edit, :update, :destroy]
+  before_action :set_role, only: [:show, :edit, :update, :destroy, :new_cap]
 
   # GET /roles
   # GET /roles.json
@@ -32,6 +32,23 @@ class Admin::RolesController < AdminController
         format.json { render :show, status: :created, location: @role }
       else
         format.html { render :new }
+        format.json { render json: @role.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
+  def new_cap
+    respond_to do |format|
+      cap = params.require(:new_cap)['new_cap']
+      unless @role.caps.include? cap
+        @role.caps << cap
+        @role.capabilities_will_change!
+      end
+      if @role.save
+        format.html { render :edit }
+        format.json { render :show, status: :ok, location: @role }
+      else
+        format.html { render :edit }
         format.json { render json: @role.errors, status: :unprocessable_entity }
       end
     end
