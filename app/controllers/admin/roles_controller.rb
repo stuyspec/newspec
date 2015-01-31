@@ -69,6 +69,7 @@ class Admin::RolesController < AdminController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def role_params
-      params.require(:role).permit(:first, :last, :email)
+      params['role']['capabilities'].select! {|cap| Role.capabilities.include? cap} if params.include? 'role' and params['role'].include? 'capabilities'
+      params.require(:role).permit(:name, capabilities: [])
     end
 end
