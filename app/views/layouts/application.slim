@@ -1,6 +1,8 @@
 doctype html
 html
-  head = render 'layouts/head'
+  head
+    = render 'layouts/head'
+    = yield :head
   body
     = yield :menubar if user_signed_in?
     = yield
