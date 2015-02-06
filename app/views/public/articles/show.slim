@@ -1,0 +1,15 @@
+p
+  strong Title:
+  = @article.title
+p
+  strong Author:
+  = @article.author
+p
+  strong Status:
+  = @article.status
+p
+  strong Publish date:
+  = @article.publish_date
+div
+  strong content
+  == @article.text.html_safe

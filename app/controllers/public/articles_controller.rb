@@ -15,6 +15,6 @@ class Public::ArticlesController < PublicController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_article
-      @article = Year.find(params[:year_id]).articles.find(params[:id])
+      @article = Year.find_by(:year => params[:year_id]).issues.find_by(:number => params[:issue_id]).articles.find(params[:article_slug])
     end
 end

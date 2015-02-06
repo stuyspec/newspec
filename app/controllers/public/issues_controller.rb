@@ -15,6 +15,6 @@ class Public::IssuesController < PublicController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_issue
-      @issue = Year.include(:issues).find(params[:year_id]).find(params[:id])
+      @issue = Year.includes(:issues).find_by(:year => params[:year_id]).issues.find_by(:number => params[:issue_id])
     end
 end
