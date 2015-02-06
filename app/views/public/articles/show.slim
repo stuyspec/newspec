@@ -12,4 +12,4 @@ p
   = @article.publish_date
 div
   strong content
-  == @article.text.html_safe
+  = sanitize @article.text
