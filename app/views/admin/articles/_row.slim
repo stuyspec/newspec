@@ -1,0 +1,8 @@
+tr
+  td= article.title
+  td= article.author
+  td= article.status
+  td= article.publish_date
+  td= link_to 'Show', article
+  td= link_to 'Edit', edit_article_path(article)
+  td= link_to 'Destroy', article, method: :delete, data: { confirm: 'Are you sure?' }

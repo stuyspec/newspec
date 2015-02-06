@@ -1,8 +1,0 @@
-= simple_form_for @article do |f|
-  = f.input :title
-  = f.association :author
-  = f.input :status, collection: %i(draft editor eic pending published)
-  = f.input :publish_date, as: 'datetime'
-  = f.association :issue
-  = f.association :department
-  = f.button :submit
