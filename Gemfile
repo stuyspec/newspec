@@ -77,7 +77,7 @@ group :development, :test do
   # gem 'pry-byebug'
 end
 
-gem 'bower-rails'
+# gem 'bower-rails'
 gem 'tinymce-rails'
 gem 'simple_form'
 
