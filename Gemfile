@@ -85,3 +85,6 @@ gem 'simple_form', '~> 3.1.0'
 
 # Use byebug for debugging
 gem 'byebug', '~> 3.5.1'
+
+# Article slugs instead of ids
+gem 'friendly_id', '~> 5.1.0'
