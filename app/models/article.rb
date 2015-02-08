@@ -23,13 +23,27 @@ class Article < ActiveRecord::Base
 
   # Validations
   validates :status, inclusion: {in: %i(draft editor eic pending published)}
-  validates :author, presence: true
+  validates_presence_of :author, :issue, :publish_date
   validates :title, presence: true, length: {maximum: 50}
-  validates :issue, presence: true
-  validates :publish_date, presence: true
 
   # Lifecycle Callbacks
   after_initialize :setup, if: :new_record?
+
+  # FriendlyId for Slugs
+  extend FriendlyId
+  friendly_id :title, :use => :scoped, :scope => :issue
+
+  def should_generate_new_friendly_id?
+    (title_changed? and not published?) or super
+  end
+
+  def slug=(slug)
+    super unless self.published?
+  end
+
+  def published?
+    status == :published
+  end
 
   private
 
