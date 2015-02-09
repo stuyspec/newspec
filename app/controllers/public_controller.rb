@@ -8,9 +8,7 @@ class PublicController < ApplicationController
   end
 
   def article_path(article)
-    issue = article.issue
-    year = issue.year
-    public_article_path(year: year.year, issue: issue.number, article_slug: article.slug)
+    public_article_path(article)
   end
 
   def profile_path(profile)
