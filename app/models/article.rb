@@ -16,7 +16,7 @@
 class Article < ActiveRecord::Base
   # Associations
   belongs_to :author, class_name: "Profile"
-  belongs_to :issue, -> { includes :year }
+  belongs_to :issue
   belongs_to :department
   has_one :user, through: :author
   delegate :year, to: :issue
