@@ -4,7 +4,7 @@ class Public::ArticlesController < PublicController
   # GET /articles
   # GET /articles.json
   def index
-    @articles = Article.includes(:author).all
+    @articles = Article.includes(:author).includes(:issue)
   end
 
   # GET /articles/1
@@ -15,6 +15,8 @@ class Public::ArticlesController < PublicController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_article
-      @article = Year.find_by(:year => params[:year_id]).issues.find_by(:number => params[:issue_id]).articles.find(params[:article_slug])
+      @year = Year.find_by(:year => params[:year])
+      @issue = @year.issues.find_by(:number => params[:issue])
+      @article = @issue.articles.friendly.find(params[:article_slug])
     end
 end

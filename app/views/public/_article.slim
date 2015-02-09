@@ -1,0 +1,4 @@
+article
+  h1 = link_to article.title, article
+  = render partial: 'byline', locals: {author: article.author}
+  div = sanitize article.text

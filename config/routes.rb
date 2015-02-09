@@ -10,10 +10,10 @@ Rails.application.routes.draw do
     get 'issues',   to: 'issues#index',   as: 'public_issues'
     get 'years',    to: 'years#index',    as: 'public_years'
 
-    constraints({year_id: /\d{4}/, issue_id: /\d+/}) do
-      get ':year_id/:issue_id/:article_slug', to: 'articles#show',  as: 'public_article'
-      get ':year_id/:issue_id',               to: 'issues#show',    as: 'public_issue'
-      get ':year_id',                         to: 'years#show',     as: 'public_year'
+    constraints({year: /\d{4}/, issue: /\d+/}) do
+      get ':year/:issue/:article_slug', to: 'articles#show',  as: 'public_article'
+      get ':year/:issue',               to: 'issues#show',    as: 'public_issue'
+      get ':year',                         to: 'years#show',     as: 'public_year'
     end
 
 

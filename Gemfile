@@ -68,6 +68,7 @@ group :development do
   gem 'better_errors', '~> 2.1.1'
   gem 'binding_of_caller', '~> 0.7.2'
   gem 'meta_request', '~> 0.3.4'
+  gem 'web-console', '~> 2.0'
 end
 
 # User Auth
@@ -85,3 +86,6 @@ gem 'simple_form', '~> 3.1.0'
 
 # Use byebug for debugging
 gem 'byebug', '~> 3.5.1'
+
+# Article slugs instead of ids
+gem 'friendly_id', '~> 5.1.0'
