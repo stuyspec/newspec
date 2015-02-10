@@ -10,12 +10,13 @@ class Public::YearsController < PublicController
   # GET /years/1
   # GET /years/1.json
   def show
+    render_404 if @year.nil?
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_year
-      @year = Year.find_by(year: params[:year])
-    end
+
+  def set_year
+    @year = get_year
+  end
 
 end

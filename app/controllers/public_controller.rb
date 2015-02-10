@@ -1,4 +1,6 @@
 class PublicController < ApplicationController
+  include PublicHelper
+  include Public::ErrorsHelper
   helper_method :article_path, :profile_path
 
   def aloha

@@ -10,11 +10,13 @@ class Public::IssuesController < PublicController
   # GET /issues/1
   # GET /issues/1.json
   def show
+    render_404 if @issue.nil?
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_issue
-      @issue = Year.includes(:issues).find_by(:year => params[:year_id]).issues.find_by(:number => params[:issue_id])
-    end
+
+  def set_issue
+    @issue = get_issue
+  end
+
 end

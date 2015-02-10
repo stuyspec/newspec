@@ -1,19 +1,13 @@
 - content_for :head do
-  = tinymce_assets
+  script src='/assets/tinymce.js' data-turbolinks-track='true'
+  = tinymce
+  = javascript_include_tag 'admin/articles', 'data-turbolinks-track' => true
 = simple_form_for @article do |f|
   = f.input :title
   = f.association :author
   = f.input :status, collection: %i(draft editor eic pending published)
-  textarea.tinymce
-  = f.input :text, as: 'hidden'
+  = f.input :text
   = f.input :publish_date, as: 'datetime'
   = f.association :issue
   = f.association :department
   = f.button :submit
-= tinymce
-javascript:
-  var form = $('form.edit_article'),
-      hidden = form.find('input#article_text')
-  form.on('submit', function(e) {
-      hidden.val(tinymce.activeEditor.getContent())
-    })

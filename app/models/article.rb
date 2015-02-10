@@ -14,6 +14,7 @@
 #
 
 class Article < ActiveRecord::Base
+  scope :published, -> { where(status: :published) }
   # Associations
   belongs_to :author, class_name: "Profile"
   belongs_to :issue

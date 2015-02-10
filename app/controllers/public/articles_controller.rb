@@ -4,19 +4,19 @@ class Public::ArticlesController < PublicController
   # GET /articles
   # GET /articles.json
   def index
-    @articles = Article.includes(:author).includes(:issue)
+    @articles = Article.includes(:author).includes(:issue).where(:status => :published)
   end
 
   # GET /articles/1
   # GET /articles/1.json
   def show
+    render_404 if @article.nil?
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_article
-      @year = Year.find_by(:year => params[:year])
-      @issue = @year.issues.find_by(:number => params[:issue])
-      @article = @issue.articles.friendly.find(params[:article_slug])
-    end
+
+  def set_article
+    @article = get_article
+  end
+
 end

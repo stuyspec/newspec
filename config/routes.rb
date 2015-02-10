@@ -13,9 +13,8 @@ Rails.application.routes.draw do
     constraints({year: /\d{4}/, issue: /\d+/}) do
       get ':year/:issue/:article_slug', to: 'articles#show',  as: 'public_article'
       get ':year/:issue',               to: 'issues#show',    as: 'public_issue'
-      get ':year',                         to: 'years#show',     as: 'public_year'
+      get ':year',                      to: 'years#show',     as: 'public_year'
     end
-
 
     scope only: [:index, :show] do
       resources :profiles,    path: 'authors',  as: 'authors'
@@ -30,5 +29,12 @@ Rails.application.routes.draw do
   end
 
   devise_for :users, path: 'sp-admin', sign_out_via: [:delete]
+
+  match '/404', to: 'errors#file_not_found', via: :all
+  match '/422', to: 'errors#unprocessable', via: :all
+  match '/500', to: 'errors#internal_server_error', via: :all
+
+  # MUST BE LAST ROUTE
+  match "*any", via: :all, to: "public/errors#file_not_found"
 
 end
