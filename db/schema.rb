@@ -60,9 +60,9 @@ ActiveRecord::Schema.define(version: 20150209183309) do
 
   create_table "roles", force: true do |t|
     t.string   "name",                      null: false
+    t.string   "capabilities", default: [],              array: true
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "capabilities", default: [],              array: true
   end
 
   create_table "settings", force: true do |t|
