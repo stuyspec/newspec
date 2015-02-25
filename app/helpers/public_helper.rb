@@ -1,4 +1,5 @@
 module PublicHelper
+  NAME = "Stuyvesant Spectator"
 
   private
 

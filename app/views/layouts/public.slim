@@ -1,0 +1,15 @@
+- content_for :menubar do
+  = render 'menubar'
+
+header id="masthead" class="site-header" role="banner"
+  .container
+    #header
+      .row
+        #branding.span3.visible-desktop
+          h1
+            = link_to PublicHelper::NAME, root_path, title: PublicHelper::NAME, rel: 'home'
+
+        #sidebar-header.span9
+          = render 'sidebar_header'
+
+- parent_layout 'application'

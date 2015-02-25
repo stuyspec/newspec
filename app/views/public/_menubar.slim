@@ -1,0 +1,11 @@
+nav.navbar.navbar-inverse.navbar-fixed-top
+  .container-fluid
+    .navbar-header
+      button.navbar-toggle.collapsed aria-controls="navbar" aria-expanded="false" data-target="#navbar" data-toggle="collapse" type="button"
+        span.sr-only Toggle navigation
+        span.icon-bar
+        span.icon-bar
+        span.icon-bar
+      = link_to "Stuyvesant Spectator", root_path, class: 'navbar-brand'
+    #navbar.navbar-collapse.collapse
+      p.navbar-text.navbar-right Hiya #{current_user}!
