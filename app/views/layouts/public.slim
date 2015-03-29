@@ -17,6 +17,21 @@ header id="masthead" class="site-header" role="banner"
           button.collapse-search.hidden-desktop data-target=".search-collapse" data-toggle="collapse"
             i.icon-search
           =link_to "DW Focus", root_path, rel: "home", class: ["small-logo", "hidden-desktop"], title: "DW Focus"
+          ul.social-links.visible-desktop
+            li.facebook
+              a target="_blank" href="//www.facebook.com/stuyspectator" title="Facebook"
+                i.icon-facebook
+            li.twitter
+              a target="_blank" href="//www.twitter.com/stuyspectator" title="Twitter"
+                i.icon-twitter
+            li.google-plus
+              a target="_blank" href="//www.google.com/+Stuyspectator" title="Google Plus"
+                i.icon-google-plus
+            li.rss
+              a target="_blank" href="#{root_url}/feed" title="Rss"
+                i.icon-rss
+          .search-collapse.collapse= render 'search_form'
+          .nav-collapse.collapse
     = yield
 
 - content_for :head do
