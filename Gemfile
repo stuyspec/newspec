@@ -18,9 +18,10 @@ gem 'coffee-rails', '~> 4.0.0'
 gem "haml-rails", '~> 0.8.2'
 gem "erb2haml", '~> 0.1.5', :group => :development
 
-# Use Slim for HTML
+# Use Slim and Cells for HTML
 gem 'slim-rails', '~> 3.0.1'
-
+gem 'cells', '~> 4.0.0.beta2'
+gem 'cells-slim'
 
 # Use jquery as the JavaScript library
 gem 'jquery-rails', '~> 3.1.2'

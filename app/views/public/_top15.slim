@@ -1,0 +1,21 @@
+- num_articles = 15
+- articles = Article.published.limit(num_articles).order(publish_date: :desc)
+a.dropdown-toggle data-toggle="dropdown" href="#"
+  span.number= articles.count
+  span
+    | Must read articles
+    i.icon-caret-down
+.top-news-inner
+  ul.dropdown-menu
+    .entry-meta= Date.today.strftime("%B %-d, %Y")
+    .row-fluid
+    - articles.each_with_index do |article, index|
+      - classes = []
+      -# classes << :'has-thumbnail' if article.has_image
+      - classes << :first if index % 3 == 0
+      li{class: classes}
+        .topnews-thumbnail
+          =link_to "", article, title: article.title
+            /=article.img
+        .topnews-title
+          =link_to article.title, article, title: article.title

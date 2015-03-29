@@ -16,7 +16,7 @@ class Public::ArticlesController < PublicController
   private
 
   def set_article
-    @article = get_article
+    @article = get_article params[:article_slug], params[:issue], params[:year]
   end
 
 end

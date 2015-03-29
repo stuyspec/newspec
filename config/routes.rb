@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
 
   root "public/articles#index"
+  get 'spec', to: 'application#spec'
 
   scope module: 'public' do
     get 'aloha'

@@ -1,10 +1,8 @@
 doctype html
-html
-  head
-    = render 'layouts/head'
-    = yield :head
-  body
-    = yield :menubar if user_signed_in?
+html*language_attributes
+  = render 'layouts/head'
+  body*body_attrs
+    /= yield :menubar if user_signed_in?
     = yield
+    /= console
     = render 'layouts/footer'
-      = yield :footer

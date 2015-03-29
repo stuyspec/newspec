@@ -8,10 +8,10 @@ module LayoutsHelper
   def la(text, url)
     c = current_page?(url)
     link = if c
-      link_to "#{text}<span class='sr-only' current>".html_safe, url
-    else
-      link_to text, url
-    end
+             link_to "#{text}<span class='sr-only' current>".html_safe, url
+           else
+             link_to text, url
+           end
     return "<li#{' class="active"' if c}>#{link}</li>"
   end
 end

@@ -53,6 +53,15 @@ GEM
       rack (>= 1.0.0)
       rack-test (>= 0.5.4)
       xpath (~> 2.0)
+    cells (4.0.0.beta2)
+      actionpack (>= 3.2)
+      disposable (~> 0.0.8)
+      tilt (>= 1.4, < 3)
+      uber (~> 0.0.9)
+    cells-slim (0.0.1)
+      cells (~> 4.0.0.alpha1)
+      slim (~> 3.0)
+      tilt (>= 1.4.1)
     celluloid (0.16.0)
       timers (~> 4.0.0)
     coderay (1.1.0)
@@ -75,6 +84,9 @@ GEM
       thread_safe (~> 0.1)
       warden (~> 1.2.3)
     diff-lcs (1.2.5)
+    disposable (0.0.9)
+      representable (~> 2.0)
+      uber
     erb2haml (0.1.5)
       html2haml
     erubis (2.7.0)
@@ -183,6 +195,10 @@ GEM
     rb-inotify (0.9.5)
       ffi (>= 0.5.0)
     rdoc (4.2.0)
+    representable (2.1.5)
+      multi_json
+      nokogiri
+      uber (~> 0.0.7)
     responders (1.1.2)
       railties (>= 3.2, < 4.2)
     rspec (3.2.0)
@@ -256,6 +272,7 @@ GEM
       coffee-rails
     tzinfo (1.2.2)
       thread_safe (~> 0.1)
+    uber (0.0.13)
     uglifier (2.7.0)
       execjs (>= 0.3.0)
       json (>= 1.8.0)
@@ -281,6 +298,8 @@ DEPENDENCIES
   bullet (~> 4.14.4)
   byebug (~> 3.5.1)
   capybara (~> 2.4.4)
+  cells (~> 4.0.0.beta2)
+  cells-slim
   coffee-rails (~> 4.0.0)
   database_cleaner (~> 1.4.0)
   devise (~> 3.4.1)

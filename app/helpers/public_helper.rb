@@ -3,16 +3,19 @@ module PublicHelper
 
   private
 
-  def get_year
+  def get_year(year)
     Year.find_by(year: params[:year])
   end
 
-  def get_issue(year = get_year)
-    year && year.issues.find_by(:number => params[:issue])
+  def get_issue(issue, year)
+    year = get_year year
+    year.issues.find_by(:number => params[:issue]) unless year.nil?
   end
 
-  def get_article(issue = get_issue(get_year))
-    issue && issue.articles.published.friendly.find(params[:article_slug])
+  def get_article(slug, issue, year)
+    issue = get_issue issue, year
+    published = issue.articles.published unless issue.nil?
+    published.friendly.find(params[:article_slug]) unless published.count == 0
   end
 
 end

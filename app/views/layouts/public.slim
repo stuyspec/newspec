@@ -1,6 +1,3 @@
-- content_for :menubar do
-  = render 'menubar'
-
 header id="masthead" class="site-header" role="banner"
   .container
     #header
@@ -8,8 +5,20 @@ header id="masthead" class="site-header" role="banner"
         #branding.span3.visible-desktop
           h1
             = link_to PublicHelper::NAME, root_path, title: PublicHelper::NAME, rel: 'home'
+        #sidebar-header.span9= render 'sidebar_header'
+    .btn-group.top-news= render 'top15'
+    .wrap-navigation
+      nav#site-navigation.main-navigation.navbar role="navigation"
+        .navbar-inner
+          button.btn.btn-navbar data-target=".nav-collapse" data-toggle="collapse" type="button"
+            span.icon-bar
+            span.icon-bar
+            span.icon-bar
+          button.collapse-search.hidden-desktop data-target=".search-collapse" data-toggle="collapse"
+            i.icon-search
+          =link_to "DW Focus", root_path, rel: "home", class: ["small-logo", "hidden-desktop"], title: "DW Focus"
+    = yield
 
-        #sidebar-header.span9
-          = render 'sidebar_header'
-
+- content_for :head do
+  = javascript_include_tag 'public', 'data-turbolinks-track' => true
 - parent_layout 'application'

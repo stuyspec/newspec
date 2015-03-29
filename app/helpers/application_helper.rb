@@ -55,7 +55,7 @@ module ApplicationHelper
   end
 
   def body_class
-    classes = []
+    classes = [:desktop]
 
     if is_home
       classes << :home

@@ -7560,10 +7560,10 @@ select, input[type="text"], input[type="password"], input[type="datetime"], inpu
     filter: alpha(opacity = 70);
 }
 
-.site-header #branding a {
+/*.site-header #branding a {
     display: block;
     text-indent: -9999px;
-    background-image: url(../logo.png);
+    background-image: url(../img/logo.png);
     background-repeat: no-repeat;
     background-position: left center !important;
     height: 90px;
@@ -7572,7 +7572,7 @@ select, input[type="text"], input[type="password"], input[type="datetime"], inpu
     -moz-background-size: 100%;
     -o-background-size: 100%;
     background-size: 100%;
-}
+}*/
 
 .ie8.desktop .top-news {
     float: left;
