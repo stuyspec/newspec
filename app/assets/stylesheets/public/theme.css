@@ -7163,7 +7163,7 @@ select, input[type="text"], input[type="password"], input[type="datetime"], inpu
     margin-left: -1px;
 }
 
-.navbar .nav .menu-item-object-category .sub-mega-wrap:before {
+/*.navbar .nav .menu-item-object-category .sub-mega-wrap:before {
     content: "";
     width: 1px;
     height: 100%;
@@ -7171,7 +7171,7 @@ select, input[type="text"], input[type="password"], input[type="datetime"], inpu
     background: #ddd;
     left: 150px;
     top: 20px;
-}
+}*/
 
 .navbar .nav .menu-item-object-category .sub-mega-wrap a {
     padding: 0;

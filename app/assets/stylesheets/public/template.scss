@@ -1,3 +1,4 @@
+@charset "UTF-8";
 @import "http://fonts.googleapis.com/css?family=Glegoo";
 
 @import "http://fonts.googleapis.com/css?family=Bitter:400,700";
@@ -99,8 +100,8 @@ textarea {
 
 @font-face {
     font-family: 'NovecentowideNormalRegular';
-    src: url("../font/Novecentowide-Normal-webfont.eot");
-    src: url("../font/Novecentowide-Normal-webfont.eot?#iefix") format("embedded-opentype"), url("../font/Novecentowide-Normal-webfont.woff") format("woff"), url("../font/Novecentowide-Normal-webfont.ttf") format("truetype"), url("../font/Novecentowide-Normal-webfont.svg#NovecentowideNormalRegular") format("svg");
+    src: font-url("Novecentowide-Normal-webfont.eot");
+    src: font-url("Novecentowide-Normal-webfont.eot") format("embedded-opentype"), font-url("Novecentowide-Normal-webfont.woff") format("woff"), font-url("Novecentowide-Normal-webfont.ttf") format("truetype"), font-url("Novecentowide-Normal-webfont.svg#NovecentowideNormalRegular") format("svg");
     font-weight: normal;
     font-style: normal;
 }
@@ -108,8 +109,8 @@ textarea {
 
 @font-face {
     font-family: 'NovecentowideBookBold';
-    src: url("../font/Novecentowide-Bold-webfont.eot");
-    src: url("../font/Novecentowide-Bold-webfont.eot?#iefix") format("embedded-opentype"), url("../font/Novecentowide-Bold-webfont.woff") format("woff"), url("../font/Novecentowide-Bold-webfont.ttf") format("truetype"), url("../font/Novecentowide-Bold-webfont.svg#NovecentowideBookBold") format("svg");
+    src: font-url("Novecentowide-Bold-webfont.eot");
+    src: font-url("Novecentowide-Bold-webfont.eot?#iefix") format("embedded-opentype"), font-url("Novecentowide-Bold-webfont.woff") format("woff"), font-url("Novecentowide-Bold-webfont.ttf") format("truetype"), font-url("Novecentowide-Bold-webfont.svg#NovecentowideBookBold") format("svg");
     font-weight: normal;
     font-style: normal;
 }
@@ -7163,7 +7164,7 @@ select, input[type="text"], input[type="password"], input[type="datetime"], inpu
     margin-left: -1px;
 }
 
-.navbar .nav .menu-item-object-category .sub-mega-wrap:before {
+/*.navbar .nav .menu-item-object-category .sub-mega-wrap:before {
     content: "";
     width: 1px;
     height: 100%;
@@ -7171,7 +7172,7 @@ select, input[type="text"], input[type="password"], input[type="datetime"], inpu
     background: #ddd;
     left: 150px;
     top: 20px;
-}
+}*/
 
 .navbar .nav .menu-item-object-category .sub-mega-wrap a {
     padding: 0;

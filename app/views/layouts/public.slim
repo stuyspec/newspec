@@ -31,8 +31,12 @@ header id="masthead" class="site-header" role="banner"
               a target="_blank" href="#{root_url}/feed" title="Rss"
                 i.icon-rss
           .search-collapse.collapse= render 'search_form'
-          .nav-collapse.collapse
-    = yield
+          .nav-collapse.collapse= render 'nav'
+#main
+  .container
+    .row
+      #primary.site-content.span9
+        = yield
 
 - content_for :head do
   = javascript_include_tag 'public', 'data-turbolinks-track' => true

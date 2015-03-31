@@ -46,6 +46,14 @@ class Article < ActiveRecord::Base
     status == :published
   end
 
+  def has_thumbnail?
+    false
+  end
+
+  def formatted_date
+    return publish_date.strftime("%B %-d, %Y")
+  end
+
   private
 
   def setup

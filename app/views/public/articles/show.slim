@@ -1,4 +1,39 @@
-article
-  h1= @article.title
-  = render partial: 'byline', locals: {article: @article}
-  = sanitize @article.text
+article.hentry
+  header.entry-header
+    h1.entry-title= @article.title
+    .entry-meta
+      time.entry-date datetime=@article.publish_date pubdate=true = @article.formatted_date
+      span = " - by #{@article.author.name}"
+  .entry-content
+    = sanitize @article.text
+  .entry-action
+    .social-action
+      span.title-action Sharing
+      ul
+        li#twitter-share.twitter
+          i.icon-twitter
+          - query_hash = {url: url_for(host: root_url), text: @article.title}
+          = link_to "Twitter", "https://twitter.com/intent/tweet?#{query_hash.to_query}"
+        li.facebook
+          i.icon-facebook-sign
+          - query_hash = {u: url_for(host: root_url), t: @article.title}
+          = link_to "Facebook", "https://www.facebook.com/sharer/sharer.php?#{query_hash.to_query}"
+        li.google
+          i.icon-google-plus-sign
+          - query_hash = {url: url_for(host: root_url)}
+          = link_to "Google+", "https://plus.google.com/share?#{query_hash.to_query}"
+        li.email
+          i.icon-envelope-alt
+          - query_hash = {Subject: @article.title, body: url_for(host: root_url)}
+          = link_to "Email this article", "mailto:?#{query_hash.to_query}"
+        li.print
+          i.icon-print
+          = link_to "Print this article", "#", onclick: "window.print();"
+
+- content_for :head do
+  meta property="og:title" content=@article.title
+  meta property="og:url"   content=url_for(host: root_url)
+  - if @article.has_thumbnail?
+    meta property="og:image" content=@article.image_url
+  - description = strip_tags(@article.title).first(55).strip + link_to("...", @article, title: "Read more")
+  meta property="og:description" content=description
