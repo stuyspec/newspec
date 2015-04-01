@@ -8,5 +8,18 @@ $(document).ready ->
         $(el).toggleClass("open")
         #console.log e
         return
+    windowOptions = 'scrollbars=yes,resizable=yes,toolbar=no,location=yes'
+    width = 550
+    height = 420
+    winHeight = screen.height
+    winWidth = screen.width
+    $('.social-action ul li a').on 'click', (event) ->
+      href = $(this).attr('href')
+      event.preventDefault()
+      left = Math.round((winWidth / 2) - (width / 2))
+      top = 0
+      if winHeight > height
+          top = Math.round((winHeight / 2) - (height / 2))
+      window.open(href, 'DWFOCUS', windowOptions + ',width=' + width + ',height=' + height + ',left=' + left + ',top=' + top)
+      return
     return
-        #if(this.is(".disabled, :disabled"))return $parent=getParent($this),isActive=$parent.hasClass("open"),clearMenus(),isActive||$parent.toggleClass("open"),$this.focus(),!1

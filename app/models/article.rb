@@ -23,7 +23,7 @@ class Article < ActiveRecord::Base
   delegate :year, to: :issue
 
   # Validations
-  validates :status, inclusion: {in: %i(draft editor eic pending published)}
+  validates :status, inclusion: {in: %w(draft editor eic pending published)}
   validates_presence_of :author, :issue, :publish_date
   validates :title, presence: true, length: {maximum: 50}
 
