@@ -16,7 +16,7 @@ class User < ActiveRecord::Base
   belongs_to :profile
   belongs_to :role
   belongs_to :department
-  has_many :articles, through: :profile
+  delegate :articles, to: :profile
 
   ## Validations
   validates :username, presence: true, uniqueness: { case_sensitive: false}, length: { within: 3..20 }
