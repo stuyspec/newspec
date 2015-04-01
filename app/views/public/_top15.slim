@@ -1,5 +1,5 @@
 - num_articles = 15
-- articles = Article.published.limit(num_articles).order(publish_date: :desc)
+- articles = Article.includes(:year).published.limit(num_articles).order(publish_date: :desc)
 a.dropdown-toggle data-toggle="dropdown" href="#"
   span.number= articles.count
   span

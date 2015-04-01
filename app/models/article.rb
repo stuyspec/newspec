@@ -20,7 +20,7 @@ class Article < ActiveRecord::Base
   belongs_to :issue
   belongs_to :department
   has_one :user, through: :author
-  delegate :year, to: :issue
+  has_one :year, through: :issue
 
   # Validations
   validates :status, inclusion: {in: %w(draft editor eic pending published)}
