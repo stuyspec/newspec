@@ -69,7 +69,6 @@ class Admin::ArticlesController < AdminController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def article_params
-      params[:article][:status] = params[:article][:status].to_sym if params.include? :article and params[:article].include? :status
       params.require(:article).permit(:title, :author, :department, :status, :publish_date, :issue, :text)
     end
 end

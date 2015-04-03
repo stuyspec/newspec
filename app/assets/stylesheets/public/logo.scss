@@ -1,18 +1,15 @@
-/*
- *= require public/theme.css
- */
-$logourl: "<%= image_path 'logo.png' %>";
 @mixin backgroundlogo() {
-    background-image:url($logourl);
+    background-image: asset-url('logo.png');
 }
 
 .site-header #branding a {
     @include backgroundlogo();
 }
 
-#colophon.dark #site-info .small-logo { 
+#colophon.dark #site-info .small-logo {
     @include backgroundlogo();
 }
+
 @media ( max-width: 979px ) {
     .wrap-navigation .small-logo{
         @include backgroundlogo();

@@ -3,12 +3,6 @@ class PublicController < ApplicationController
   include Public::ErrorsHelper
   helper_method :article_path, :profile_path
 
-  def aloha
-  end
-
-  def tinymce
-  end
-
   def article_path(article)
     public_article_path(article.year.year, article.issue.number, article.slug)
   end

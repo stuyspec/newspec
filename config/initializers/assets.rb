@@ -8,4 +8,4 @@ Rails.application.config.assets.version = '1.0'
 # Rails.application.config.assets.precompile += %w( search.js )
 Rails.application.config.assets.paths << Rails.root.join("app", "assets", "fonts")
 Rails.application.config.assets.precompile += %w( .svg .eot .woff .ttf )
-Rails.application.config.assets.precompile += %w( public.js aloha.js admin/* )
+Rails.application.config.assets.precompile += %w( public.css public.js admin.css admin.js)

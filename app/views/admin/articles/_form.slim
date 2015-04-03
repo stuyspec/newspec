@@ -1,7 +1,6 @@
 - content_for :head do
   script src='/assets/tinymce.js' data-turbolinks-track='true'
   = tinymce
-  = javascript_include_tag 'admin/articles', 'data-turbolinks-track' => true
 = simple_form_for @article do |f|
   = f.input :title
   = f.association :author

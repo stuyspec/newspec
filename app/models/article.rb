@@ -38,6 +38,7 @@ class Article < ActiveRecord::Base
     (title_changed? and not published?) or super
   end
 
+  # stop from changing slug if published
   def slug=(slug)
     super unless self.published?
   end
@@ -76,6 +77,6 @@ class Article < ActiveRecord::Base
   end
 
   def auto_status
-    self.status = :draft
+    self.status = "draft"
   end
 end

@@ -18,4 +18,8 @@ class Profile < ActiveRecord::Base
   def name
     "#{first.capitalize} #{last.capitalize}"
   end
+
+  def to_s
+    name
+  end
 end

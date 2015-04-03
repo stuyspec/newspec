@@ -16,7 +16,7 @@ class Public::YearsController < PublicController
   private
 
   def set_year
-    @year = get_year
+    @year = get_year params[:year]
   end
 
 end

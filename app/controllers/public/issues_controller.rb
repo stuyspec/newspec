@@ -16,7 +16,7 @@ class Public::IssuesController < PublicController
   private
 
   def set_issue
-    @issue = get_issue
+    @issue = get_issue params[:issue], params[:year]
   end
 
 end
