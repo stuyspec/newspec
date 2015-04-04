@@ -99,8 +99,8 @@ textarea {
 
 @font-face {
     font-family: 'NovecentowideNormalRegular';
-    src: url("../font/Novecentowide-Normal-webfont.eot");
-    src: url("../font/Novecentowide-Normal-webfont.eot?#iefix") format("embedded-opentype"), url("../font/Novecentowide-Normal-webfont.woff") format("woff"), url("../font/Novecentowide-Normal-webfont.ttf") format("truetype"), url("../font/Novecentowide-Normal-webfont.svg#NovecentowideNormalRegular") format("svg");
+    src: asset-url("Novecentowide-Normal-webfont.eot");
+    src: asset-url("Novecentowide-Normal-webfont.eot?#iefix") format("embedded-opentype"), asset-url("Novecentowide-Normal-webfont.woff") format("woff"), asset-url("Novecentowide-Normal-webfont.ttf") format("truetype"), asset-url("Novecentowide-Normal-webfont.svg#NovecentowideNormalRegular") format("svg");
     font-weight: normal;
     font-style: normal;
 }
@@ -108,8 +108,8 @@ textarea {
 
 @font-face {
     font-family: 'NovecentowideBookBold';
-    src: url("../font/Novecentowide-Bold-webfont.eot");
-    src: url("../font/Novecentowide-Bold-webfont.eot?#iefix") format("embedded-opentype"), url("../font/Novecentowide-Bold-webfont.woff") format("woff"), url("../font/Novecentowide-Bold-webfont.ttf") format("truetype"), url("../font/Novecentowide-Bold-webfont.svg#NovecentowideBookBold") format("svg");
+    src: asset-url("Novecentowide-Bold-webfont.eot");
+    src: asset-url("Novecentowide-Bold-webfont.eot?#iefix") format("embedded-opentype"), asset-url("Novecentowide-Bold-webfont.woff") format("woff"), asset-url("Novecentowide-Bold-webfont.ttf") format("truetype"), url("Novecentowide-Bold-webfont.svg#NovecentowideBookBold") format("svg");
     font-weight: normal;
     font-style: normal;
 }

@@ -52,7 +52,14 @@ class Article < ActiveRecord::Base
   end
 
   def formatted_date
-    return publish_date.strftime("%B %-d, %Y")
+    now = Time.now
+    range = now-1.day..now
+    if range.cover? publish_date
+      hours = (now - publish_date).to_i / 1.hour
+      "#{hours} #{'hour'.pluralize(hours)} ago"
+    else
+      publish_date.strftime("%B %-d, %Y")
+    end
   end
 
   private
