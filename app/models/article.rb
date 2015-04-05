@@ -16,7 +16,7 @@
 class Article < ActiveRecord::Base
   scope :published, -> { where(status: :published) }
   # Associations
-  belongs_to :author, class_name: "Profile"
+  has_and_belongs_to_many :authors, class_name: "Profile"
   belongs_to :issue
   belongs_to :department
   has_one :user, through: :author
@@ -24,7 +24,8 @@ class Article < ActiveRecord::Base
 
   # Validations
   validates :status, inclusion: {in: %w(draft editor eic pending published)}
-  validates_presence_of :author, :issue, :publish_date
+  validates_presence_of :issue, :publish_date
+  validates :authors, length: {minimum: 1}
   validates :title, presence: true, length: {maximum: 50}
 
   # Lifecycle Callbacks

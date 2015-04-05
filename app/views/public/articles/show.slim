@@ -3,7 +3,7 @@ article.hentry.content-print
     h1.entry-title= @article.title
     .entry-meta
       time.entry-date datetime=@article.publish_date pubdate=true = @article.formatted_date
-      span = " - by #{@article.author.name}"
+      span = " - by #{authors_text @article}".html_safe
   .entry-content
     = sanitize @article.text
   .entry-action

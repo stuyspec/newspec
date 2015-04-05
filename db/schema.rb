@@ -11,14 +11,13 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150209183309) do
+ActiveRecord::Schema.define(version: 20150405021257) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "articles", force: true do |t|
     t.string   "title"
-    t.integer  "author_id"
     t.string   "status"
     t.datetime "publish_date"
     t.datetime "created_at"
@@ -29,8 +28,15 @@ ActiveRecord::Schema.define(version: 20150209183309) do
     t.string   "slug"
   end
 
-  add_index "articles", ["author_id"], name: "index_articles_on_author_id", using: :btree
   add_index "articles", ["department_id"], name: "index_articles_on_department_id", using: :btree
+
+  create_table "articles_profiles", id: false, force: true do |t|
+    t.integer "profile_id"
+    t.integer "article_id"
+  end
+
+  add_index "articles_profiles", ["article_id"], name: "index_articles_profiles_on_article_id", using: :btree
+  add_index "articles_profiles", ["profile_id"], name: "index_articles_profiles_on_profile_id", using: :btree
 
   create_table "departments", force: true do |t|
     t.string   "name"

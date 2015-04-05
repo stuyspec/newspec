@@ -1,6 +1,16 @@
 module PublicHelper
   NAME = "Stuyvesant Spectator"
 
+  def authors_text(article)
+    links = article.authors.collect {|author| link_to author, author}
+    if links.length == 1
+        links[0]
+    else
+      out = links[0...-1].join(", ") + " and " + links[-1]
+      out.html_safe
+    end
+  end
+
   private
 
   def get_year(year)

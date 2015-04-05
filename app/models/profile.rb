@@ -13,7 +13,7 @@
 class Profile < ActiveRecord::Base
   # Associations
   has_one :user
-  has_many :articles, foreign_key: :author_id
+  has_and_belongs_to_many :articles, foreign_key: :author_id
 
   def name
     "#{first.capitalize} #{last.capitalize}"
