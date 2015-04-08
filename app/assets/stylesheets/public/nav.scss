@@ -1,0 +1,88 @@
+nav {
+    box-shadow: none;
+    ul a {
+        color: black;
+    }
+}
+
+.navbar-fixed nav {
+    @extend .z-depth-2;
+    top: 0;
+}
+
+.site-header .container #header .row {
+    margin-bottom: 0;
+}
+
+.site-header #branding a {
+    display: block;
+    text-indent: -9999px;
+    background-image: url(../logo.png);
+    background-repeat: no-repeat;
+    background-position: left center !important;
+    height: 90px;
+    width: 230px;
+    -webkit-background-size: 100%;
+    -moz-background-size: 100%;
+    -o-background-size: 100%;
+    background-size: 100%;
+}
+
+#masthead {
+    overflow: auto;
+}
+
+.nav-wrapper {
+    div, ul, li, a {
+        height: 100%;
+    }
+}
+
+.desktop .top-news {
+    width: 80px;
+    padding: 10px;
+    text-transform: uppercase;
+    white-space: normal;
+    background: #000;
+    color: white;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    i {
+        display: inline;
+        font-size: 13px;
+        padding-left: 2px;
+        width: auto;
+        height: auto;
+        line-height: normal;
+        background-image: none;
+        background-position: 0 0;
+        background-repeat: repeat;
+        margin-top: 0;
+        vertical-align: sub;
+    }
+    span:not(.number) {
+        line-height: 12px;
+        font-size: 8px;
+        display: block;
+        font-weight: bold;
+    }
+    .number {
+        line-height: 19px;
+        font-size: 30px;
+        display: block;
+        margin-bottom: 5px;
+    }
+    .top-news-inner {
+        .dropdown-menu {
+            display: none;
+        }
+        display: none;
+        overflow: hidden;
+        width: 1040px;
+        margin-left: -10px;
+        -webkit-box-shadow: 0 10px 10px rgba(0,0,0,0.15);
+        -moz-box-shadow: 0 10px 10px rgba(0,0,0,0.15);
+        box-shadow: 0 10px 10px rgba(0,0,0,0.15);
+    }
+}

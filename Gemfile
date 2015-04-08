@@ -92,3 +92,4 @@ gem 'byebug', '~> 3.5.1'
 gem 'friendly_id', '~> 5.1.0'
 
 gem 'materialize-sass'
+gem 'font-awesome-sass', '~> 4.3.0'
