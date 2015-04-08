@@ -1,1 +1,20 @@
-= render partial: 'article', collection: @articles
+.row
+  #branding.col.s3
+    h1
+      = link_to PublicHelper::NAME, root_path, title: PublicHelper::NAME, rel: 'home'
+  #sidebar-header.col.s9= render 'sidebar_header'
+.divider
+.row
+  #primary.col.s12.m9
+    .section
+      .slider
+        ul.slides
+          li
+            img src="http://lorempixel.com/580/250/nature/4"
+            .caption.center-align
+              h3 Test
+    .section= render partial: 'departments'
+  #secondary.col.s12.m3
+    aside.widget
+      div data-configid="9521608/12167225" style="width:200px; height:305px;" class="issuuembed"
+      script type="text/javascript" src="//e.issuu.com/embed.js" async="true"

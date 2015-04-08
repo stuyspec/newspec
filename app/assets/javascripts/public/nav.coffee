@@ -10,8 +10,8 @@
     $(document).ready ->
         cutoff = $("#masthead").height()
         nav_parent = $('nav').parent()
-        callSetNav = -> setNav(cutoff, nav_parent)
-        $(window).scroll callSetNav
+        #callSetNav = -> setNav(cutoff, nav_parent)
+        #$(window).scroll callSetNav
         $(".button-collapse").sideNav()
 
 )(jQuery)

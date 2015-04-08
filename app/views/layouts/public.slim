@@ -1,57 +1,14 @@
-header#masthead.site-header role="banner"
-  .container
-    #header
-      .row
-        #branding.col.s3
-          h1
-            = link_to PublicHelper::NAME, root_path, title: PublicHelper::NAME, rel: 'home'
-        #sidebar-header.col.s9= render 'sidebar_header'
-#fixed
+.navbar-fixed
   nav.white
     .nav-wrapper
-      .container
-        - links = []
-        - links << ["Home", root_url]
-        - Department.all.each do |dept|
-          - links << [dept.name, dept]
-        = render partial: 'nav', locals: {links: links}
-  /.btn-group.top-news= render 'top15'
-  /.wrap-navigation
-    /nav#site-navigation.main-navigation.navbar role="navigation"
-      /.navbar-inner
-        /button.btn.btn-navbar data-target=".nav-collapse" data-toggle="collapse" type="button"
-          /span.icon-bar
-          /span.icon-bar
-          /span.icon-bar
-        /button.collapse-search.hidden-desktop data-target=".search-collapse" data-toggle="collapse"
-          /i.icon-search
-        /=link_to "DW Focus", root_path, rel: "home", class: ["small-logo", "hidden-desktop"], title: "DW Focus"
-        /ul.social-links.visible-desktop
-          /li.facebook
-            /a target="_blank" href="//www.facebook.com/stuyspectator" title="Facebook"
-              /i.icon-facebook
-          /li.twitter
-            /a target="_blank" href="//www.twitter.com/stuyspectator" title="Twitter"
-              /i.icon-twitter
-          /li.google-plus
-            /a target="_blank" href="//www.google.com/+Stuyspectator" title="Google Plus"
-              /i.icon-google-plus
-          /li.rss
-            /a target="_blank" href="#{root_url}/feed" title="Rss"
-              /i.icon-rss
-        /.search-collapse.collapse= render 'search_form'
-        /.nav-collapse.collapse= render 'nav'
+      - links = []
+      - links << ["Home", root_url]
+      - Department.all.each do |dept|
+        - links << [dept.name, dept]
+      = render partial: 'nav', locals: {links: links}
 .container
-  .row
-    .col.s12.m7
-      .slider
-        ul.slides
-          li
-            img src="http://lorempixel.com/580/250/nature/4"
-            .caption.center-align
-              h3 Test
-    #primary.site-content.s9.col
-      = yield
+  .card
+    = yield
 
 - content_for :head do
   = stylesheet_link_tag    'public', 'data-turbolinks-track' => true

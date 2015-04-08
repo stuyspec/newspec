@@ -1,12 +1,30 @@
 nav {
-    box-shadow: none;
-    ul a {
-        color: black;
+    ul#slide-out li {
+        height: auto;
+    }
+    ul#horizontal-nav  {
+        display: flex;
+        flex-flow: row nowrap;
+        justify-content: space-around;
+        li {
+            flex: 1;
+            text-align: center;
+            a {
+                @extend .valign-wrapper;
+                padding: 10px 0;
+                text-transform: uppercase;
+                font-size: 18px;
+                line-height: 20px;
+                color: #000;
+                text-shadow: none;
+                color: black;
+                display: inline;
+            }
+        }
     }
 }
 
 .navbar-fixed nav {
-    @extend .z-depth-2;
     top: 0;
 }
 
@@ -14,18 +32,23 @@ nav {
     margin-bottom: 0;
 }
 
-.site-header #branding a {
-    display: block;
-    text-indent: -9999px;
-    background-image: url(../logo.png);
-    background-repeat: no-repeat;
-    background-position: left center !important;
-    height: 90px;
-    width: 230px;
-    -webkit-background-size: 100%;
-    -moz-background-size: 100%;
-    -o-background-size: 100%;
-    background-size: 100%;
+#branding {
+    h1 {
+        margin: 0;
+        a {
+            display: block;
+            text-indent: -9999px;
+            background-image: url(../logo.png);
+            background-repeat: no-repeat;
+            background-position: left center !important;
+            height: 90px;
+            width: 230px;
+            -webkit-background-size: 100%;
+            -moz-background-size: 100%;
+            -o-background-size: 100%;
+            background-size: 100%;
+        }
+    }
 }
 
 #masthead {
@@ -38,16 +61,9 @@ nav {
     }
 }
 
-.desktop .top-news {
-    width: 80px;
-    padding: 10px;
+nav .nav-wrapper #horizontal-nav .top-news {
+    display: block;
     text-transform: uppercase;
-    white-space: normal;
-    background: #000;
-    color: white;
-    -webkit-box-sizing: border-box;
-    -moz-box-sizing: border-box;
-    box-sizing: border-box;
     i {
         display: inline;
         font-size: 13px;
@@ -84,5 +100,16 @@ nav {
         -webkit-box-shadow: 0 10px 10px rgba(0,0,0,0.15);
         -moz-box-shadow: 0 10px 10px rgba(0,0,0,0.15);
         box-shadow: 0 10px 10px rgba(0,0,0,0.15);
+    }
+}
+
+#secondary .widget {
+    margin: 20px 0 0;
+    border-top: 1px solid #ddd;
+    padding-top: 20px;
+    &:first-child {
+        margin-top: 0;
+        border-top: 0;
+        padding-top: 0;
     }
 }

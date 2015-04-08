@@ -1,0 +1,6 @@
+- Department.all.each do |dept|
+  .dept.col.s12m6l4 id=dept.name
+    h5= link_to "#{dept.name} Spotlight", dept
+    - article = dept.articles.published.last
+    - unless article.nil?
+      h6= link_to article.title.first(5), article

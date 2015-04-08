@@ -19,14 +19,14 @@ class Article < ActiveRecord::Base
   has_and_belongs_to_many :authors, class_name: "Profile"
   belongs_to :issue
   belongs_to :department
-  has_one :user, through: :author
+  has_many :users, through: :authors
   has_one :year, through: :issue
 
   # Validations
   validates :status, inclusion: {in: %w(draft editor eic pending published)}
   validates_presence_of :issue, :publish_date
   validates :authors, length: {minimum: 1}
-  validates :title, presence: true, length: {maximum: 50}
+  validates :title, presence: true
 
   # Lifecycle Callbacks
   after_initialize :setup, if: :new_record?
@@ -68,7 +68,7 @@ class Article < ActiveRecord::Base
   def setup
     auto_issue unless issue.present?
     auto_publish_date unless publish_date.present? or not issue.present?
-    auto_department unless department.present? or not user.present?
+    auto_department unless department.present? or not users.present?
     auto_status unless status.present?
   end
 
@@ -81,7 +81,7 @@ class Article < ActiveRecord::Base
   end
 
   def auto_department
-    self.department = user.department
+    self.department = users[0].department
   end
 
   def auto_status

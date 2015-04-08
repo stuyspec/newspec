@@ -1,7 +1,7 @@
-- links = links.collect {|link| "<li#{' class="active"' if current_page? link[1] }>#{link_to *link}<\li>"}.join('')
-ul.hide-on-med-and-down
+- links = links.collect {|link| "<li#{' class="active"' if current_page? link[1] }>#{link_to *link}"}.join('')
+ul#horizontal-nav.hide-on-med-and-down
   li= render 'top15'
   == links
 ul#slide-out.side-nav== links
-a.button-collapse href="#" data-activates="slide-out"
+a.button-collapse.black-text href="#" data-activates="slide-out"
   i.mdi-navigation-menu

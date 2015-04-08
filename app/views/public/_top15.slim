@@ -1,6 +1,6 @@
 - num_articles = 15
 - articles = Article.includes(:year).published.limit(num_articles).order(publish_date: :desc)
-a.center.top-news data-activates="top15" href="#"
+a.center.top-news.waves-effect.waves-light.black.btn-flat.white-text data-activates="top15" href="#"
   span.number= articles.count
   span Must read
   span
