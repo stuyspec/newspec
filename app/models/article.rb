@@ -63,6 +63,10 @@ class Article < ActiveRecord::Base
     end
   end
 
+  def preview
+    "#{text.first(100).chomp(' ')}&hellip;".html_safe
+  end
+
   private
 
   def setup

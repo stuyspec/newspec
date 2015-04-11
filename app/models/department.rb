@@ -16,4 +16,8 @@ class Department < ActiveRecord::Base
 
   # Validations
   validates :name, presence: true, uniqueness: true
+
+  def self.with_published_articles
+    all.select {|d| d.articles.published.count > 0}
+  end
 end

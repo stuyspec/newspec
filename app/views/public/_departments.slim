@@ -1,6 +1,15 @@
-- Department.all.each do |dept|
-  .dept.col.s12m6l4 id=dept.name
-    h5= link_to "#{dept.name} Spotlight", dept
+- Department.with_published_articles.each do |dept|
+  .dept.col.s12.m6.l6.card.flat id=dept.name
     - article = dept.articles.published.last
-    - unless article.nil?
-      h6= link_to article.title.first(5), article
+    .card-content
+      span.card-title.activator.black-text
+        = "#{dept.name} Spotlight"
+        i.mdi-navigation-more-vert.right
+      h5= article.title
+    .card-reveal
+      span.card-title.black-text
+        = article.title
+        i.mdi-navigation-close.right
+      p= article.preview
+      .card-action
+        = link_to "Read more", article
