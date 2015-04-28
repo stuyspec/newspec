@@ -1,0 +1,3 @@
+- links.each do |link|
+  - attrs = if current_page? link[1] then {class: "active"} else {} end
+  li*attrs = link_to *link

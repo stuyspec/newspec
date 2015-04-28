@@ -1,17 +1,18 @@
 (($) ->
-    setNav = (cutoff, parent) ->
+    setNav = (cutoff, parent, className) ->
         top = $(window).scrollTop()
-        has_class = parent.hasClass('navbar-fixed')
+        has_class = parent.hasClass(className)
         if top > cutoff
-            parent.addClass('navbar-fixed') unless has_class
+            parent.addClass(className) unless has_class
         else
-            parent.removeClass('navbar-fixed') if has_class
+            parent.removeClass(className) if has_class
 
-    $(document).ready ->
-        cutoff = $("#masthead").height()
-        nav_parent = $('nav').parent()
-        #callSetNav = -> setNav(cutoff, nav_parent)
-        #$(window).scroll callSetNav
-        $(".button-collapse").sideNav()
+    $(window).load ->
+        cutoff = $("#header").height()
+        nav_parent = $('nav#primary').parent()
+        callSetNav = -> setNav(cutoff, nav_parent, 'navbar-fixed')
+        console.log cutoff
+        $(window).scroll callSetNav
+        $(".hamburger").sideNav()
 
 )(jQuery)

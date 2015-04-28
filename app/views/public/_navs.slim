@@ -1,0 +1,27 @@
+- primary = [["Home", root_url]]
+- %w(News Features A&E Opinions Humor Sports).each do |d|
+  - primary << [d, '#']
+
+- secondary = []
+- %w(Advertise Sponsor Apparel Charter).each do |d|
+  - secondary << [d, '#']
+
+a.hamburger.black-text href="#" data-activates="slide-out"
+  i.mdi-navigation-menu
+
+ul.left.hide-on-med-and-down
+  = render partial: 'links', locals: {links: primary}
+ul.right.hide-on-med-and-down
+  li
+    a href="#"
+      i.mdi-action-search
+/#secondary-nav-wrapper
+  /.container
+    /nav#secondary
+      /ul.right.hide-on-med-and-down
+        /= render partial: 'links', locals: {links: secondary}
+
+/ul#horizontal-nav.hide-on-med-and-down
+  /== links
+ul#slide-out.side-nav
+  = render partial: 'links', locals: {links: primary}

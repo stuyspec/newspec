@@ -1,14 +1,13 @@
-.navbar-fixed
-  nav.white
-    .nav-wrapper
-      - links = []
-      - links << ["Home", root_url]
-      - Department.all.each do |dept|
-        - links << [dept.name, dept]
-      = render partial: 'nav', locals: {links: links}
-.container
-  .card
-    = yield
+header#header
+  .container
+    #logo.center
+      = image_tag 'logo.png', class: 'brand-logo'
+#primary-nav-wrapper
+    nav#primary role="navigation"
+      .nav-wrapper.container
+        = render partial: 'navs'
+#main.container
+  = yield
 
 - content_for :head do
   = stylesheet_link_tag    'public', 'data-turbolinks-track' => true
