@@ -16,7 +16,7 @@ ActiveRecord::Schema.define(version: 20150405021257) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "articles", force: true do |t|
+  create_table "articles", force: :cascade do |t|
     t.string   "title"
     t.string   "status"
     t.datetime "publish_date"
@@ -30,7 +30,7 @@ ActiveRecord::Schema.define(version: 20150405021257) do
 
   add_index "articles", ["department_id"], name: "index_articles_on_department_id", using: :btree
 
-  create_table "articles_profiles", id: false, force: true do |t|
+  create_table "articles_profiles", id: false, force: :cascade do |t|
     t.integer "profile_id"
     t.integer "article_id"
   end
@@ -38,7 +38,7 @@ ActiveRecord::Schema.define(version: 20150405021257) do
   add_index "articles_profiles", ["article_id"], name: "index_articles_profiles_on_article_id", using: :btree
   add_index "articles_profiles", ["profile_id"], name: "index_articles_profiles_on_profile_id", using: :btree
 
-  create_table "departments", force: true do |t|
+  create_table "departments", force: :cascade do |t|
     t.string   "name"
     t.integer  "editor_id"
     t.datetime "created_at"
@@ -47,7 +47,7 @@ ActiveRecord::Schema.define(version: 20150405021257) do
 
   add_index "departments", ["editor_id"], name: "index_departments_on_editor_id", using: :btree
 
-  create_table "issues", force: true do |t|
+  create_table "issues", force: :cascade do |t|
     t.integer  "number"
     t.datetime "publish_date"
     t.boolean  "done",         default: false
@@ -56,7 +56,7 @@ ActiveRecord::Schema.define(version: 20150405021257) do
     t.integer  "year_id"
   end
 
-  create_table "profiles", force: true do |t|
+  create_table "profiles", force: :cascade do |t|
     t.string   "first",      default: "", null: false
     t.string   "last",       default: "", null: false
     t.string   "email"
@@ -64,23 +64,23 @@ ActiveRecord::Schema.define(version: 20150405021257) do
     t.datetime "updated_at"
   end
 
-  create_table "roles", force: true do |t|
+  create_table "roles", force: :cascade do |t|
     t.string   "name",                      null: false
     t.string   "capabilities", default: [],              array: true
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  create_table "settings", force: true do |t|
-    t.string   "type",       null: false
+  create_table "settings", id: false, force: :cascade do |t|
+    t.string   "key",        null: false
     t.string   "value"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  add_index "settings", ["type"], name: "index_settings_on_type", unique: true, using: :btree
+  add_index "settings", ["key"], name: "index_settings_on_key", unique: true, using: :btree
 
-  create_table "users", force: true do |t|
+  create_table "users", force: :cascade do |t|
     t.string   "username"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -100,7 +100,7 @@ ActiveRecord::Schema.define(version: 20150405021257) do
   add_index "users", ["profile_id"], name: "index_users_on_profile_id", using: :btree
   add_index "users", ["role_id"], name: "index_users_on_role_id", using: :btree
 
-  create_table "years", force: true do |t|
+  create_table "years", force: :cascade do |t|
     t.integer  "year"
     t.datetime "created_at"
     t.datetime "updated_at"

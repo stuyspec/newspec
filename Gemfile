@@ -5,6 +5,7 @@ gem 'rails', '4.2'
 # Use postgresql as the database for Active Record
 gem 'pg', '~> 0.18.1'
 gem "pg_array_parser", '~> 0.0.9'
+gem 'postgres_ext', '~> 2.4.1'
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 5.0.3'
 # Use Uglifier as compressor for JavaScript assets
@@ -59,6 +60,7 @@ group :development, :test do
   gem 'factory_girl_rails', '~> 4.5.0'
   gem 'capybara', '~> 2.4.4'
   gem 'database_cleaner', '~> 1.4.0'
+  gem 'activerecord-nulldb-adapter', git: 'git://github.com/nulldb/nulldb.git'
 end
 
 # Detect inefficient database queries
