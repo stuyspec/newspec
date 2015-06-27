@@ -1,22 +1,18 @@
 require_relative 'service'
 class Default
+  FALLBACK_BASE = {issue: 1, status: :draft}
+
   def initialize(db, now=DateTime.now)
     @db = db
-    @now = now
+    @fallback = FALLBACK_BASE.merge year: now.year, publish_date: now + 2.weeks
   end
 
-  def issue
-    @db[:default_issue] = 1 unless @db.has_key? :default_issue
-    @db[:default_issue]
-  end
-
-  def year
-    @db[:default_year] = @now.year unless @db.has_key? :default_year
-    @db[:default_year]
-  end
-
-  def status
-    :draft
+  %i(issue year status publish_date).each do |attr|
+    define_method attr do
+      key = "default_#{attr}".to_sym
+      @db[key] = @fallback[key] unless @db.has_key? key
+      @db[key]
+    end
   end
 
 end

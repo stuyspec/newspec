@@ -3,31 +3,38 @@ require 'ostruct'
 require_relative '../../services/default'
 
 RSpec.describe Default, :new do
-  let(:db) { Hash.new }
-  let(:default) { Default.new db, OpenStruct.new(year: 2015) }
-
-  describe ".issues" do
-    it "creates a default issue" do
-      expect(db).to receive(:'[]=').with(:default_issue, 1)
-      default.issue
-    end
-
-    it "gets the issue" do
-      db[:default_issue] = 4
-      expect(default.issue).to be_eql 4
-    end
+  let(:vals) do
+    {
+     issue: 3,
+     year: 2012,
+     status: :pending,
+     publish_date: DateTime.now + 2.weeks
+    }
   end
 
-  describe ".year" do
+  %i(issue year status publish_date).each do |attr|
 
-    it "creates a default year" do
-      expect(db).to receive(:'[]=').with(:default_year, 2015)
-      default.year
+    describe ".#{attr}" do
+      key = "default_#{attr}".to_sym
+
+      it "creates a #{key} in the database" do
+        db = class_spy('Storage', :has_key? => false)
+        default =  Default.new db, DateTime.parse("June 22 1998")
+
+        default.send attr
+
+        expect(db).to have_received(:'[]=').with(key, anything)
+      end
+
+      it "retrieves the #{key} from the database" do
+        db = class_spy('Storage')
+        allow(db).to receive('[]').with(key).and_return(vals[attr])
+
+        default =  Default.new db, DateTime.parse("June 22 1998")
+        expect(default.send attr).to be_eql vals[attr]
+      end
     end
 
-    it "gets the year" do
-      db[:default_year] = 2016
-      expect(default.year).to be_eql(2016)
-    end
   end
+
 end
