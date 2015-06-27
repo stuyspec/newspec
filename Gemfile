@@ -55,6 +55,8 @@ gem 'annotate', '~> 2.6.5', group: :development
 group :development, :test do
   gem 'spring-commands-rspec', '~> 1.0.4'
   gem 'rspec-rails', '~> 3.2.0'
+  gem 'fuubar'
+  gem 'rspec-its'
   gem 'guard-rspec', '~> 4.5.0'
   gem 'rb-fsevent' if `uname` =~ /Darwin/
   gem 'factory_girl_rails', '~> 4.5.0'

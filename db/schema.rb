@@ -20,15 +20,16 @@ ActiveRecord::Schema.define(version: 20150405021257) do
     t.string   "title"
     t.string   "status"
     t.datetime "publish_date"
+    t.text     "text",          default: "", null: false
+    t.string   "slug"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "department_id"
     t.integer  "issue_id"
-    t.text     "text",          default: "", null: false
-    t.string   "slug"
   end
 
   add_index "articles", ["department_id"], name: "index_articles_on_department_id", using: :btree
+  add_index "articles", ["slug"], name: "index_articles_on_slug", using: :btree
 
   create_table "articles_profiles", id: false, force: :cascade do |t|
     t.integer "profile_id"

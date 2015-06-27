@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.describe YearsController, :type => :routing do
+# RSpec.describe YearsController, :type => :routing do
   # describe "routing" do
 
   #   it "routes to #index" do
@@ -32,4 +32,4 @@ RSpec.describe YearsController, :type => :routing do
   #   end
 
   # end
-end
+# end

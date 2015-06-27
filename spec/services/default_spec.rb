@@ -2,7 +2,7 @@ require 'spec_helper'
 require 'ostruct'
 require_relative '../../services/default'
 
-describe Default do
+RSpec.describe Default, :new do
   let(:db) { Hash.new }
   let(:default) { Default.new db, OpenStruct.new(year: 2015) }
 

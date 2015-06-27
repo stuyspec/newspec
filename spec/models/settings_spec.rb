@@ -1,7 +1,7 @@
 require 'spec_helper'
 require_relative '../../app/models/settings'
 
-describe Settings, :type => :model do
+RSpec::describe Settings, :new do
   before do
     DatabaseCleaner.strategy = :transaction
     DatabaseCleaner.clean_with(:truncation)

@@ -17,19 +17,13 @@ class Article < ActiveRecord::Base
   scope :published, -> { where(status: :published) }
   # Associations
   has_and_belongs_to_many :authors, class_name: "Profile"
-  belongs_to :issue
-  belongs_to :department
   has_many :users, through: :authors
-  has_one :year, through: :issue
 
   # Validations
   validates :status, inclusion: {in: %w(draft editor eic pending published)}
-  validates_presence_of :issue, :publish_date
+  validates_presence_of :publish_date, :issue, :year
   validates :authors, length: {minimum: 1}
   validates :title, presence: true
-
-  # Lifecycle Callbacks
-  after_initialize :setup, if: :new_record?
 
   # FriendlyId for Slugs
   extend FriendlyId
@@ -52,32 +46,11 @@ class Article < ActiveRecord::Base
     false
   end
 
-  def formatted_date
-    now = Time.now
-    range = now-1.day..now
-    if range.cover? publish_date
-      hours = (now - publish_date).to_i / 1.hour
-      "#{hours} #{'hour'.pluralize(hours)} ago"
-    else
-      publish_date.strftime("%B %-d, %Y")
-    end
-  end
-
-  def preview
-    "#{text.first(100).chomp(' ')}&hellip;".html_safe
-  end
-
   private
 
   def setup
-    auto_issue unless issue.present?
     auto_publish_date unless publish_date.present? or not issue.present?
     auto_department unless department.present? or not users.present?
-    auto_status unless status.present?
-  end
-
-  def auto_issue
-    self.issue = Issue.current
   end
 
   def auto_publish_date
@@ -88,7 +61,4 @@ class Article < ActiveRecord::Base
     self.department = users[0].department
   end
 
-  def auto_status
-    self.status = "draft"
-  end
 end

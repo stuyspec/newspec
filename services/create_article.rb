@@ -6,9 +6,18 @@ class CreateArticle
   end
 
   def call(*args)
-    @article_source.call(*args).tap do |a|
-      %i(issue year status).each do |field|
-        a.send "#{field}=", @default.send(field)
+    @article_source.call(*args).tap do |article|
+      %i(issue year status publish_date).each do |field|
+        unless article.respond_to? field and article.send(field).present?
+          article.send "#{field}=", @default.send(field)
+        end
+      end
+
+      if article.department.blank?
+        depts = article.select(:authors).authors.map(&:department).select(&:present?)
+        if depts.count > 0
+          article.department = depts[0]
+        end
       end
     end
   end
