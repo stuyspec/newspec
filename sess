@@ -1,0 +1,169 @@
+let SessionLoad = 1
+let s:so_save = &so | let s:siso_save = &siso | set so=0 siso=0
+let v:this_session=expand("<sfile>:p")
+silent only
+cd ~/Downloads/newspec
+if expand('%') == '' && !&modified && line('$') <= 1 && getline(1) == ''
+  let s:wipebuf = bufnr('%')
+endif
+set shortmess=aoO
+badd +16 spec/controllers/articles_controller_spec.rb
+badd +5 app/controllers/articles_controller.rb
+badd +5 app/views/articles/index.jbuilder
+badd +4 app/models/article.rb
+badd +1 app/views/articles/index.erb
+badd +0 spec/views/articles/index.jbuilder_spec.rb
+badd +27 ~/.nvimrc
+badd +0 spec/factories/articles.rb
+badd +0 db/migrate/20150921193517_create_articles.rb
+argglobal
+silent! argdel *
+edit db/migrate/20150921193517_create_articles.rb
+set splitbelow splitright
+wincmd _ | wincmd |
+vsplit
+1wincmd h
+wincmd _ | wincmd |
+split
+wincmd _ | wincmd |
+split
+2wincmd k
+wincmd w
+wincmd w
+wincmd w
+wincmd _ | wincmd |
+split
+1wincmd k
+wincmd w
+set nosplitbelow
+set nosplitright
+wincmd t
+set winheight=1 winwidth=1
+exe '1resize ' . ((&lines * 12 + 20) / 40)
+exe 'vert 1resize ' . ((&columns * 79 + 74) / 149)
+exe '2resize ' . ((&lines * 12 + 20) / 40)
+exe 'vert 2resize ' . ((&columns * 79 + 74) / 149)
+exe '3resize ' . ((&lines * 11 + 20) / 40)
+exe 'vert 3resize ' . ((&columns * 79 + 74) / 149)
+exe '4resize ' . ((&lines * 18 + 20) / 40)
+exe 'vert 4resize ' . ((&columns * 69 + 74) / 149)
+exe '5resize ' . ((&lines * 18 + 20) / 40)
+exe 'vert 5resize ' . ((&columns * 69 + 74) / 149)
+argglobal
+setlocal fdm=indent
+setlocal fde=0
+setlocal fmr={{{,}}}
+setlocal fdi=#
+setlocal fdl=10
+setlocal fml=1
+setlocal fdn=10
+setlocal fen
+2
+normal! zo
+3
+normal! zo
+let s:l = 4 - ((3 * winheight(0) + 6) / 12)
+if s:l < 1 | let s:l = 1 | endif
+exe s:l
+normal! zt
+4
+normal! 0
+wincmd w
+argglobal
+edit app/views/articles/index.jbuilder
+setlocal fdm=indent
+setlocal fde=0
+setlocal fmr={{{,}}}
+setlocal fdi=#
+setlocal fdl=10
+setlocal fml=1
+setlocal fdn=10
+setlocal fen
+2
+normal! zo
+let s:l = 3 - ((2 * winheight(0) + 6) / 12)
+if s:l < 1 | let s:l = 1 | endif
+exe s:l
+normal! zt
+3
+normal! 017|
+wincmd w
+argglobal
+edit spec/factories/articles.rb
+setlocal fdm=indent
+setlocal fde=0
+setlocal fmr={{{,}}}
+setlocal fdi=#
+setlocal fdl=10
+setlocal fml=1
+setlocal fdn=10
+setlocal fen
+2
+normal! zo
+let s:l = 2 - ((1 * winheight(0) + 5) / 11)
+if s:l < 1 | let s:l = 1 | endif
+exe s:l
+normal! zt
+2
+normal! 0
+wincmd w
+argglobal
+edit spec/views/articles/index.jbuilder_spec.rb
+setlocal fdm=indent
+setlocal fde=0
+setlocal fmr={{{,}}}
+setlocal fdi=#
+setlocal fdl=10
+setlocal fml=1
+setlocal fdn=10
+setlocal fen
+let s:l = 5 - ((4 * winheight(0) + 9) / 18)
+if s:l < 1 | let s:l = 1 | endif
+exe s:l
+normal! zt
+5
+normal! 0
+wincmd w
+argglobal
+edit spec/controllers/articles_controller_spec.rb
+setlocal fdm=indent
+setlocal fde=0
+setlocal fmr={{{,}}}
+setlocal fdi=#
+setlocal fdl=10
+setlocal fml=1
+setlocal fdn=10
+setlocal fen
+4
+normal! zo
+let s:l = 7 - ((3 * winheight(0) + 9) / 18)
+if s:l < 1 | let s:l = 1 | endif
+exe s:l
+normal! zt
+7
+normal! 033|
+wincmd w
+exe '1resize ' . ((&lines * 12 + 20) / 40)
+exe 'vert 1resize ' . ((&columns * 79 + 74) / 149)
+exe '2resize ' . ((&lines * 12 + 20) / 40)
+exe 'vert 2resize ' . ((&columns * 79 + 74) / 149)
+exe '3resize ' . ((&lines * 11 + 20) / 40)
+exe 'vert 3resize ' . ((&columns * 79 + 74) / 149)
+exe '4resize ' . ((&lines * 18 + 20) / 40)
+exe 'vert 4resize ' . ((&columns * 69 + 74) / 149)
+exe '5resize ' . ((&lines * 18 + 20) / 40)
+exe 'vert 5resize ' . ((&columns * 69 + 74) / 149)
+tabnext 1
+if exists('s:wipebuf') && getbufvar(s:wipebuf, '&buftype') isnot# 'terminal'
+  silent exe 'bwipe ' . s:wipebuf
+endif
+unlet! s:wipebuf
+set winheight=1 winwidth=79 shortmess=filnxtToO
+let s:sx = expand("<sfile>:p:r")."x.vim"
+if file_readable(s:sx)
+  exe "source " . fnameescape(s:sx)
+endif
+let &so = s:so_save | let &siso = s:siso_save
+doautoall SessionLoadPost
+unlet SessionLoad
+" vim: set ft=vim :

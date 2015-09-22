@@ -1,0 +1,52 @@
+W/O SUPPORT
+  COLD
+
+  real	0m4.187s
+  user	0m0.517s
+  sys	0m0.309s
+
+  HOT
+
+  real	0m1.218s
+  user	0m0.484s
+  sys	0m0.326s
+
+W SUPPORT
+  COLD
+  real	0m4.592s
+  user	0m0.526s
+  sys	0m0.372s
+
+  HOT
+  articles/index
+  real	0m1.438s
+  user	0m0.491s
+  sys	0m0.374s
+
+W FACTORY_GIRL
+
+Spring stopped.
+
+articles/index
+  renders JSON correctly
+
+Finished in 0.00109 seconds (files took 0.15644 seconds to load)
+1 example, 0 failures
+
+
+real	0m4.110s
+user	0m0.502s
+sys	0m0.374s
+
+articles/index
+  renders JSON correctly
+
+Finished in 0.0011 seconds (files took 0.16921 seconds to load)
+1 example, 0 failures
+
+
+real	0m1.216s
+user	0m0.478s
+sys	0m0.322s
+
+W BOTH
