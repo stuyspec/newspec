@@ -3,6 +3,10 @@ FactoryGirl.define do
     title "Stuff Happened"
     slug "stuff-happened"
     #authors [ 1 ]
+    text """
+    this is my article. some stuff has gone down.
+    Alon Levin thinks some shit is antisemeitic bc people don't like Israel
+    """
     publish_date DateTime.now - 1.week
     #issue 1
     #year 2016 
