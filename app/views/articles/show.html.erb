@@ -1,0 +1,10 @@
+<p id="notice"><%= notice %></p>
+
+<article>
+  <header>
+    <h1> <%= @article.title %> </h1>
+  </header>
+  <p> <%= simple_format @article.text %> </p>
+</article>
+
+<%= link_to 'Back', articles_path %>
