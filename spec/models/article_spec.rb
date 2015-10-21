@@ -63,5 +63,17 @@ RSpec.describe Article, type: :model do
       article = build(:article, text: '')
       expect(article).not_to be_valid
     end
+
+    it "does not allow two articles with same title" do
+      article1 = create(:article, title: "A Title")
+      article2 = build(:article, title: "A Title")
+      expect(article2).not_to be_valid
+    end
+
+    it "allows unpublished artilces with duplicate titles" do
+      article1 = create(:unpublished, title: "A Title")
+      article2 = build(:unpublished, title: "A Title")
+      expect(article2).to be_valid
+    end
   end
 end

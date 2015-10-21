@@ -1,7 +1,8 @@
 class Article < ActiveRecord::Base
 
-  validates_presence_of :title
+  validates :title, presence: true, uniqueness: true, if: :published?
   validates_presence_of :text, if: :published?
+
   class NoArticle; end
 
   def self.published

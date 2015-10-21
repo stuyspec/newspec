@@ -1,7 +1,7 @@
 FactoryGirl.define do
   factory :article do
-    title "Stuff Happened"
-    slug "stuff-happened"
+    sequence(:title) { |n| "Stuff Happened - #{n}" }
+    slug { title.parameterize }
     #authors [ 1 ]
     text """
     this is my article. some stuff has gone down.
@@ -13,7 +13,7 @@ FactoryGirl.define do
       publish_date DateTime.now + 1.week
     end
     #issue 1
-    #year 2016 
+    #year 2016
     #dept 1
   end
 
