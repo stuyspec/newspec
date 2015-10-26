@@ -1,7 +1,7 @@
 FactoryGirl.define do
   factory :article do
     sequence(:title) { |n| "Stuff Happened - #{n}" }
-    slug { title.parameterize }
+    #slug { title.parameterize }
     #authors [ 1 ]
     text """
     this is my article. some stuff has gone down.
