@@ -12,7 +12,10 @@
   <tbody>
     <% @articles.each do |article| %>
       <tr>
-        <td><%= link_to article.title, article %></td>
+        <td>
+          <h3><%= link_to article.title, article %></h3>
+          <p>by <%= link_to article.author.name, article.author %></p>
+        </td>
       </tr>
     <% end %>
   </tbody>

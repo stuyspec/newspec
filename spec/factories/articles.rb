@@ -1,5 +1,6 @@
 FactoryGirl.define do
   factory :article do
+    author
     sequence(:title) { |n| "Stuff Happened - #{n}" }
     #slug { title.parameterize }
     #authors [ 1 ]

@@ -1,7 +1,10 @@
 class Article < ActiveRecord::Base
 
+  belongs_to :author
+
   validates :title, presence: true, uniqueness: true, if: :published?
   validates_presence_of :text, if: :published?
+  validates_presence_of :author_id
 
   class NoArticle; end
 

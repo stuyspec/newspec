@@ -3,6 +3,7 @@
 <article>
   <header>
     <h1> <%= @article.title %> </h1>
+    <%= link_to @article.author.name, @article.author, rel: :title %>
   </header>
   <p> <%= simple_format @article.text %> </p>
 </article>

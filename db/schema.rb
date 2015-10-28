@@ -11,7 +11,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151022193639) do
+ActiveRecord::Schema.define(version: 20151026193047) do
+
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
 
   create_table "articles", force: :cascade do |t|
     t.string   "title",        null: false
@@ -19,7 +22,10 @@ ActiveRecord::Schema.define(version: 20151022193639) do
     t.datetime "publish_date"
     t.datetime "created_at",   null: false
     t.datetime "updated_at",   null: false
+    t.integer  "author_id"
   end
+
+  add_index "articles", ["author_id"], name: "index_articles_on_author_id", using: :btree
 
   create_table "authors", force: :cascade do |t|
     t.string "first", null: false
@@ -27,4 +33,5 @@ ActiveRecord::Schema.define(version: 20151022193639) do
     t.string "slug",  null: false
   end
 
+  add_foreign_key "articles", "authors", on_delete: :restrict
 end
