@@ -5,7 +5,7 @@ FactoryGirl.define do
     last  "Doe"
 
     after(:build) do |author|
-      author.slug = Author.slug(author)
+      author.slug = UniqueAuthorSlug.call(author) if author.slug.blank?
     end
 
   end
