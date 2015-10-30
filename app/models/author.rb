@@ -2,7 +2,8 @@ class Author < ActiveRecord::Base
 
   has_many :articles
 
-  validates_presence_of :first, :last
+  validates_presence_of :first, :last, :slug
+  validates_uniqueness_of :slug
 
   class << self
     def is_unique_slug(slug)
