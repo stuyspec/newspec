@@ -8,7 +8,7 @@ RSpec.describe ArticlesController, type: :routing do
     end
 
     it "routes to #show" do
-      expect(:get => "/authors/1").to route_to("authors#show", :id => "1")
+      expect(:get => "/authors/jake-waksbaum").to route_to("authors#show", :slug => "jake-waksbaum")
     end
 
   end
