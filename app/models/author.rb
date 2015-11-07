@@ -1,4 +1,5 @@
 class Author < ActiveRecord::Base
+  UniqueSlugMaker = Unique.new { |slug| not Author.exists?(slug: slug) }
 
   has_many :articles
 
@@ -6,13 +7,9 @@ class Author < ActiveRecord::Base
   validates_uniqueness_of :slug
 
   class << self
-    def is_unique_slug(slug)
-      not Author.exists?(slug: slug)
-    end
-
     def create_author(first, last)
       create!(first: first, last: last) do |author|
-        author.slug = UniqueAuthorSlug.call(author)
+        author.slug = UniqueSlugMaker.call(author.name.parameterize)
       end
     end
   end
