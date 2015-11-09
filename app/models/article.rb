@@ -4,6 +4,7 @@ class Article < ActiveRecord::Base
                       allow_nil: true
 
   belongs_to :author
+  belongs_to :department
 
   validates :title, presence: true, uniqueness: true, if: :published?
   validates_presence_of :text, if: :published?
