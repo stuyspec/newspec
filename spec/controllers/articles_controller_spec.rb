@@ -1,25 +1,39 @@
 require 'rails_helper'
 
-RSpec.describe ArticlesController do
+RSpec.describe ArticlesController, type: :controller do
+  let!(:articles) {[
+    create(:article, issue: Issue.new(2015, 1)),
+    create(:article, issue: Issue.new(2015, 1)),
+    create(:article, issue: Issue.new(2015, 2)),
+    create(:article, issue: Issue.new(2016, 2))
+  ]}
 
-  describe "GET #index" do
-    it "assigns published articles as @articles" do
-      articles = [
-        create(:article),
-        create(:article)
-      ]
-      create(:unpublished)
-      get :index
-      expect(assigns(:articles)).to eq(articles)
+  before(:each) do
+    create(:unpublished, issue: Issue.new(2015, 3))
+    create(:unpublished, issue: Issue.new(2014, 3))
+  end
+
+  describe 'GET #by_year' do
+    context "articles with that year exist" do
+      before(:each) { get :by_year, year: '2015' }
+      it 'assigns issues in that year as @issues' do
+        expect(assigns(:issues)).to eq({
+          Issue.new(2015, 1) => [ articles[0], articles[1] ],
+          Issue.new(2015, 2) => [ articles[2] ],
+        })
+      end
     end
   end
 
-  describe "GET #show" do
-    it "assigns the requested article as @article" do
-      article = create(:article)
-      get :show, id: article.id
-      expect(assigns(:article)).to eq(article)
-    end
+  context 'no articles exist with that year' do
+    before(:each) { get :by_year, year: '2012' }
+    it { expect(assigns(:issues)).to eq({}) }
+  end
+
+  context 'only unpublished article exist with that year' do
+    before(:each) { get :by_year, year: '2014' }
+    it { expect(assigns(:issues)).to eq({}) }
+  end
 
     it "404s for a nonexistant article" do
       expect do

@@ -1,9 +1,8 @@
 class ArticlesController < ApplicationController
-  
-  # GET /articles
-  # GET /articles.json
-  def index
-    @articles = Article.published
+
+  # GET /:year
+  def by_year
+    @issues = Article.published.by_year(params[:year]).group_by_issue
   end
 
   # GET /articles/1
