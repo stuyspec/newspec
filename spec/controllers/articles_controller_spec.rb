@@ -35,18 +35,37 @@ RSpec.describe ArticlesController, type: :controller do
     it { expect(assigns(:issues)).to eq({}) }
   end
 
-    it "404s for a nonexistant article" do
-      expect do
-        get :show, id: 1
-      end.to raise_error ActionController::RoutingError
+  describe 'GET #by_issue' do
+    context 'articles with that issue exist' do
+      before(:each) { get :by_issue, year: '2015', issue_num: '1' }
+
+      it 'assigns the issue to @issue' do
+        expect(assigns(:issue)).to eq(Issue.new(2015, 1))
+      end
+
+      it 'assigns the articles in that issue as @articles' do
+        expect(assigns(:articles)).to eq(articles[0..1])
+      end
     end
 
-    it "404s for an unpublished article" do
-      article = create(:unpublished)
-      expect do
-        get :show, id: article.id
-      end.to raise_error ActionController::RoutingError
+    context "no articles with that issue exist" do
+      before(:each) { get :by_issue, year: "2012", issue_num: "1" }
+
+      it 'assigns the issue to @issue' do
+        expect(assigns(:issue)).to eq Issue.new(2012, 1)
+      end
+
+      it { expect(assigns(:articles)).to eq [] }
     end
 
+    context 'only unpublished articles with that issue exist' do
+      before(:each) { get :by_issue, year: "2015", issue_num: "3" }
+
+      it 'assigns the issue to @issue' do
+        expect(assigns(:issue)).to eq Issue.new(2015, 3)
+      end
+
+      it { expect(assigns(:articles)).to eq [] }
+    end
   end
 end

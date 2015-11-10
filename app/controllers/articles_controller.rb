@@ -5,10 +5,15 @@ class ArticlesController < ApplicationController
     @issues = Article.published.by_year(params[:year]).group_by_issue
   end
 
-  # GET /articles/1
-  # GET /articles/1.json
-  def show
-    @article = Article.find_published(params[:id])
-    raise ActionController::RoutingError.new("Article not found") if @article == Article::NoArticle
+  # GET /:year/:issue_num
+  def by_issue
+    @issue = issue
+    @articles = Article.published.by_issue(@issue)
+  end
+
+  private
+
+  def issue
+    Issue.new params[:year].to_i, params[:issue_num].to_i
   end
 end
