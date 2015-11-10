@@ -10,14 +10,36 @@ class Article < ActiveRecord::Base
 
   class NoArticle; end
 
-  def self.published
-    where("publish_date <= ?", DateTime.now)
-  end
+  class << self
+    def published
+      where("publish_date <= ?", DateTime.now)
+    end
 
-  def self.find_published(id)
-    published.find(id)
-  rescue ActiveRecord::RecordNotFound
-    return Article::NoArticle
+    def find_published(id)
+      published.find(id)
+    rescue ActiveRecord::RecordNotFound
+      return NoArticle
+    end
+
+    def by_year(year)
+      where(year: year)
+    end
+
+    def by_issue(issue)
+      where(issue: issue)
+    end
+
+    def to_issues
+      group(:issue_num, :year).select(:issue_num, :year).map &:issue
+    end
+
+    def group_by_issue
+      Hash[
+        to_issues.map do |issue|
+          [issue, by_issue(issue)]
+        end
+      ]
+    end
   end
 
   def published?
