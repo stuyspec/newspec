@@ -2,11 +2,11 @@ require 'rails_helper'
 
 RSpec.describe AuthorsController, type: :controller do
 
-  describe "GET #index" do
+  describe "GET #by_year" do
     it "assigns all the authors as @authors" do
       authors = [
-        create(:author, first: "Jake", last: "Waksbaum"),
-        create(:author, first: "Ari", last: "Hatzimemos")
+        build(:author, first: "Jake", last: "Waksbaum"),
+        build(:author, first: "Ari", last: "Hatzimemos")
       ]
       get :index
       expect(assigns(:authors)).to eq(authors)
