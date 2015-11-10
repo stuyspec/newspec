@@ -1,5 +1,7 @@
 class Article < ActiveRecord::Base
 
+  composed_of :issue, class_name: 'Issue', mapping: [ ['year', 'year'], ['issue_num', 'issue_num'] ], allow_nil: true
+
   belongs_to :author
 
   validates :title, presence: true, uniqueness: true, if: :published?

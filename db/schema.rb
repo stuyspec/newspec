@@ -11,18 +11,21 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151030023331) do
+ActiveRecord::Schema.define(version: 20151110212928) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "articles", force: :cascade do |t|
-    t.string   "title",        null: false
+    t.string   "title",         null: false
     t.text     "text"
     t.datetime "publish_date"
-    t.datetime "created_at",   null: false
-    t.datetime "updated_at",   null: false
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
     t.integer  "author_id"
+    t.integer  "department_id"
+    t.integer  "issue_num"
+    t.integer  "year"
   end
 
   add_index "articles", ["author_id"], name: "index_articles_on_author_id", using: :btree
@@ -35,5 +38,14 @@ ActiveRecord::Schema.define(version: 20151030023331) do
 
   add_index "authors", ["slug"], name: "index_authors_on_slug", unique: true, using: :btree
 
+  create_table "departments", force: :cascade do |t|
+    t.string   "name",       null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "departments", ["name"], name: "index_departments_on_name", using: :btree
+
   add_foreign_key "articles", "authors", on_delete: :restrict
+  add_foreign_key "articles", "departments"
 end
