@@ -1,12 +1,14 @@
 require 'rails_helper'
 
 RSpec.describe ArticlesController, type: :controller do
-  let!(:articles) {[
-    create(:article, issue: Issue.new(2015, 1)),
-    create(:article, issue: Issue.new(2015, 1)),
-    create(:article, issue: Issue.new(2015, 2)),
-    create(:article, issue: Issue.new(2016, 2))
-  ]}
+  let!(:articles) do
+    [
+      create(:article, issue: Issue.new(2015, 1)),
+      create(:article, issue: Issue.new(2015, 1)),
+      create(:article, issue: Issue.new(2015, 2)),
+      create(:article, issue: Issue.new(2016, 2))
+    ]
+  end
 
   before(:each) do
     create(:unpublished, issue: Issue.new(2015, 3))
@@ -14,13 +16,13 @@ RSpec.describe ArticlesController, type: :controller do
   end
 
   describe 'GET #by_year' do
-    context "articles with that year exist" do
+    context 'articles with that year exist' do
       before(:each) { get :by_year, year: '2015' }
       it 'assigns issues in that year as @issues' do
-        expect(assigns(:issues)).to eq({
-          Issue.new(2015, 1) => [ articles[0], articles[1] ],
-          Issue.new(2015, 2) => [ articles[2] ],
-        })
+        expect(assigns(:issues)).to eq(
+          Issue.new(2015, 1) => [articles[0], articles[1]],
+          Issue.new(2015, 2) => [articles[2]]
+        )
       end
     end
   end
@@ -48,10 +50,10 @@ RSpec.describe ArticlesController, type: :controller do
       end
     end
 
-    context "no articles with that issue exist" do
-      before(:each) { get :by_issue, year: "2012", issue_num: "1" }
+    context 'no articles with that issue exist' do
+      before(:each) { get :by_issue, year: '2012', issue_num: '1' }
 
-      it 'assigns the issue to @issue' do
+      it "assigns the issue to @issue" do
         expect(assigns(:issue)).to eq Issue.new(2012, 1)
       end
 

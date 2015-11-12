@@ -1,6 +1,7 @@
 class Article < ActiveRecord::Base
-
-  composed_of :issue, class_name: 'Issue', mapping: [ ['year', 'year'], ['issue_num', 'issue_num'] ], allow_nil: true
+  composed_of :issue, class_name: 'Issue',
+                      mapping: [%w(year year), %w(issue_num issue_num)],
+                      allow_nil: true
 
   belongs_to :author
 
@@ -10,41 +11,36 @@ class Article < ActiveRecord::Base
 
   class NoArticle; end
 
-  class << self
-    def published
-      where("publish_date <= ?", DateTime.now)
-    end
+  def self.published
+    where('publish_date <= ?', DateTime.now)
+  end
 
-    def find_published(id)
-      published.find(id)
-    rescue ActiveRecord::RecordNotFound
-      return NoArticle
-    end
+  def self.find_published(id)
+    published.find(id)
+  rescue ActiveRecord::RecordNotFound
+    NoArticle
+  end
 
-    def by_year(year)
-      where(year: year)
-    end
+  def self.by_year(year)
+    where(year: year)
+  end
 
-    def by_issue(issue)
-      where(issue: issue)
-    end
+  def self.by_issue(issue)
+    where(issue: issue)
+  end
 
-    def to_issues
-      group(:issue_num, :year).select(:issue_num, :year).map &:issue
-    end
+  def self.to_issues
+    group(:issue_num, :year).select(:issue_num, :year).map(&:issue)
+  end
 
-    def group_by_issue
-      Hash[
-        to_issues.map do |issue|
-          [issue, by_issue(issue)]
-        end
-      ]
+  def self.group_by_issue
+    mapping = to_issues.collect do |issue|
+      [issue, by_issue(issue)]
     end
+    Hash[mapping]
   end
 
   def published?
-    if publish_date.present?
-      publish_date <= DateTime.now
-    end
+    publish_date <= DateTime.now if publish_date.present?
   end
 end
