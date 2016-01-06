@@ -57,10 +57,10 @@ RSpec.describe Article, type: :model do
 
   context 'issue based finders' do
     let!(:articles) { [
-        create(:article, issue: Issue.new(2015, 1)),
-        create(:article, issue: Issue.new(2015, 1)),
-        create(:article, issue: Issue.new(2015, 2)),
-        create(:article, issue: Issue.new(2016, 2))
+        create(:article, issue: Issue.new(2015, 1), slug: 'my-article'),
+        create(:article, issue: Issue.new(2015, 1), slug: 'a-different-article'),
+        create(:article, issue: Issue.new(2015, 2), slug: 'my-article'),
+        create(:article, issue: Issue.new(2016, 2), slug: 'my-article')
     ] }
 
     describe '.by_year' do
@@ -75,6 +75,16 @@ RSpec.describe Article, type: :model do
       end
     end
 
+    describe '.by_slug' do
+      it 'gets the article with the slug and issue' do
+        expect(Article.by_slug('my-article', Issue.new(2016, 2))).to eq articles[3]
+      end
+
+      it 'does not get the article with the slug and wrong issue' do
+        expect(Article.by_slug('a-different-article', Issue.new(2016, 2))).to be Article::NoArticle
+      end
+    end
+
     describe '.to_issues' do
       it 'gets a list of unqiue issues from a list of articles' do
         expect(Article.to_issues).to contain_exactly(
@@ -85,10 +95,10 @@ RSpec.describe Article, type: :model do
 
     describe '.group_by_issue' do
       it 'returns a Hash mapping issues to their articles' do
-        expect(Article.group_by_issue).to include(
-          Issue.new(2015, 1) => articles[0..1],
-          Issue.new(2015, 2) => [articles[2]],
-          Issue.new(2016, 2) => [articles[3]]
+        expect(Article.group_by_issue).to match(
+          Issue.new(2015, 1) => a_collection_containing_exactly(*articles[0..1]),
+          Issue.new(2015, 2) => a_collection_containing_exactly(articles[2]),
+          Issue.new(2016, 2) => a_collection_containing_exactly(articles[3])
         )
       end
     end
@@ -113,7 +123,7 @@ RSpec.describe Article, type: :model do
 
     it 'allows unpublished artilces with duplicate titles' do
       create(:unpublished, title: 'A Title')
-      article = build(:unpublished, title: 'A Title')
+      article = build(:unpublished, :unique_slug, title: 'A Title')
       expect(article).to be_valid
     end
   end

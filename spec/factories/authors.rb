@@ -6,8 +6,12 @@ FactoryGirl.define do
     end
     last  "Doe"
 
-    after(:build) do |author|
-      author.slug = author.name.parameterize if author.slug.blank?
+    slug { name.parameterize }
+
+    trait :unique_slug do
+      after(:build) do |author|
+        author.slug = Author.slug_for(author)
+      end
     end
 
   end

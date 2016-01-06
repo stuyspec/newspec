@@ -7,9 +7,27 @@ class Article < ActiveRecord::Base
 
   validates :title, presence: true, uniqueness: true, if: :published?
   validates_presence_of :text, if: :published?
-  validates_presence_of :author_id
+  validates_presence_of :author_id, :slug
+  validates_uniqueness_of :slug, scope: [:issue_num, :year]
 
   class NoArticle; end
+
+  def self.create_article(title, issue, author)
+    create!(title: title, issue: issue, author: author) do |article|
+      article.slug = slug_for(article)
+    end
+  end
+
+  def self.ideal_slug_for(article)
+    article.title.parameterize
+  end
+
+  def self.slug_for(article)
+    unique = Unique.new do |slug|
+      !exists?(slug: slug, issue: article.issue)
+    end
+    unique.call(ideal_slug_for(article))
+  end
 
   def self.published
     where('publish_date <= ?', DateTime.now)
@@ -27,6 +45,12 @@ class Article < ActiveRecord::Base
 
   def self.by_issue(issue)
     where(issue: issue)
+  end
+
+  def self.by_slug(slug, issue)
+    find_by!(slug: slug, issue: issue)
+  rescue
+    Article::NoArticle
   end
 
   def self.to_issues

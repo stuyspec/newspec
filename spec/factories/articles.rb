@@ -1,9 +1,10 @@
 FactoryGirl.define do
   factory :article do
-    author
+    association :author, factory: [:author, :unique_slug]
     sequence(:title) { |n| "Stuff Happened - #{n}" }
-    #slug { title.parameterize }
-    #authors [ 1 ]
+
+    issue Issue.new(2015, 1)
+    slug { title.parameterize }
     text """
     this is my article. some stuff has gone down.
     Alon Levin thinks some shit is antisemeitic bc people don't like Israel
@@ -13,9 +14,12 @@ FactoryGirl.define do
     factory :unpublished do
       publish_date DateTime.now + 1.week
     end
-    #issue 1
-    #year 2016
-    #dept 1
+
+    trait :unique_slug do
+      after(:build) do |article|
+        article.slug = Article.slug_for(article)
+      end
+    end
   end
 
 end

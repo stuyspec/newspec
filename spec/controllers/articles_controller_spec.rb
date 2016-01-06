@@ -10,12 +10,17 @@ RSpec.describe ArticlesController, type: :controller do
     ]
   end
 
-  before(:each) do
-    create(:unpublished, issue: Issue.new(2015, 3, slug: 'not-ready'))
+  before(:all) do
+    DatabaseCleaner.start
+    create(:unpublished, issue: Issue.new(2015, 3), slug: 'not-ready')
     create(:unpublished, issue: Issue.new(2014, 3))
   end
 
-  describe 'GET #by_year' do
+  after(:all) do
+    DatabaseCleaner.clean
+  end
+
+  describe '#by_year' do
     context 'articles with that year exist' do
       before(:each) { get :by_year, year: '2015' }
       it 'assigns issues in that year as @issues' do
@@ -37,7 +42,7 @@ RSpec.describe ArticlesController, type: :controller do
     it { expect(assigns(:issues)).to eq({}) }
   end
 
-  describe 'GET #by_issue' do
+  describe '#by_issue' do
     context 'articles with that issue exist' do
       before(:each) { get :by_issue, year: '2015', issue_num: '1' }
 
@@ -71,13 +76,15 @@ RSpec.describe ArticlesController, type: :controller do
     end
   end
 
-  describe 'GET #by_slug' do
+  describe '#by_slug' do
     context 'an article with that slug in that issue exists' do
       before(:each) do
         get :by_slug, year: '2015', issue_num: '1', slug: 'my-cool-article'
       end
 
-      it "assigns the article to @article"
+      it "assigns the article to @article" do
+        expect(assigns(:article)).to eq articles[0]
+      end
     end
 
     context 'an article with that slug exists only in another issue' do

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151110212928) do
+ActiveRecord::Schema.define(version: 20151112152410) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -26,9 +26,11 @@ ActiveRecord::Schema.define(version: 20151110212928) do
     t.integer  "department_id"
     t.integer  "issue_num"
     t.integer  "year"
+    t.string   "slug",          null: false
   end
 
   add_index "articles", ["author_id"], name: "index_articles_on_author_id", using: :btree
+  add_index "articles", ["issue_num", "year", "slug"], name: "articles_issue_num_year_slug_key", unique: true, using: :btree
 
   create_table "authors", force: :cascade do |t|
     t.string "first", null: false
