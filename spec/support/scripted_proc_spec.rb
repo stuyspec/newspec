@@ -1,20 +1,20 @@
 require_relative 'scripted_proc.rb'
 
 RSpec.describe ScriptedProc do
-  it "returns elements of list in order" do
-    sp = ScriptedProc.new [1,2,9,-1]
-    expect( sp.call ).to eq 1
-    expect( sp.call ).to eq 2
-    expect( sp.call ).to eq 9
-    expect( sp.call ).to eq -1
+  it 'returns elements of list in order' do
+    sp = ScriptedProc.new [1, 2, 9, -1]
+    expect(sp.call).to eq 1
+    expect(sp.call).to eq 2
+    expect(sp.call).to eq 9
+    expect(sp.call).to eq(-1)
   end
 
-  it "continues to return last element" do
+  it 'continues to return last element' do
     sp = ScriptedProc.new [1]
-    expect( sp.call ).to eq 1
+    expect(sp.call).to eq 1
   end
 
-  it "works with infinite enumarators" do
+  it 'works with infinite enumarators' do
     inf = Enumerator.new do |yielder|
       n = 0
       loop do

@@ -7,9 +7,10 @@ class Article < ActiveRecord::Base
   belongs_to :department
 
   validates :title, presence: true, uniqueness: true, if: :published?
-  validates_presence_of :text, if: :published?
-  validates_presence_of :author_id, :slug
-  validates_uniqueness_of :slug, scope: [:issue_num, :year]
+  validates :text, presence: { if: :published? }
+  validates :author_id, presence: true
+  validates :slug, presence: true,
+                   uniqueness: { scope: %i(issue_num year) }
 
   class NoArticle; end
 
@@ -31,7 +32,7 @@ class Article < ActiveRecord::Base
   end
 
   def self.published
-    where('publish_date <= ?', DateTime.now)
+    where('publish_date <= ?', DateTime.now.current)
   end
 
   def self.find_published(id)
@@ -59,13 +60,13 @@ class Article < ActiveRecord::Base
   end
 
   def self.group_by_issue
-    mapping = to_issues.collect do |issue|
+    mapping = to_issues.map do |issue|
       [issue, by_issue(issue)]
     end
     Hash[mapping]
   end
 
   def published?
-    publish_date <= DateTime.now if publish_date.present?
+    publish_date <= DateTime.now.current if publish_date.present?
   end
 end

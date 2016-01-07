@@ -1,10 +1,9 @@
 FactoryGirl.define do
   factory :author do
-
     sequence :first do |n|
       "John-#{n}"
     end
-    last  "Doe"
+    last 'Doe'
 
     slug { name.parameterize }
 
@@ -13,6 +12,5 @@ FactoryGirl.define do
         author.slug = Author.slug_for(author)
       end
     end
-
   end
 end

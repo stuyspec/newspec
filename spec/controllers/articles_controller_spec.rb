@@ -58,7 +58,7 @@ RSpec.describe ArticlesController, type: :controller do
     context 'no articles with that issue exist' do
       before(:each) { get :by_issue, year: '2012', issue_num: '1' }
 
-      it "assigns the issue to @issue" do
+      it 'assigns the issue to @issue' do
         expect(assigns(:issue)).to eq Issue.new(2012, 1)
       end
 
@@ -68,7 +68,7 @@ RSpec.describe ArticlesController, type: :controller do
     context 'only unpublished articles with that issue exist' do
       before(:each) { get :by_issue, year: '2015', issue_num: '3' }
 
-      it "assigns the issue to @issue" do
+      it 'assigns the issue to @issue' do
         expect(assigns(:issue)).to eq Issue.new(2015, 3)
       end
 
@@ -82,7 +82,7 @@ RSpec.describe ArticlesController, type: :controller do
         get :by_slug, year: '2015', issue_num: '1', slug: 'my-cool-article'
       end
 
-      it "assigns the article to @article" do
+      it 'assigns the article to @article' do
         expect(assigns(:article)).to eq articles[0]
       end
     end

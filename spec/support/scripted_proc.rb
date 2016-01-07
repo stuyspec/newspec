@@ -1,7 +1,10 @@
+# A calleable object that returns values in order
+# from the Enumerable it is initialized with.
+# It continues to return the last item if it reaches the end.
 class ScriptedProc < SimpleDelegator
   def initialize(script)
     enum = script.each
-    p = Proc.new do
+    p = proc do
       last = nil
       begin
         last = enum.next
@@ -12,4 +15,3 @@ class ScriptedProc < SimpleDelegator
     __setobj__(p)
   end
 end
-

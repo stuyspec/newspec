@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe Article, type: :model do
   context 'published' do
-    let!(:now) { DateTime.now }
+    let!(:now) { DateTime.now.current }
 
     describe '.published' do
       it 'returns only published articles' do
@@ -56,32 +56,37 @@ RSpec.describe Article, type: :model do
   end
 
   context 'issue based finders' do
-    let!(:articles) { [
+    let!(:articles) do
+      [
         create(:article, issue: Issue.new(2015, 1), slug: 'my-article'),
-        create(:article, issue: Issue.new(2015, 1), slug: 'a-different-article'),
+        create(:article, issue: Issue.new(2015, 1), slug: 'another-article'),
         create(:article, issue: Issue.new(2015, 2), slug: 'my-article'),
         create(:article, issue: Issue.new(2016, 2), slug: 'my-article')
-    ] }
+      ]
+    end
 
     describe '.by_year' do
       it 'gets the articles in that year' do
-        expect(Article.by_year(2015)).to contain_exactly *articles[0..2]
+        expect(Article.by_year(2015)).to contain_exactly(*articles[0..2])
       end
     end
 
     describe '.by_issue' do
       it 'gets the articles in that issue' do
-        expect(Article.by_issue(Issue.new(2015, 1))).to contain_exactly *articles[0..1]
+        expect(Article.by_issue(Issue.new(2015, 1))).to(
+          contain_exactly(*articles[0..1]))
       end
     end
 
     describe '.by_slug' do
       it 'gets the article with the slug and issue' do
-        expect(Article.by_slug('my-article', Issue.new(2016, 2))).to eq articles[3]
+        expect(Article.by_slug('my-article', Issue.new(2016, 2))).to(
+          eq articles[3])
       end
 
       it 'does not get the article with the slug and wrong issue' do
-        expect(Article.by_slug('a-different-article', Issue.new(2016, 2))).to be Article::NoArticle
+        expect(Article.by_slug('a-different-article', Issue.new(2016, 2))).to(
+          be Article::NoArticle)
       end
     end
 

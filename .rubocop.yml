@@ -1,0 +1,52 @@
+AllCops:
+  Include:
+    - '**/config.ru'
+  Exclude:
+    - '**/env.rb'
+    - 'db/**/*'
+    - 'config/**/*'
+    - 'script/**/*'
+    - 'spec/**_helper.rb'
+    - 'bin/**/*'
+  RunRailsCops: true
+
+# next version
+#Rails:
+#  Enabled: true
+
+Style/Documentation:
+  Exclude:
+    - 'app/**/*'
+
+Metrics/LineLength:
+  Max: 90
+
+Style/AutoResourceCleanup:
+  Enabled: true
+
+Style/CollectionMethods:
+  Enabled: true
+
+#Style/MultilineArrayBraceLayout:
+#  Enabled: true
+
+#Style/MultilineAssignmentLayout:
+#  Enabled: true
+
+Style/MutableConstant:
+  Enabled: true
+
+Style/OptionHash:
+  Enabled: true
+
+Style/Send:
+  Enabled: true
+
+Style/StringMethods:
+  Enabled: true
+
+Style/SymbolArray:
+  Enabled: true
+
+Lint/LiteralInInterpolation:
+  Enabled: true

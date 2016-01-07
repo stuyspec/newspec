@@ -1,8 +1,9 @@
 class Author < ActiveRecord::Base
   has_many :articles
 
-  validates_presence_of :first, :last, :slug
-  validates_uniqueness_of :slug
+  validates :first, presence: true
+  validates :last,  presence: true
+  validates :slug, presence: true, uniqueness: true
 
   def self.create_author(first, last)
     create!(first: first, last: last) do |author|
